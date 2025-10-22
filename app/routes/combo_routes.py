@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from app.core.database import get_db
+from app.db.database import get_db
 from app.schemas.combo_schema import ComboCreate, ComboRead
 from app.services.combo_service import crear_combo, listar_combos, obtener_combo
 

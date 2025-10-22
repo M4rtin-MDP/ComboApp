@@ -6,3 +6,5 @@ passlib[bcrypt]
 python-jose[cryptography]
 email-validator
 httpx
+dotenv
+npm

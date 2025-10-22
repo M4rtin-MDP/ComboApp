@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from app.core.database import get_db
+from app.db.database import get_db
 from app.schemas.ingredient_schema import IngredientCreate, IngredientRead
 from app.services.ingredient_service import crear_ingrediente, listar_ingredientes, obtener_ingrediente
 

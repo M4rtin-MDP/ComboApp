@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Float, ForeignKey, Table
 from sqlalchemy.orm import relationship
-from app.core.database import Base
+from app.db.database import Base
 
 combo_ingredient = Table(
     "combo_ingredient",
