@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.core.database import Base, engine
+from app.db.database import Base, engine
 from app.routes import auth_routes, ingredient_routes, combo_routes
 from fastapi.middleware.cors import CORSMiddleware
 
