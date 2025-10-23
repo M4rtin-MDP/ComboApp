@@ -4,6 +4,14 @@ cositas para ver
     workflows/branch-protection.yml       ??
     Dockerizacion
 
+-------------------------------------------------------------
+Requisitos previos:
+    sudo apt install python3.12-venv
+    sudo apt install -y libpq-dev python3-dev
+
+    sudo sysctl -w net.ipv6.conf.all.disable_ipv6=0
+    sudo sysctl -w net.ipv6.conf.default.disable_ipv6=0
+
 --------------------------------------------------------------
 Ejecutar ambiente virtual (si no funciona, probar con python3)
     python -m venv .venv
