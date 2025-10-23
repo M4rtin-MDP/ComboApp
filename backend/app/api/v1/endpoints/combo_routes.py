@@ -4,7 +4,7 @@ from app.db.database import get_db
 from app.schemas.combo_schema import ComboCreate, ComboRead
 from app.services.combo_service import crear_combo, listar_combos, obtener_combo
 
-router = APIRouter(prefix="/combos", tags=["Combos"])
+router = APIRouter()
 
 @router.post("/", response_model=ComboRead)
 def crear(combo: ComboCreate, db: Session = Depends(get_db)):

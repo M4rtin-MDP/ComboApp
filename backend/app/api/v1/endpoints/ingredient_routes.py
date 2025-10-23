@@ -4,7 +4,7 @@ from app.db.database import get_db
 from app.schemas.ingredient_schema import IngredientCreate, IngredientRead
 from app.services.ingredient_service import crear_ingrediente, listar_ingredientes, obtener_ingrediente
 
-router = APIRouter(prefix="/ingredients", tags=["Ingredients"])
+router = APIRouter()
 
 @router.post("/", response_model=IngredientRead)
 def crear(ing: IngredientCreate, db: Session = Depends(get_db)):

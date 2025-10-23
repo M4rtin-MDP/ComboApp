@@ -5,7 +5,7 @@ from app.schemas.user_schema import UserCreate, UserRead
 from app.services.user_service import register_user
 from app.services.auth_service import login_user
 
-router = APIRouter(prefix="/auth", tags=["Auth"])
+router = APIRouter()
 
 @router.post("/register", response_model=UserRead)
 def register(user: UserCreate, db: Session = Depends(get_db)):

@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from app.models.combo_model import Combo
+from app.models.combo import Combo
 from app.schemas.combo_schema import ComboCreate
 
 def create_combo(db: Session, combo: ComboCreate, user_id: int, ingredients):
