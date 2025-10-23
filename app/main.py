@@ -4,7 +4,7 @@ from app.routes import auth_routes, ingredient_routes, combo_routes
 from fastapi.middleware.cors import CORSMiddleware
 
 # create tables
-Base.metadata.create_all(bind=engine)
+#Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="ComboApp", version="1.0")
 
@@ -27,4 +27,4 @@ app.include_router(combo_routes.router)
 
 @app.get('/')
 def root():
-    return {'message': 'ComboApp API not running'}
+    return {'message': 'ComboApp API funciona papa'}
