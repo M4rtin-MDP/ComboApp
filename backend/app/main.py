@@ -1,7 +1,10 @@
 from fastapi import FastAPI
-from app.db.database import Base, engine
-from app.routes import auth_routes, ingredient_routes, combo_routes
 from fastapi.middleware.cors import CORSMiddleware
+
+from app.db.database import Base, engine
+#from app.core.config import settings
+from app.api.v1.api import api_router
+
 
 # create tables
 #Base.metadata.create_all(bind=engine)
@@ -21,9 +24,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(auth_routes.router)
-app.include_router(ingredient_routes.router)
-app.include_router(combo_routes.router)
+# Montar el router de API v1
+app.include_router(api_router) #, prefix=settings.API_V1_STR)
 
 @app.get('/')
 def root():

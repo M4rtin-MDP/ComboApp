@@ -1,6 +1,6 @@
 from typing import List
 from sqlalchemy.orm import Session
-from app.models.ingredient_model import Ingredient
+from app.models.ingredient import Ingredient
 from app.schemas.ingredient_schema import IngredientCreate
 
 def create_ingredient(db: Session, ing: IngredientCreate):

@@ -27,7 +27,7 @@ def get_config():
     return DATABASE_URL
 
 
-engine = create_engine(SQLALCHEMY_DATABASE_URL, echo=True, pool_pre_ping=True)  # pool_recycle=3600
+engine = create_engine(SQLALCHEMY_DATABASE_URL, echo=False, pool_pre_ping=True)  # pool_recycle=3600
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
