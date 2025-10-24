@@ -1,97 +1,80 @@
-## Documentacion:
-- supabase: https://supabase.com/docs/reference/python/select
-- fastAPI:  https://fastapi.tiangolo.com/tutorial/
+# Proyecto
 
-#### cositas para ver
-- workflows/branch-protection.yml       ??
-- Docker
+Aplicación full-stack con FastAPI y React.js.
 
-### Requisitos previos:
-    sudo apt install python3.12-venv
-    sudo apt install -y libpq-dev python3-dev
+## Autores
 
-    sudo sysctl -w net.ipv6.conf.all.disable_ipv6=0
-    sudo sysctl -w net.ipv6.conf.default.disable_ipv6=0
+- Nombre - [@usuario](https://github.com/usuario)
+- Nombre - [@usuario](https://github.com/usuario)
+- Nombre - [@usuario](https://github.com/usuario)
 
---------------------------------------------------------------
-### Ejecutar ambiente virtual 
-Si no funciona, probar con *python3*
+## Stack
 
-    python -m venv .venv
+### Backend
+- FastAPI
+- Supabase (PostgreSQL)
+- SQLAlchemy
+- Pydantic
 
-Activar el entorno
+### Frontend
+- React 18
+- Vite
+- Redux Toolkit
+- React Router
+- Axios
 
-    PowerShell:    .\.venv\Scripts\activate
-    Linux:      source .venv/bin/activate
+## Requisitos Previos
 
-Instalar Dependencias
+- Docker & Docker Compose
+- Python 3.12+
+- Node.js 18+
+- Git
 
-    pip install -r requirements.txt
+## 📚 Documentación
 
-
-### Ejecutar la API
-
-    uvicorn app.main:app --reload
-
-
-### Ejecutar Frontend
-
+- [Estructura Backend](./backend/README.md)
+- [Estructura Frontend](./frontend/README.md)
+- [API Documentation](./docs/api.md)
+- [Setup Guide](./docs/setup.md)
 
 
-## Estructura del Proyecto
+
+# Estructura del Proyecto
+
 ```
 combo_app/
-├── app/
-│   ├── __init__.py
-│   ├── main.py                     # Instancia todos los routers
-│   │
-│   ├── core/                       # Contiene configuración global y componentes básicos del proyecto
-│   │   ├── __init__.py
-│   │   ├── config.py
-│   │   └── security.py
-│   │
-│   ├── api/
-│   │   └── v1/                     # Creación de endpoints (routers)
-│   │       ├── __init__.py
-│   │       ├── users.py
-│   │       ├── items.py
-│   │       └── auth.py
-│   │
-│   ├── models/                     # Representa la estructura real de la base de datos
-│   │   ├── __init__.py             # Se usa para consultas, inserciones, actualizaciones mediante ORM
-│   │   ├── user.py
-│   │   └── item.py
-│   │
-│   ├── schemas/                    # Define las clases Pydantic
-│   │   ├── __init__.py             # Se usa para validar y serializar datos (requests y responses)
-│   │   ├── user.py
-│   │   └── item.py
-│   │
-│   ├── utils/                      # Funciones auxiliares para el proyecto
-│   │   ├── __init__.py
-│   │   └── item_service.py
-│   │
-│   ├── services/                   # Lógica de negocio e interacción con la Base de Datos
-│   │   ├── __init__.py
-│   │   ├── user_service.py
-│   │   └── item_service.py
-│   │
-│   └── db/
-│       ├── __init__.py
-│       ├── database.py
-│       └── migrations/
+├── backend/                             # Ver: Backend Structure
+│   ├── app/
+│   ├── tests/
+│   ├── .env
+│   ├── .env.example
+│   ├── requirements.txt
+│   ├── Dockerfile
+│   └── README.md
 │
-├── tests/
-│   ├── __init__.py
-│   ├── test_main.py
-│   ├── test_users.py
-│   └── test_items.py
+├── frontend/                            # Ver: Frontend Structure
+│   ├── public/
+│   ├── src/
+│   ├── index.html
+│   ├── .env
+│   ├── .env.example
+│   ├── package.json
+│   ├── vite.config.js
+│   ├── Dockerfile
+│   └── README.md
 │
-├── Dockerfile                      # Cómo se construye el contenedor
-├── docker-compose.yml              # Levanta todo el entorno (API + base de datos)
-├── .env                            # Variables sensibles (DB, claves JWT)
-├── .gitignore
-├── requirements.txt                # Dependencias (fastapi, uvicorn, sqlalchemy, etc.)
-├── README.md
-└── run.sh
+├── .github/
+│   └── workflows/
+│       ├── backend-ci.yml               # CI/CD para backend
+│       ├── frontend-ci.yml              # CI/CD para frontend
+│       └── deploy.yml                   # Deploy completo
+│
+├── docs/                                # Documentación del proyecto
+│   ├── api.md                           # Documentación de API
+│   └── setup.md                         # Guía de instalación
+│
+├── .gitignore                           # Gitignore global
+├── docker-compose.yml                   # Desarrollo local
+├── docker-compose.prod.yml              # Producción
+└── README.md                            # Documentación principal
 ```
