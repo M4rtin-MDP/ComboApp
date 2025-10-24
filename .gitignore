@@ -1,5 +1,5 @@
 # Variables de entorno
-instalacion.env
+*.env
 
 # Archivos de Python
 .venv/
@@ -16,3 +16,7 @@ build/
 # IDEs
 .vscode/
 .idea/
+
+
+# Test
+.pytest_cache/
