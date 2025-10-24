@@ -14,7 +14,7 @@ settings = get_settings()
 # ENGINE: Conexion a la base de datos
 # --------------------------------------------------------------
 engine = create_engine(
-    settings.DB_URL,
+    settings.DB_URL,            # URL de la base de datos
     pool_pre_ping=True,         # Verifica si la conexión está viva antes de usarla
     pool_size=5,                # Número de conexiones permanentes en el pool
     

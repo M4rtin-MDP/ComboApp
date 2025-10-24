@@ -24,7 +24,7 @@ class Settings(BaseSettings):
     
     # ------ INFO -------
     AMBIENTE: str = Field(...)
-    CORS_ORIGINS: str = Field(default='http://localhost:5173')
+    CORS_ORIGINS: list[str] = Field(...)
     API_ALIAS_V1: str
     
     # --- BASE DE DATOS ---
