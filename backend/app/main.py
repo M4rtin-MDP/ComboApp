@@ -1,31 +1,55 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
-from app.core.settings import settings
+from app.core.config import get_settings
 from app.api.v1.api import api_router
 
+# Obtener configuración
+settings = get_settings()
 
-# create tables
-#Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="ComboApp", version="1.0")
+# ----------------------------------------------------------------------------
+# APLICACIÓN FASTAPI
+# ----------------------------------------------------------------------------
+app = FastAPI(
+    title="ComboApp",
+    version="1.0",
+    description="API para gestión de combos y productos",)
 
+
+# ----------------------------------------------------------------------------
+# MIDDLEWARE: CORS (Cross-Origin Resource Sharing)
+# ----------------------------------------------------------------------------
 origins = [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
+    settings.CORS_ORIGINS
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=origins,                      # Lista de dominios permitidos para hacer requests
+    allow_credentials=True,                     # Permite enviar cookies y headers de autenticación
+    allow_methods=["*"],                        # Métodos HTTP permitidos (* = todos)
+    allow_headers=["*"],                        # Headers permitidos (* = todos) - Authorization, Content-Type, etc.
 )
 
-# Montar el router de API v1
-app.include_router(api_router) #, prefix=settings.API_V1_STR)
 
+# ----------------------------------------------------------------------------
+# ROUTERS: Incluir rutas de la API
+# ----------------------------------------------------------------------------
+# Incluye todas las rutas definidas en api_router
+# Ej: prefix="/api/v1" -> http://localhost:8000/api/v1/items
+app.include_router(
+    api_router
+    #, prefix=settings.API_V1_STR
+) 
+
+# Endpoint RAIZ
 @app.get('/')
 def root():
-    return {'message': 'ComboApp API funciona papa'}
+    '''
+    Verifica que la API está activa
+    '''
+    return {
+        'status': 'ok',
+        'message': 'ComboApp API funciona!'
+    }
+

@@ -1,27 +1,63 @@
+# ============================================================================
+# Configuración de SQLAlchemy para conexión a PostgreSQL
+# ============================================================================
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
-from app.core.settings import settings
+from app.core.config import get_settings
 
-SQLALCHEMY_DATABASE_URL = "postgresql://postgres:c0mb0_App@db.mkvcewwbvgqykjqsawkz.supabase.co:5432/postgres"
 
-# Motor de la base de datos
+# Obtener configuración
+settings = get_settings()
+
+# --------------------------------------------------------------
+# ENGINE: Conexion a la base de datos
+# --------------------------------------------------------------
 engine = create_engine(
-    SQLALCHEMY_DATABASE_URL,
-    #settings.DATABASE_URL,
+    settings.DB_URL,
+    pool_pre_ping=True,         # Verifica si la conexión está viva antes de usarla
+    pool_size=5,                # Número de conexiones permanentes en el pool
     
-    # Para PostgreSQL:
-    pool_pre_ping=True,  # Verifica conexiones antes de usarlas
+    # max_overflow: Conexiones adicionales permitidas bajo demanda
+    # Total máximo = pool_size + max_overflow = 5 + 10 = 15
+    max_overflow=10,
+    
+    # pool_recycle: Recicla conexiones cada X segundos
+    # Evita problemas con conexiones que expiran en el servidor
+    pool_recycle=3600,  # 1 hora
 )
 
-# SessionLocal: cada instancia es una sesión de BD
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-# Base para los modelos ORM
+# --------------------------------------------------------------
+# SESSION: Cada instancia es una sesión de BD
+# --------------------------------------------------------------
+SessionLocal = sessionmaker(
+    # autocommit=False: Requiere commit() explícito para guardar cambios
+    autocommit=False, 
+    
+    # No hace flush automático antes de queries
+    autoflush=False, 
+    
+    # bind: Vincula las sesiones al engine creado arriba
+    bind=engine)
+
+
+# BASE para los modelos ORM
 Base = declarative_base()
 
 
-# Dependencia para obtener una sesión de BD
+
 def get_db():
+    """
+    - Crea una sesión nueva para cada request
+    - Garantiza que se cierre después de usarla
+    
+    Uso en FastAPI:
+        @app.get("/items/")
+        def read_items(db: Session = Depends(get_db)):
+            items = db.query(Item).all()
+            return items
+    """
     
     db = SessionLocal()
     try:
