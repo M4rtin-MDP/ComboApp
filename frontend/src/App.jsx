@@ -9,6 +9,8 @@ import IngredientList from './components/IngredientList.jsx'
 import ComboList from './components/ComboList.jsx'
 import ComboBuilder from './components/ComboBuilder.jsx'
 
+// tratar de hacer un from components/* import Comb, ing
+
 function App() {
   // Entramos directamente sin login
   return (
