@@ -5,6 +5,6 @@ class Local(Base):
     __tablename__ = "locals"
     id = Column(Integer, primary_key=True, index=True)
     nombre = Column(String, nullable=False)
-    direccion = Column(String)
-    latitud = Column(Float)
-    longitud = Column(Float)
+    direccion = Column(String, nullable=True)
+    latitud = Column(Float, nullable=True)
+    longitud = Column(Float, nullable=True)

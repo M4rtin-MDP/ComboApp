@@ -7,4 +7,4 @@ class Product(Base):
     nombre = Column(String, nullable=False)
     tipo = Column(String, nullable=False)
     precio = Column(Float, nullable=False)
-    alergenos = Column(Text)
+    alergenos = Column(Text, nullable=True)

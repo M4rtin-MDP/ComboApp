@@ -5,7 +5,7 @@ from app.schemas.combo_schema import ComboCreate, ComboRead
 from app.repositories.combo_repository import create_combo, list_combos, get_combo
 from app.repositories.product_repository import get_product
 
-router = APIRouter()
+router = APIRouter(prefix="/combos", tags=["Combos"])
 
 @router.post("/", response_model=ComboRead)
 def create_combo_route(combo: ComboCreate, db: Session = Depends(get_db)):

@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from app.db.database import Base, engine
-from app.routes import user_routes, product_routes, local_routes, combo_routes, order_routes
+from app.routes import product_routes, local_routes, combo_routes, order_routes, user_routes, auth_routes
 from fastapi.middleware.cors import CORSMiddleware
 
 # create DB tables
@@ -24,7 +24,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-#app.include_router(auth_routes.router)
+app.include_router(auth_routes.router)
 #app.include_router(ingredient_routes.router)
 app.include_router(user_routes.router, prefix="/users", tags=["Users"])
 app.include_router(product_routes.router, prefix="/products", tags=["Products"])

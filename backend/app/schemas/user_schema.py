@@ -10,5 +10,7 @@ class UserCreate(UserBase):
 
 class UserRead(UserBase):
     id: int
+    nombre: str
+    email: EmailStr
     class Config:
         from_attributes = True
