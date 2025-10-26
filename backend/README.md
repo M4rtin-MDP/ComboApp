@@ -40,13 +40,13 @@ backend/
 │   │
 │   ├── crud/                            # Operaciones CRUD con la DB
 │   │   ├── __init__.py
-│   │   ├── base.py                      # CRUD Base genérico
+│   │   ├── base.py                      # CRUDBase genérico
 │   │   ├── crud_user.py                 # CRUD específico de usuarios
 │   │   └── crud_item.py                 # CRUD específico de items
 │   │
-│   ├── services/                        # Lógica de negocio
+│   ├── services/                        # Lógica de negocio compleja
 │   │   ├── __init__.py
-│   │   ├── combo_service.py             # Envío de emails
+│   │   ├── email_service.py             # Envío de emails
 │   │   └── user_service.py              # Lógica de negocio de usuarios
 │   │
 │   ├── db/

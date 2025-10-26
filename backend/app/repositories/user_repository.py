@@ -2,11 +2,6 @@ from sqlalchemy.orm import Session
 from app.models.user import User
 from app.schemas.user_schema import UserCreate
 
-
-'''
-get, create, update, delete
-'''
-
 def get_by_username(db: Session, username: str):
     return db.query(User).filter(User.username == username).first()
 
