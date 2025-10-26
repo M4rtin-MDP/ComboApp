@@ -4,7 +4,8 @@ from app.schemas.combo_schema import ComboCreate
 
 def create_combo(db: Session, combo: ComboCreate, user_id: int, ingredients):
     db_combo = Combo(name=combo.name, base_meal=combo.base_meal, user_id=user_id)
-    # compute total price: base placeholder + ingredient prices
+    
+    
     total = 0.0
     for ing in ingredients:
         total += ing.price

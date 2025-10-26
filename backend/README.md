@@ -38,15 +38,14 @@ backend/
 │   │   ├── item.py                      # ItemCreate, ItemUpdate, ItemResponse
 │   │   └── token.py                     # Token, TokenPayload
 │   │
-│   ├── crud/                            # Operaciones CRUD con la DB
+│   ├── repositories/                            
 │   │   ├── __init__.py
-│   │   ├── base.py                      # CRUDBase genérico
-│   │   ├── crud_user.py                 # CRUD específico de usuarios
-│   │   └── crud_item.py                 # CRUD específico de items
+│   │   ├── user_repository.py            
+│   │   └── combo_repository.py
 │   │
-│   ├── services/                        # Lógica de negocio compleja
+│   ├── services/                        # Lógica de negocio
 │   │   ├── __init__.py
-│   │   ├── email_service.py             # Envío de emails
+│   │   ├── combo_service.py             # Envío de emails
 │   │   └── user_service.py              # Lógica de negocio de usuarios
 │   │
 │   ├── db/
