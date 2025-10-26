@@ -20,6 +20,6 @@ api_router.include_router(
 # Ingredientes
 api_router.include_router(
     ingredient_routes.router,
-    prefix="/ingredients",
+    prefix="/ingredientes",
     tags=["Ingredientes"]
 )
