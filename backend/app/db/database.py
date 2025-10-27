@@ -1,38 +1,63 @@
-import os
+# ============================================================================
+# Configuración de SQLAlchemy para conexión a PostgreSQL
+# ============================================================================
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
-from dotenv import load_dotenv
-
-SQLALCHEMY_DATABASE_URL = "postgresql://postgres:c0mb0_App@db.mkvcewwbvgqykjqsawkz.supabase.co:5432/postgres"
-# https://mkvcewwbvgqykjqsawkz.supabase.co
-# sb_secret_OCELAUU3XiBBkkgxDxbB1g_-IqunVXe
+from app.core.config import get_settings
 
 
-def get_config():
-    # Cargar variables del archivo .env
-    # Subir dos niveles desde database.py hasta la raíz y localizar instalacion.env
-    #env_path = Path(__file__).resolve().parent.parent.parent / "instalacion.env"
-    #load_dotenv(dotenv_path=env_path)
+# Obtener configuración
+settings = get_settings()
 
-
-    # Leer variables
+# --------------------------------------------------------------
+# ENGINE: Conexion a la base de datos
+# --------------------------------------------------------------
+engine = create_engine(
+    settings.DB_URL,            # URL de la base de datos
+    pool_pre_ping=True,         # Verifica si la conexión está viva antes de usarla
+    pool_size=5,                # Número de conexiones permanentes en el pool
     
-    USER = os.getenv("USER")
-    PASSWORD = os.getenv("PASS")
-    HOST = os.getenv("DB_HOST")
-    PORT = os.getenv("PORT")
-    DB_NAME = os.getenv("DB_NAME")
+    # max_overflow: Conexiones adicionales permitidas bajo demanda
+    # Total máximo = pool_size + max_overflow = 5 + 10 = 15
+    max_overflow=10,
+    
+    # pool_recycle: Recicla conexiones cada X segundos
+    # Evita problemas con conexiones que expiran en el servidor
+    pool_recycle=3600,  # 1 hora
+)
 
-    DATABASE_URL = f"postgresql://{USER}:{PASSWORD}@{HOST}:{PORT}/{DB_NAME}"
-    return DATABASE_URL
+
+# --------------------------------------------------------------
+# SESSION: Cada instancia es una sesión de BD
+# --------------------------------------------------------------
+SessionLocal = sessionmaker(
+    # autocommit=False: Requiere commit() explícito para guardar cambios
+    autocommit=False, 
+    
+    # No hace flush automático antes de queries
+    autoflush=False, 
+    
+    # bind: Vincula las sesiones al engine creado arriba
+    bind=engine)
 
 
-engine = create_engine(SQLALCHEMY_DATABASE_URL, echo=False, pool_pre_ping=True)  # pool_recycle=3600
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+# BASE para los modelos ORM
 Base = declarative_base()
 
 
+
 def get_db():
+    """
+    - Crea una sesión nueva para cada request
+    - Garantiza que se cierre después de usarla
+    
+    Uso en FastAPI:
+        @app.get("/items/")
+        def read_items(db: Session = Depends(get_db)):
+            items = db.query(Item).all()
+            return items
+    """
     
     db = SessionLocal()
     try:

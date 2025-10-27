@@ -1,37 +1,53 @@
 from fastapi import FastAPI
-from app.db.database import Base, engine
-from app.routes import product_routes, local_routes, combo_routes, order_routes, user_routes, auth_routes
 from fastapi.middleware.cors import CORSMiddleware
+from app.core.config import get_settings
+from app.api.v1.api import api_router
 
-# create DB tables
-Base.metadata.create_all(bind=engine)
+# Obtener configuración
+settings = get_settings()
 
-app = FastAPI(title="ComboApp Full API")
 
-origins = [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-    "http://localhost:3000", 
-    "http://127.0.0.1:3000"
-]
+# ----------------------------------------------------------------------------
+# APLICACIÓN FASTAPI
+# ----------------------------------------------------------------------------
+app = FastAPI(
+    title="ComboApp",
+    version="1.0",
+    description="API para gestión de combos y productos",)
 
-# allow CORS for local frontend during development
+
+# ----------------------------------------------------------------------------
+# MIDDLEWARE: CORS (Cross-Origin Resource Sharing)
+# ----------------------------------------------------------------------------
+#origins = settings.CORS_ORIGINS
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=["*"],                        # Lista de dominios permitidos para hacer requests
+    allow_credentials=True,                     # Permite enviar cookies y headers de autenticación
+    allow_methods=["*"],                        # Métodos HTTP permitidos (* = todos) - GET, POST, DELETE, OPTIONS
+    allow_headers=["*"],                        # Headers permitidos (* = todos) - Authorization, Content-Type, etc.
 )
 
-app.include_router(auth_routes.router)
-#app.include_router(ingredient_routes.router)
-app.include_router(user_routes.router, prefix="/users", tags=["Users"])
-app.include_router(product_routes.router, prefix="/products", tags=["Products"])
-app.include_router(local_routes.router, prefix="/locals", tags=["Locals"])
-app.include_router(combo_routes.router, prefix="/combos", tags=["Combos"])
-app.include_router(order_routes.router, prefix="/orders", tags=["Orders"])
 
+# ----------------------------------------------------------------------------
+# ROUTERS: Incluir rutas de la API
+# ----------------------------------------------------------------------------
+# Incluye todas las rutas definidas en api_router
+# Ej: prefix="/api/v1" -> http://localhost:8000/api/v1/items
+app.include_router(
+    api_router
+    , prefix=settings.API_ALIAS_V1
+) 
+
+# Endpoint RAIZ
 @app.get('/')
 def root():
-    return {'message': 'ComboApp API running'}
+    '''
+    Verifica que la API está activa
+    '''
+    return {
+        'status': 'ok',
+        'message': 'ComboApp API funciona!'
+    }
+
