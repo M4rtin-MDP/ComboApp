@@ -9,6 +9,6 @@ email-validator
 httpx
 dotenv
 npm
-psycopg2-binary
 psycopg2
+psycopg2-binary
 pytest
