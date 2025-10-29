@@ -1,7 +1,7 @@
 export default {
   content: [
-    "./index.html",
-    "./src/**/*.{js,jsx,ts,tsx}"
+    "./public/index.html",
+    "./src/**/*.{js,jsx,ts,tsx}"    // Archivos donde buscar clases de Tailwind
   ],
   theme: {
     extend: {},

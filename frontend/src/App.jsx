@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Auth from './components/Auth.jsx'
+import Auth from './pages/Login/Auth.jsx'
 import MainScreen from './components/MainScreen.jsx'
 
 export default function App(){
