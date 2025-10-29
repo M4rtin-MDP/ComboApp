@@ -6,14 +6,20 @@ combo_ingredient = Table(
     "combo_ingredient",
     Base.metadata,
     Column("combo_id", Integer, ForeignKey("combos.id"), primary_key=True),
-    Column("ingredient_id", Integer, ForeignKey("ingredients.id"), primary_key=True),
+    Column("product_id", Integer, ForeignKey("products.id"), primary_key=True),
 )
 
 class Combo(Base):
     __tablename__ = "combos"
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, nullable=False)
-    base_meal = Column(String, nullable=False)
-    total_price = Column(Float, nullable=False, default=0.0)
-    user_id = Column(Integer, ForeignKey("users.id"))
-    ingredients = relationship("Ingredient", secondary=combo_ingredient, backref="combos")
+    nombre = Column(String, nullable=True)
+    base_id = Column(Integer, ForeignKey("products.id"))
+    bebida_id = Column(Integer, ForeignKey("products.id"), nullable=True)
+    acompanamiento_id = Column(Integer, ForeignKey("products.id"), nullable=True)
+    total = Column(Float, nullable=False, default=0.0)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=True)
+
+    base = relationship("Product", foreign_keys=[base_id])
+    bebida = relationship("Product", foreign_keys=[bebida_id])
+    acompanamiento = relationship("Product", foreign_keys=[acompanamiento_id])
+    ingredients = relationship("Product", secondary=combo_ingredient, backref="combos")

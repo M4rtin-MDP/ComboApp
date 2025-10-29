@@ -8,8 +8,6 @@ from functools import lru_cache
 # Ruta Raiz -> app/
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-
-
 class Settings(BaseSettings):
     """
     Maneja todas las configuraciones de la aplicación. 
@@ -61,4 +59,3 @@ def get_settings() -> Settings:
     Siguientes llamadas: devuelve la instancia cacheada
     """
     return Settings()
-
