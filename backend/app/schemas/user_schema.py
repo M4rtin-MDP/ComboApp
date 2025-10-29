@@ -11,6 +11,6 @@ class UserCreate(UserBase):
 class UserRead(UserBase):
     id: int
     nombre: str
-    email: EmailStr
+    #email: EmailStr|None
     class Config:
         from_attributes = True
