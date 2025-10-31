@@ -1,6 +1,6 @@
 from fastapi import HTTPException, status
 from passlib.context import CryptContext
-from app.repositories.user_repository import get_by_username
+from app.repositories.usuario_repository import get_by_username
 from app.core.security import verify_password, create_access_token
 
 
