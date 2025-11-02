@@ -5,7 +5,7 @@ from app.db.database import Base
 class Pedido(Base):
     __tablename__ = "pedido"
     id_pedido = Column(Integer, primary_key=True, index=True)
-    id_usuario = Column(String, ForeignKey("usuario.usuario"))
+    id_usuario = Column(Integer, ForeignKey("usuario.usuario_id"))
     id_restaurante = Column(Integer, ForeignKey("restaurante.id_restaurante"))
     id_estado = Column(Integer, ForeignKey("estado.id_estado"))
     id_combo = Column(Integer, ForeignKey("combo.id_combo"))
