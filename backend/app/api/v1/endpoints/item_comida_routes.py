@@ -5,7 +5,7 @@ from app.db.database import get_db
 from app.schemas.item_comida_schema import ItemComida, ItemComidaCreate
 import app.repositories.item_comida_repository as repo
 
-router = APIRouter(prefix="/items_comida", tags=["Items_Comida"])
+router = APIRouter()
 
 @router.get("/", response_model=List[ItemComida])
 def listar_items_comida(db: Session = Depends(get_db)):

@@ -5,7 +5,7 @@ from app.db.database import get_db
 from app.schemas.usuario_schema import Usuario, UsuarioCreate
 import app.repositories.usuario_repository as repo
 
-router = APIRouter(prefix="/usuarios", tags=["Usuarios"])
+router = APIRouter()
 
 @router.get("/", response_model=List[Usuario])
 def listar_usuarios(db: Session = Depends(get_db)):

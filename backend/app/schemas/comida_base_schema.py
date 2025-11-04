@@ -5,9 +5,8 @@ from typing import Optional
 # MODELOS BASE
 # ----------------------------------------------------
 class ComidaBase(BaseModel):
+    id_comida: int
     nombre: str
-    descripcion: Optional[str] = None
-    precio: float
     categoria_id: Optional[int] = None
 
 # ----------------------------------------------------
@@ -25,15 +24,11 @@ class ComidaBaseCreate(ComidaBase):
 # ----------------------------------------------------
 class ComidaBaseUpdate(BaseModel):
     nombre: Optional[str] = None
-    descripcion: Optional[str] = None
-    precio: Optional[float] = None
     categoria_id: Optional[int] = None
 
 # ----------------------------------------------------
 # LECTURA
 # ----------------------------------------------------
 class ComidaBaseRead(ComidaBase):
-    id: int
-
     class Config:
         from_attributes = True

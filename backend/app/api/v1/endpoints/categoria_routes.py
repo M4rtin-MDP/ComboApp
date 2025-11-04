@@ -5,7 +5,7 @@ from app.db.database import get_db
 from app.schemas.categoria_schema import Categoria, CategoriaCreate
 import app.repositories.categoria_repository as repo
 
-router = APIRouter(prefix="/categorias", tags=["Categorias"])
+router = APIRouter()
 
 @router.get("/", response_model=List[Categoria])
 def listar_categorias(db: Session = Depends(get_db)):

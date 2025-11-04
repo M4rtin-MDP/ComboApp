@@ -5,7 +5,7 @@ from app.db.database import get_db
 from app.schemas.ingr_comida_schema import IngrComida, IngrComidaCreate
 import app.repositories.ingr_comida_repository as repo
 
-router = APIRouter(prefix="/ingr_comidas", tags=["Ingr_Comidas"])
+router = APIRouter()
 
 @router.get("/", response_model=List[IngrComida])
 def listar_ingr_comidas(db: Session = Depends(get_db)):

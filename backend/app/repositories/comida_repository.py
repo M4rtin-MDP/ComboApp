@@ -10,6 +10,19 @@ def get_comidas(db: Session):
 def get_comida(db: Session, id_comida: int):
     return db.query(ComidaBase).filter(ComidaBase.id_comida == id_comida).first()
 
+'''
+TODO: crear funciones 
+'''
+def get_producto_comida():
+    pass
+
+def get_producto_bebida():
+    pass
+
+def get_producto_postre():
+    pass
+
+# -----------------------------------------------------------------------------
 def create_comida(db: Session, comida: ComidaBaseCreate):
     db_comida = ComidaBase(**comida.dict())
     db.add(db_comida)

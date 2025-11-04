@@ -7,6 +7,5 @@ class Combo(Base):
     id_combo = Column(Integer, primary_key=True, index=True)
     id_pedido = Column(Integer, ForeignKey("pedido.id_pedido"))
 
-    pedido = relationship("Pedido", back_populates="combo")
     items_comida = relationship("ItemComida", back_populates="combo")
     items_ingredientes = relationship("ItemIngrediente", back_populates="combo")

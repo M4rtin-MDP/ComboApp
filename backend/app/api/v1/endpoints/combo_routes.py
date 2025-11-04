@@ -5,7 +5,7 @@ from app.db.database import get_db
 from app.schemas.combo_schema import Combo, ComboCreate
 import app.repositories.combo_repository as repo
 
-router = APIRouter(prefix="/combos", tags=["Combos"])
+router = APIRouter()
 
 @router.get("/", response_model=List[Combo])
 def listar_combos(db: Session = Depends(get_db)):
