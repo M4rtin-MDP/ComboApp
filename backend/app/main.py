@@ -2,10 +2,27 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import get_settings
 from app.api.v1.api import api_router
+from app.api.v1.endpoints import (
+    usuario_routes as usuario,
+    pedido_routes as pedido,
+    categoria_routes as categoria,
+    restaurante_routes as restaurante,
+    ingrediente_routes as ingrediente,
+    combo_routes as combo,
+    estado_routes as estado,
+    item_comida_routes as item_comida,
+    ingr_comida_routes as ingr_comida,
+    comida_routes as comida,
+    item_ingrediente_routes as item_ingrediente,
+)
+
+from app.db.database import Base, engine
+import app.models as models
 
 # Obtener configuración
 settings = get_settings()
 
+Base.metadata.create_all(bind=engine)
 
 # ----------------------------------------------------------------------------
 # APLICACIÓN FASTAPI
@@ -31,20 +48,6 @@ app.add_middleware(
 
 # ----------------------------------------------------------------------------
 # ROUTERS: Incluir rutas de la API
-
-from app.api.v1.endpoints import (
-    usuario_routes as usuario,
-    pedido_routes as pedido,
-    categoria_routes as categoria,
-    restaurante_routes as restaurante,
-    ingrediente_routes as ingrediente,
-    combo_routes as combo,
-    estado_routes as estado,
-    item_comida_routes as item_comida,
-    ingr_comida_routes as ingr_comida,
-    comida_routes as comida,
-    item_ingrediente_routes as item_ingrediente,
-)
 
 app.include_router(usuario.router)
 app.include_router(pedido.router)

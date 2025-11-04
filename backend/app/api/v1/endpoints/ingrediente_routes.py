@@ -5,7 +5,7 @@ from app.db.database import get_db
 from app.schemas.ingrediente_schema import Ingrediente, IngredienteCreate
 import app.repositories.ingrediente_repository as repo
 
-router = APIRouter(prefix="/ingredientes", tags=["Ingredientes"])
+router = APIRouter()
 
 @router.get("/", response_model=List[Ingrediente])
 def listar_ingredientes(db: Session = Depends(get_db)):

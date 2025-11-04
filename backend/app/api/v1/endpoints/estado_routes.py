@@ -5,7 +5,7 @@ from app.db.database import get_db
 from app.schemas.estado_schema import Estado
 import app.repositories.estado_repository as repo
 
-router = APIRouter(prefix="/estados", tags=["Estados"])
+router = APIRouter()
 
 @router.get("/", response_model=List[Estado])
 def listar_estados(db: Session = Depends(get_db)):

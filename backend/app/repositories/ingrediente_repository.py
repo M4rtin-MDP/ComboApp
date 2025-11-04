@@ -6,10 +6,10 @@ def get_ingredientes(db: Session):
     return db.query(Ingrediente).all()
 
 def get_ingrediente(db: Session, id_ingrediente: int):
-    return db.query(Ingrediente).filter(Ingrediente.id_ingrediente == id_ingrediente).first()
+    return db.query(Ingrediente).filter(Ingrediente.id_ingrediente == id_ingrediente)
 
 def create_ingrediente(db: Session, ingrediente: IngredienteCreate):
-    db_ingrediente = Ingrediente(**ingrediente.dict())
+    db_ingrediente = Ingrediente(**ingrediente.model_dump())
     db.add(db_ingrediente)
     db.commit()
     db.refresh(db_ingrediente)
@@ -19,7 +19,7 @@ def update_ingrediente(db: Session, id_ingrediente: int, ingrediente: Ingredient
     db_ingrediente = get_ingrediente(db, id_ingrediente)
     if not db_ingrediente:
         return None
-    for key, value in ingrediente.dict().items():
+    for key, value in ingrediente.model_dump().items():
         setattr(db_ingrediente, key, value)
     db.commit()
     db.refresh(db_ingrediente)

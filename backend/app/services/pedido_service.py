@@ -1,0 +1,29 @@
+from sqlalchemy.orm import Session
+import repositories.pedido_repository as repo
+from schemas import PedidoCreate
+
+class Pedido:
+    
+    def listar_pedidos(self, db: Session):
+        return repo.get_pedidos(db)
+
+    def obtener_pedido(self, db: Session, id_pedido: int):
+        return repo.get_pedido(db, id_pedido)
+
+    def crear_pedido(self, db: Session, pedido: PedidoCreate):
+        return repo.create_pedido(db, pedido)
+
+    def actualizar_pedido(self, db: Session, id_pedido: int, pedido: PedidoCreate):
+        return repo.update_pedido(db, id_pedido, pedido)
+
+    def eliminar_pedido(self, db: Session, id_pedido: int):
+        return repo.delete_pedido(db, id_pedido)
+    
+    
+    def agregar_combo(self, db: Session):
+        # pasar el id_pedido 
+        pass
+
+
+
+

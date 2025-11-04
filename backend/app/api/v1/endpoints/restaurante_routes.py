@@ -5,7 +5,7 @@ from app.db.database import get_db
 from app.schemas.restaurante_schema import Restaurante, RestauranteCreate
 import app.repositories.restaurante_repository as repo
 
-router = APIRouter(prefix="/restaurantes", tags=["Restaurantes"])
+router = APIRouter()
 
 @router.get("/", response_model=List[Restaurante])
 def listar_restaurantes(db: Session = Depends(get_db)):
