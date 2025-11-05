@@ -8,5 +8,5 @@ class IngrComida(Base):
     id_comida = Column(Integer, ForeignKey("comida_base.id_comida"))
     id_ingrediente = Column(Integer, ForeignKey("ingrediente.id_ingrediente"))
 
-    comida = relationship("ComidaBase", back_populates="ingredientes")
+    comidas = relationship("ComidaBase", back_populates="ingredientes")
     ingrediente = relationship("Ingrediente", back_populates="comidas")

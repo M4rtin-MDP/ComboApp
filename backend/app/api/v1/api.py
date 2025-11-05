@@ -83,6 +83,6 @@ api_router.include_router(
 # Ingr_comida
 api_router.include_router(
     ingr_comida_routes.router, 
-    prefix="/ingr_comidas", 
-    tags=["Ingr_comidas"]
+    prefix="/ingredientes_comidas", 
+    tags=["Ingredientes_comidas"]
 )

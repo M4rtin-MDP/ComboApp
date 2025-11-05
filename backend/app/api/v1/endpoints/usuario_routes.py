@@ -10,7 +10,7 @@ router = APIRouter()
 @router.get("/", response_model=List[Usuario])
 def listar_usuarios(db: Session = Depends(get_db)):
     return repo.get_usuarios(db)
-
+'''
 @router.get("/{usuario_id}", response_model=Usuario)
 def obtener_usuario(usuario_id: str, db: Session = Depends(get_db)):
     usuario = repo.get_usuario(db, usuario_id)
@@ -36,6 +36,6 @@ def eliminar_usuario(usuario_id: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Usuario no encontrado")
     return deleted
 
-
+'''
 
 

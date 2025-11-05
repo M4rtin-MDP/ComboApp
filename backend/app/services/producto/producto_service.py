@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-import repositories.comida_repository as repo
+import app.repositories.comida_repository as repo
 from schemas import ComidaBaseCreate
 from abc import ABC, abstractmethod
 from enum import Enum
@@ -26,14 +26,18 @@ class Producto(ABC):
     def obtener_comida(self, db: Session, id_comida: int):
         return repo.get_comida(db, id_comida)
 
-    def crear_comida(self, db: Session, comida: ComidaBaseCreate):
-        return repo.create_comida(db, comida)
 
     def actualizar_comida(self, db: Session, id_comida: int, comida: ComidaBaseCreate):
         return repo.update_comida(db, id_comida, comida)
 
     def eliminar_comida(self, db: Session, id_comida: int):
         return repo.delete_comida(db, id_comida)
+    
+    @abstractmethod
+    def agregar_ingrediente(self, ingrediente):
+        pass
+    
+
 
 
 

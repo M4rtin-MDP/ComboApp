@@ -2,6 +2,7 @@ from typing import List
 from sqlalchemy.orm import Session
 from app.models.comida import ComidaBase
 from app.schemas.comida_base_schema import ComidaBaseCreate
+#from app.services.producto.producto_service import Producto
 import json
 
 def get_comidas(db: Session):
@@ -13,14 +14,19 @@ def get_comida(db: Session, id_comida: int):
 '''
 TODO: crear funciones 
 '''
-def get_producto_comida():
-    pass
+
+#def get_producto_comida(comida: Producto):
+    # hamburguesa1 = Hamburguesa()
+   # pass
 
 def get_producto_bebida():
     pass
 
 def get_producto_postre():
     pass
+
+
+
 
 # -----------------------------------------------------------------------------
 def create_comida(db: Session, comida: ComidaBaseCreate):

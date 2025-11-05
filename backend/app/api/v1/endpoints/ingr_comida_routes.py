@@ -7,27 +7,21 @@ import app.repositories.ingr_comida_repository as repo
 
 router = APIRouter()
 
-@router.get("/", response_model=List[IngrComida])
-def listar_ingr_comidas(db: Session = Depends(get_db)):
-    return repo.get_ingr_comidas(db)
-
-@router.get("/{id_ingr}", response_model=IngrComida)
-def obtener_ingr_comida(id_ingr: int, db: Session = Depends(get_db)):
-    ingr = repo.get_ingr_comida(db, id_ingr)
-    if not ingr:
+# Listar los ingredientes segun la comida seleccionada
+# //api/v1/ingredientes_comida/{id_comida}
+@router.get("/{id_comida}", response_model=List[IngrComida])
+def listar_ingredientes_comida(id_comida: int, db: Session = Depends(get_db)):
+    comida = repo.get_ingredientes_comida(db, id_comida)
+    if not comida:
         raise HTTPException(status_code=404, detail="Relación Comida-Ingrediente no encontrada")
-    return ingr
+    return comida
+
+
 
 @router.post("/", response_model=IngrComida)
 def crear_ingr_comida(ingr: IngrComidaCreate, db: Session = Depends(get_db)):
     return repo.create_ingr_comida(db, ingr)
 
-@router.put("/{id_ingr}", response_model=IngrComida)
-def actualizar_ingr_comida(id_ingr: int, ingr: IngrComidaCreate, db: Session = Depends(get_db)):
-    updated = repo.update_ingr_comida(db, id_ingr, ingr)
-    if not updated:
-        raise HTTPException(status_code=404, detail="Relación Comida-Ingrediente no encontrada")
-    return updated
 
 @router.delete("/{id_ingr}", response_model=IngrComida)
 def eliminar_ingr_comida(id_ingr: int, db: Session = Depends(get_db)):

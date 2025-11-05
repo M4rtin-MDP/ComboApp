@@ -9,6 +9,6 @@ class ComidaBase(Base):
     nombre = Column(String, nullable=False)
 
     categoria = relationship("Categoria", back_populates="comidas")
-    ingredientes = relationship("IngrComida", back_populates="comida")
-    items_comida = relationship("ItemComida", back_populates="comida")
+    ingredientes = relationship("IngrComida", back_populates="comidas")
+    items_comida = relationship("ItemComida", back_populates="comidas")
     

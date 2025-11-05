@@ -9,4 +9,4 @@ class ItemComida(Base):
     id_comida = Column(Integer, ForeignKey("comida_base.id_comida"))
 
     combo = relationship("Combo", back_populates="items_comida")
-    comida = relationship("ComidaBase", back_populates="items_comida")
+    comidas = relationship("ComidaBase", back_populates="items_comida")
