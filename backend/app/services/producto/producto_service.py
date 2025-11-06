@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 import app.repositories.comida_repository as repo
-from schemas import ComidaBaseCreate
+from app.schemas.comida_base_schema import ComidaBaseCreate
 from abc import ABC, abstractmethod
 from enum import Enum
 
@@ -9,6 +9,7 @@ class CategoriaProducto(Enum):
     BEBIDA = 1
     COMIDA = 2
     POSTRE = 3
+    INGREDIENTE = 4
 
 class Producto(ABC):
     
@@ -33,11 +34,12 @@ class Producto(ABC):
     def eliminar_comida(self, db: Session, id_comida: int):
         return repo.delete_comida(db, id_comida)
     
-    @abstractmethod
-    def agregar_ingrediente(self, ingrediente):
-        pass
     
-
+'''    @abstractmethod
+    def get_precio():
+        
+        pass
+    '''
 
 
 

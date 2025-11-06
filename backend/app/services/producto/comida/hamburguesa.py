@@ -1,9 +1,10 @@
-from producto_service import Producto, CategoriaProducto
-from ingredientes.hamburguesa_decorador import DecoradorHamburguesa
+from app.services.producto.producto_service import Producto, CategoriaProducto
 from typing import Type
-
+from abc import ABC
+from app.core.registry import Registry
 
 # categoria.COMIDA
+@Registry.register('hamburguesa')
 class Hamburguesa(Producto):
     def __init__(self) -> None:
         super().__init__(CategoriaProducto.COMIDA)
@@ -15,8 +16,5 @@ class Hamburguesa(Producto):
         # return 
         pass
         
-        
-    def agregar_ingrediente(self , ingrediente: Type[DecoradorHamburguesa]):
-        ingrediente(self)
-        pass
-        
+    
+    

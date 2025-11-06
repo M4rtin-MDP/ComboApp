@@ -4,6 +4,9 @@ from typing import List
 from app.db.database import get_db
 from app.schemas.comida_base_schema import ComidaBase, ComidaBaseCreate
 import app.repositories.comida_repository as repo
+from app.core.registry import Registry
+from app.services.producto.producto_service import Producto
+from app.services.producto.ingredientes import Ingrediente
 
 router = APIRouter()
 
@@ -22,28 +25,39 @@ def obtener_comida(id_comida: int, db: Session = Depends(get_db)):
 Le paso el id_comida: si es Hamburguesa, Pizza, ...
 '''
 
-'''
-@router.post("/{id_comida}")
-def crear_comida(comida: Producto):
-    
-    con el id_comida puedo conseguir que Clase le corresponde (ejh: Hambuergues) y lo devuevle como string
-    
-    TODO: registro automático con decorador - Buscar
-    
-    -----------------
-    si me devuelve el string -> 'Hamburguesa'
-    
-    
-    pass
-'''
 
-'''
-def build_comida(comida_base: Type[Producto], ingredients:list[Type[Producto]]) -> Producto:
-    comida = comida_base()
-    for ingrediente in ingredients:
-            comida = ingredient(comida)
-    return comida
-'''
+@router.post("/{id_comida}")
+def crear_comida(id_comida: int, db: Session = Depends(get_db)):
+    '''
+    Creo una comida desde el ID de la base de datos
+    '''
+    nombre_producto = repo.get_clase_producto(db, id_comida)    # Me devuelve el string
+    print('desde BD:', nombre_producto)
+     
+    clase_producto:Producto = Registry.create(nombre_producto)
+    print(clase_producto)
+    
+    #return clase_producto
+
+    
+
+'''def build_comida(comida: str, ingredientes:list[str], db:Session = Depends(get_db)) -> Producto:
+    
+    #Creo una comida desde el string recibido del front
+    #Agrega los ingredientes desde una lista de ID_Ingrediente
+    
+    
+    # Instancio la clase Producto (Hamburguesa, Pizza, ...) 
+    clase_producto:Producto = Registry.create(comida)
+    
+    
+    for ingrediente in ingredientes:
+        
+        ingrediente: Ingrediente = Ingrediente()
+            clase_producto = ingrediente(comida)
+            
+    return clase_producto'''
+
 
 
 @router.put("/{id_comida}", response_model=ComidaBase)
@@ -62,3 +76,5 @@ def eliminar_comida(id_comida: int, db: Session = Depends(get_db)):
 
 
 
+# https://.../api/v1/
+    # /comida/base/{id_comida}

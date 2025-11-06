@@ -1,9 +1,9 @@
 from sqlalchemy.orm import Session
-import repositories.ingr_comida_repository as repo
-from schemas import IngrComidaCreate
+import app.repositories.ingr_comida_repository as repo
+from app.schemas.ingr_comida_schema import IngrComidaCreate
 
 def listar_ingr_comidas(db: Session):
-    return repo.get_ingr_comidas(db)
+    return repo.get_ingredcomidas(db)
 
 def obtener_ingr_comida(db: Session, id_ingr: int):
     return repo.get_ingr_comida(db, id_ingr)

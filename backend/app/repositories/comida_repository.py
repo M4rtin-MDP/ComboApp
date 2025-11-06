@@ -15,9 +15,14 @@ def get_comida(db: Session, id_comida: int):
 TODO: crear funciones 
 '''
 
-#def get_producto_comida(comida: Producto):
-    # hamburguesa1 = Hamburguesa()
-   # pass
+def get_clase_producto(db: Session, id_comida: int):
+    sql = db.query(
+        ComidaBase.nombre
+    ).filter(
+        ComidaBase.id_comida == id_comida
+    ).scalar()
+    
+    return sql
 
 def get_producto_bebida():
     pass
@@ -28,7 +33,7 @@ def get_producto_postre():
 
 
 
-# -----------------------------------------------------------------------------
+# -------------------------- CHAT ---------------------------------------------------
 def create_comida(db: Session, comida: ComidaBaseCreate):
     db_comida = ComidaBase(**comida.dict())
     db.add(db_comida)
