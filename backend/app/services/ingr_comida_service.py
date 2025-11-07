@@ -2,8 +2,14 @@ from sqlalchemy.orm import Session
 import app.repositories.ingr_comida_repository as repo
 from app.schemas.ingr_comida_schema import IngrComidaCreate
 
+def listar_ingredientes(db: Session):
+    return repo.get_ingredientes(db)
+
 def listar_ingr_comidas(db: Session):
-    return repo.get_ingredcomidas(db)
+    return repo.get_ingrediente_comida(db)
+
+def listar_total_ingr_comidas(db: Session):
+    return repo.get_total_ingrediente_comida(db)
 
 def obtener_ingr_comida(db: Session, id_ingr: int):
     return repo.get_ingr_comida(db, id_ingr)
