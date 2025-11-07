@@ -4,24 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.db.database import Base, engine
 from app.api.v1.endpoints import v1_router  # Importa el router maestro del __init__.py
 
-<<<<<<< HEAD
-import app.services.producto.comida.hamburguesa
-import app.services.producto.comida.pizza
-import app.services.producto.comida.milanesa
-import app.services.producto.comida.sandwich
-import app.services.producto.comida.empanada
-import app.services.producto.comida.ensalada
-import app.services.producto.comida.sopa
-import app.services.producto.postre.flan
-import app.services.producto.postre.budin
-
-# Obtener configuración
-settings = get_settings()
-
-Base.metadata.create_all(bind=engine)
-=======
 #Base.metadata.create_all(bind=engine)
->>>>>>> jomiguel
 
 # ----------------------------------------------------------------------------
 # APLICACIÓN FASTAPI
