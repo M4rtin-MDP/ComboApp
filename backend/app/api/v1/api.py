@@ -1,12 +1,18 @@
 from fastapi import APIRouter
-from app.api.v1.endpoints import auth_routes, combo_routes, ingrediente_routes, usuario_routes, comida_routes
-from app.api.v1.endpoints import restaurante_routes, pedido_routes, estado_routes, categoria_routes 
-from app.api.v1.endpoints import item_comida_routes, item_ingrediente_routes, ingr_comida_routes
+
+'''from app.api.v1.endpoints import auth_routes, ingrediente_routes, usuario_routes, comida_routes
+from app.api.v1.endpoints import pedido_routes, estado_routes 
+from app.api.v1.endpoints.combo import item_ingrediente_routes
+from app.api.v1.endpoints.admin import ingr_comida_routes, restaurante_routes
+from app.api.v1.endpoints import categoria_routes
+from app.api.v1.endpoints.combo import combo_routes, item_comida_routes'''
 
 api_router = APIRouter()
+# Incluyes un solo router que ya incluye todos los demás
+#app.include_router(v1_router, prefix="/v1")
 
 # Authentication endpoints
-api_router.include_router(
+'''api_router.include_router(
     auth_routes.router,
     prefix="/auth",
     tags=["Authentication"]
@@ -85,4 +91,4 @@ api_router.include_router(
     ingr_comida_routes.router, 
     prefix="/ingredientes_comidas", 
     tags=["Ingredientes_comidas"]
-)
+)'''
