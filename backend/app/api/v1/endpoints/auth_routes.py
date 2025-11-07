@@ -5,7 +5,10 @@ from app.schemas.usuario_schema import UsuarioCreate, UsuarioRead
 from app.services.auth_service import Auth
 from app.services.usuario_service import Usuario
 
-router = APIRouter()
+router = APIRouter(
+    prefix="/auth",
+    tags=["Authentication"] 
+)
 
 @router.post("/register", response_model=UsuarioRead)
 def register(nombre: UsuarioCreate, db: Session = Depends(get_db)):
