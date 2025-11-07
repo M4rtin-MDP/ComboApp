@@ -1,37 +1,28 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from typing import List
 from app.db.database import get_db
-from app.schemas.combo_schema import Combo, ComboCreate
-import app.repositories.combo_repository as repo
+from app.schemas.combo_schema import ComboCreate, ComboRead
+from app.services.combos.combo_service import crear_combo, listar_combos, obtener_combo
 
 router = APIRouter()
 
-@router.get("/", response_model=List[Combo])
-def listar_combos(db: Session = Depends(get_db)):
-    return repo.get_combos(db)
+@router.post("/", response_model=ComboRead)
+def crear(combo: ComboCreate, db: Session = Depends(get_db)):
+    return crear_combo(db, combo, combo_schema_user_id(combo))
 
-@router.get("/{id_combo}", response_model=Combo)
-def obtener_combo(id_combo: int, db: Session = Depends(get_db)):
-    combo = repo.get_combo(db, id_combo)
-    if not combo:
+def combo_schema_user_id(combo):
+    try:
+        return int(getattr(combo, "user_id", 0))
+    except:
+        return 0
+
+@router.get("/", response_model=list[ComboRead])
+def listar(db: Session = Depends(get_db)):
+    return listar_combos(db)
+
+@router.get("/{combo_id}", response_model=ComboRead)
+def obtener(combo_id: int, db: Session = Depends(get_db)):
+    item = obtener_combo(db, combo_id)
+    if not item:
         raise HTTPException(status_code=404, detail="Combo no encontrado")
-    return combo
-
-@router.post("/", response_model=Combo)
-def crear_combo(combo: ComboCreate, db: Session = Depends(get_db)):
-    return repo.create_combo(db, combo)
-
-@router.put("/{id_combo}", response_model=Combo)
-def actualizar_combo(id_combo: int, combo: ComboCreate, db: Session = Depends(get_db)):
-    updated = repo.update_combo(db, id_combo, combo)
-    if not updated:
-        raise HTTPException(status_code=404, detail="Combo no encontrado")
-    return updated
-
-@router.delete("/{id_combo}", response_model=Combo)
-def eliminar_combo(id_combo: int, db: Session = Depends(get_db)):
-    deleted = repo.delete_combo(db, id_combo)
-    if not deleted:
-        raise HTTPException(status_code=404, detail="Combo no encontrado")
-    return deleted
+    return item

@@ -1,7 +1,5 @@
 from fastapi import APIRouter
-from app.api.v1.endpoints import auth_routes, combo_routes, ingrediente_routes, usuario_routes, comida_routes
-from app.api.v1.endpoints import restaurante_routes, pedido_routes, estado_routes, categoria_routes 
-from app.api.v1.endpoints import item_comida_routes, item_ingrediente_routes, ingr_comida_routes
+from app.api.v1.endpoints import auth_routes, combo_routes, ingredient_routes, user_routes, product_routes, local_routes, order_routes
 
 api_router = APIRouter()
 
@@ -21,68 +19,31 @@ api_router.include_router(
 
 # Ingredientes
 api_router.include_router(
-    ingrediente_routes.router,
+    ingredient_routes.router,
     prefix="/ingredientes",
     tags=["Ingredientes"]
 )
-# Usuarios
+
 api_router.include_router(
-    usuario_routes.router, 
-    prefix="/usuarios", 
-    tags=["Usuarios"]
-)
-# Comidas
-api_router.include_router(
-    comida_routes.router, 
-    prefix="/comidas", 
-    tags=["comidas"]
+    user_routes.router, 
+    prefix="/users", 
+    tags=["Users"]
 )
 
-# Restaurantes
 api_router.include_router(
-    restaurante_routes.router, 
-    prefix="/restautantes", 
-    tags=["Restaurantes"]
+    product_routes.router, 
+    prefix="/products", 
+    tags=["Products"]
 )
 
-# Pedidos
 api_router.include_router(
-    pedido_routes.router, 
-    prefix="/pedidos", 
-    tags=["Pedidos"]
+    local_routes.router, 
+    prefix="/locals", 
+    tags=["Locals"]
 )
 
-# Categoria
 api_router.include_router(
-    categoria_routes.router, 
-    prefix="/categoriass", 
-    tags=["Categorias"]
-)
-
-# Estado
-api_router.include_router(
-    estado_routes.router, 
-    prefix="/estados", 
-    tags=["Estados"]
-)
-
-# Item_Ingrediente
-api_router.include_router(
-    item_ingrediente_routes.router, 
-    prefix="/item_ingredientes", 
-    tags=["Item_ingredientes"]
-)
-
-# Item_comida
-api_router.include_router(
-    item_comida_routes.router, 
-    prefix="/item_comidas", 
-    tags=["Item_comidas"]
-)
-
-# Ingr_comida
-api_router.include_router(
-    ingr_comida_routes.router, 
-    prefix="/ingredientes_comidas", 
-    tags=["Ingredientes_comidas"]
+    order_routes.router, 
+    prefix="/orders", 
+    tags=["Orders"]
 )

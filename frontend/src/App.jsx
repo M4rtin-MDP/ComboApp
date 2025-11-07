@@ -1,37 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import Login from "./pages/Login/Login";
-import MainScreen from "./pages/MainScreen";
+import React, { useState } from 'react'
+import Auth from './pages/Login/Auth.jsx'
+import MainScreen from './components/MainScreen.jsx'
 
-//-------------------------------------------------------
-// Simula token válido (modo desarrollo)
-localStorage.setItem("token", "fake-dev-token");
-//------------------------------------------------------
+export default function App(){
+  const [token, setToken] = useState(localStorage.getItem('token'))
+  const handleLogin = (t) => { localStorage.setItem('token', t); setToken(t) }
+  const handleLogout = () => { localStorage.removeItem('token'); setToken(null) }
 
-export default function App() {
-  const [token, setToken] = useState(localStorage.getItem("token") || null);
+  if(!token) return <Auth onLogin={handleLogin} />
 
-  useEffect(() => {
-    if (token) localStorage.setItem("token", token);
-    else localStorage.removeItem("token");
-  }, [token]);
-
-  return (
-    <Router>
-      <Routes>
-        <Route path="/login" element={<Login onLogin={setToken} />} />
-        <Route
-          path="/home"
-          element={
-            token ? (
-              <MainScreen onLogout={() => setToken(null)} />
-            ) : (
-              <Navigate to="/login" replace />
-            )
-          }
-        />
-        <Route path="*" element={<Navigate to={token ? "/home" : "/login"} replace />} />
-      </Routes>
-    </Router>
-  );
+  return <MainScreen onLogout={handleLogout} />
 }

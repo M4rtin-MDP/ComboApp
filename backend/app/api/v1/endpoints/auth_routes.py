@@ -1,24 +1,20 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.db.database import get_db
-from app.schemas.usuario_schema import UsuarioCreate, UsuarioRead
-from app.services.auth_service import Auth
-from app.services.usuario_service import Usuario
+from app.schemas.user_schema import UserCreate, UserRead
+from app.services.users.user_service import Usuario
+from app.services.auth.auth_service import Auth
 
 router = APIRouter()
 
-@router.post("/register", response_model=UsuarioRead)
-def register(nombre: UsuarioCreate, db: Session = Depends(get_db)):
+@router.post("/register", response_model=UserRead)
+def register(user: UserCreate, db: Session = Depends(get_db)):
     try:
-        return Usuario.crear_usuario(db, nombre)
+        return Usuario.register_user(db, user)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
 @router.post("/login")
-def login(user: UsuarioCreate, db: Session = Depends(get_db)):
+def login(user: UserCreate, db: Session = Depends(get_db)):
     # Accepting same payload for simplicity: username + password present
-    return Auth.login_user(db, user.usuario, user.contrasena)
-
-@router.post("/logout")
-def logout(user: UsuarioCreate, db: Session = Depends(get_db)):
-    return Auth.logout_user(db, user.usuario)     
+    return Auth.login_user(db, user.nombre, user.password)

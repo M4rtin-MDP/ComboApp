@@ -2,36 +2,10 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import get_settings
 from app.api.v1.api import api_router
-from app.api.v1.endpoints import (
-    usuario_routes as usuario,
-    pedido_routes as pedido,
-    categoria_routes as categoria,
-    restaurante_routes as restaurante,
-    ingrediente_routes as ingrediente,
-    combo_routes as combo,
-    estado_routes as estado,
-    item_comida_routes as item_comida,
-    ingr_comida_routes as ingr_comida,
-    comida_routes as comida,
-    item_ingrediente_routes as item_ingrediente,
-)
-
-from app.db.database import Base, engine
-
-import app.services.producto.comida.hamburguesa
-import app.services.producto.comida.pizza
-import app.services.producto.comida.milanesa
-import app.services.producto.comida.sandwich
-import app.services.producto.comida.empanada
-import app.services.producto.comida.ensalada
-import app.services.producto.comida.sopa
-import app.services.producto.comida.flan
-import app.services.producto.comida.budin
 
 # Obtener configuración
 settings = get_settings()
 
-Base.metadata.create_all(bind=engine)
 
 # ----------------------------------------------------------------------------
 # APLICACIÓN FASTAPI
@@ -40,6 +14,7 @@ app = FastAPI(
     title="ComboApp",
     version="1.0",
     description="API para gestión de combos y productos",)
+
 
 # ----------------------------------------------------------------------------
 # MIDDLEWARE: CORS (Cross-Origin Resource Sharing)
@@ -57,20 +32,6 @@ app.add_middleware(
 
 # ----------------------------------------------------------------------------
 # ROUTERS: Incluir rutas de la API
-
-app.include_router(usuario.router)
-app.include_router(pedido.router)
-app.include_router(categoria.router)
-app.include_router(restaurante.router)
-app.include_router(ingrediente.router)
-app.include_router(combo.router)
-app.include_router(estado.router)
-app.include_router(item_comida.router)
-app.include_router(ingr_comida.router)
-app.include_router(comida.router)
-app.include_router(item_ingrediente.router)
-
-
 # ----------------------------------------------------------------------------
 # Incluye todas las rutas definidas en api_router
 # Ej: prefix="/api/v1" -> http://localhost:8000/api/v1/items
@@ -78,13 +39,6 @@ app.include_router(
     api_router
     , prefix=settings.API_ALIAS_V1
 ) 
-
-@app.on_event("startup")
-async def startup_event():
-    from app.core.registry import Registry
-    print(f"Aplicación iniciada")
-    print(f"Clases registradas: {Registry.list_all()}") 
-
 
 # Endpoint RAIZ
 @app.get('/')
