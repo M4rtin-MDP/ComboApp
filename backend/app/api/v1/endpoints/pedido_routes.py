@@ -7,6 +7,10 @@ import app.repositories.pedido_repository as repo
 
 router = APIRouter()
 
+'''
+
+'''
+
 @router.get("/", response_model=List[Pedido])
 def listar_pedidos(db: Session = Depends(get_db)):
     return repo.get_pedidos(db)

@@ -1,11 +1,11 @@
 from app.services.producto.producto_service import Producto, CategoriaProducto
 from app.core.registry import Registry
 
-# categoria.COMIDA
-@Registry.register('pizza')
-class Pizza(Producto):
+# categoria.POSTRE
+@Registry.register('flan')
+class Flan(Producto):
     def __init__(self) -> None:
-        super().__init__(CategoriaProducto.COMIDA)
+        super().__init__(CategoriaProducto.POSTRE)
         
     def get_categoria(self):
         return self._categoria
@@ -13,3 +13,6 @@ class Pizza(Producto):
     def get_ingredientes(self):
         # return 
         pass
+        
+    
+    

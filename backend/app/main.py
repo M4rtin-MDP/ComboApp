@@ -17,7 +17,16 @@ from app.api.v1.endpoints import (
 )
 
 from app.db.database import Base, engine
-import app.models as models
+
+import app.services.producto.comida.hamburguesa
+import app.services.producto.comida.pizza
+import app.services.producto.comida.milanesa
+import app.services.producto.comida.sandwich
+import app.services.producto.comida.empanada
+import app.services.producto.comida.ensalada
+import app.services.producto.comida.sopa
+import app.services.producto.comida.flan
+import app.services.producto.comida.budin
 
 # Obtener configuración
 settings = get_settings()
@@ -69,6 +78,13 @@ app.include_router(
     api_router
     , prefix=settings.API_ALIAS_V1
 ) 
+
+@app.on_event("startup")
+async def startup_event():
+    from app.core.registry import Registry
+    print(f"Aplicación iniciada")
+    print(f"Clases registradas: {Registry.list_all()}") 
+
 
 # Endpoint RAIZ
 @app.get('/')

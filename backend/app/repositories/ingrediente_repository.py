@@ -6,7 +6,7 @@ def get_ingredientes(db: Session):
     return db.query(Ingrediente).all()
 
 def get_ingrediente(db: Session, id_ingrediente: int):
-    return db.query(Ingrediente).filter(Ingrediente.id_ingrediente == id_ingrediente)
+    return db.query(Ingrediente).filter(Ingrediente.id_ingrediente == id_ingrediente).first()
 
 def create_ingrediente(db: Session, ingrediente: IngredienteCreate):
     db_ingrediente = Ingrediente(**ingrediente.model_dump())
