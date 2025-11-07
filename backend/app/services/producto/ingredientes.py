@@ -32,10 +32,12 @@ class Lechuga(Ingrediente):
     pass
 
 class QuesoCheddar(Ingrediente):
-
     pass
 
 class Cebolla(Ingrediente):
+    pass
+
+class CebollaCaramelizada(Ingrediente):
     pass
 
 class Panceta(Ingrediente):

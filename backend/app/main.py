@@ -25,8 +25,8 @@ import app.services.producto.comida.sandwich
 import app.services.producto.comida.empanada
 import app.services.producto.comida.ensalada
 import app.services.producto.comida.sopa
-import app.services.producto.comida.flan
-import app.services.producto.comida.budin
+import app.services.producto.postre.flan
+import app.services.producto.postre.budin
 
 # Obtener configuración
 settings = get_settings()
