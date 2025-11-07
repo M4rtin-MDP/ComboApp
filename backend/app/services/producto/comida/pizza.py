@@ -1,6 +1,4 @@
 from app.services.producto.producto_service import Producto, CategoriaProducto
-from typing import Type
-from abc import ABC
 from app.core.registry import Registry
 
 # categoria.COMIDA

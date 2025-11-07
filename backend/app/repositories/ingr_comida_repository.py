@@ -5,9 +5,8 @@ from app.models.ingrediente import Ingrediente
 from app.schemas.ingr_comida_schema import IngrComidaCreate
 
 # Esta funcion retorna los ingredientes asociados a una comida base 
-def get_ingredientes_comida(db: Session, id_comida: int):
-    return(db.query(IngrComida).filter(IngrComida.id_comida == id_comida, IngrComida.disponible == True)
-    .all())
+def get_ingredientes_comida(db: Session, comida: int):
+    return db.query(IngrComida).filter(IngrComida.id_comida == comida).all()
 #------------------------------------------------------------  
 '''
 def get_ingredientes_comida(db: Session, id_comida: int):
