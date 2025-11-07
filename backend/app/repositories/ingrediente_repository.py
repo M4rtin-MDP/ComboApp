@@ -5,7 +5,7 @@ from app.schemas.ingrediente_schema import IngredienteCreate
 def get_ingredientes(db: Session):
     return db.query(Ingrediente).all()
 
-def get_ingrediente(db: Session, id_ingrediente: int):
+def get_ingrediente_comida(db: Session, id_ingrediente: int):
     return db.query(Ingrediente).filter(Ingrediente.id_ingrediente == id_ingrediente).first()
 
 def create_ingrediente(db: Session, ingrediente: IngredienteCreate):
@@ -16,7 +16,7 @@ def create_ingrediente(db: Session, ingrediente: IngredienteCreate):
     return db_ingrediente
 
 def update_ingrediente(db: Session, id_ingrediente: int, ingrediente: IngredienteCreate):
-    db_ingrediente = get_ingrediente(db, id_ingrediente)
+    db_ingrediente = get_ingredientes(db, id_ingrediente)
     if not db_ingrediente:
         return None
     for key, value in ingrediente.model_dump().items():
@@ -26,7 +26,7 @@ def update_ingrediente(db: Session, id_ingrediente: int, ingrediente: Ingredient
     return db_ingrediente
 
 def delete_ingrediente(db: Session, id_ingrediente: int):
-    db_ingrediente = get_ingrediente(db, id_ingrediente)
+    db_ingrediente = get_ingredientes(db, id_ingrediente)
     if not db_ingrediente:
         return None
     db.delete(db_ingrediente)

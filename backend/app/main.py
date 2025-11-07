@@ -17,7 +17,17 @@ from app.api.v1.endpoints import (
 )
 
 from app.db.database import Base, engine
+
 import app.services.producto.comida.hamburguesa
+import app.services.producto.comida.pizza
+import app.services.producto.comida.milanesa
+import app.services.producto.comida.sandwich
+import app.services.producto.comida.empanada
+import app.services.producto.comida.ensalada
+import app.services.producto.comida.sopa
+import app.services.producto.comida.flan
+import app.services.producto.comida.budin
+
 # Obtener configuración
 settings = get_settings()
 

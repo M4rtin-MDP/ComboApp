@@ -4,8 +4,8 @@ from abc import ABC
 from app.core.registry import Registry
 
 # categoria.COMIDA
-@Registry.register('pizza')
-class Pizza(Producto):
+@Registry.register('sandwich')
+class Sandwich(Producto):
     def __init__(self) -> None:
         super().__init__(CategoriaProducto.COMIDA)
         
@@ -15,3 +15,6 @@ class Pizza(Producto):
     def get_ingredientes(self):
         # return 
         pass
+        
+    
+    
