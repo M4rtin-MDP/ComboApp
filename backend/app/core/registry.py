@@ -28,7 +28,6 @@ class Registry:
         def decorator(klass: Type) -> Type:
             key = name or klass.__name__
             cls._classes[key] = klass
-            print(f"Registrada clase: {key}")  # Útil para debugging
             return klass
         return decorator
     

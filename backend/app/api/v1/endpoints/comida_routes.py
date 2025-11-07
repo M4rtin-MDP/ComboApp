@@ -8,7 +8,10 @@ from app.core.registry import Registry
 from app.services.producto.producto_service import Producto
 from app.services.producto.ingredientes import Ingrediente
 
-router = APIRouter()
+router = APIRouter(
+    prefix="/comidas", 
+    tags=["Comidas"]
+)
 
 @router.get("/", response_model=List[ComidaBase])
 def listar_comidas(db: Session = Depends(get_db)):

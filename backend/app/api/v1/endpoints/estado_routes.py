@@ -5,7 +5,10 @@ from app.db.database import get_db
 from app.schemas.estado_schema import Estado
 import app.repositories.estado_repository as repo
 
-router = APIRouter()
+router = APIRouter(
+    prefix="/estados", 
+    tags=["Estados"]
+)
 
 @router.get("/", response_model=List[Estado])
 def listar_estados(db: Session = Depends(get_db)):
@@ -18,9 +21,6 @@ def obtener_estado(id_estado: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Estado no encontrado")
     return estado
 
-@router.post("/", response_model=Estado)
-def crear_estado(estado: Estado, db: Session = Depends(get_db)):
-    return repo.create_estado(db, estado)
 
 @router.put("/{id_estado}", response_model=Estado)
 def actualizar_estado(id_estado: int, estado: Estado, db: Session = Depends(get_db)):
@@ -29,9 +29,3 @@ def actualizar_estado(id_estado: int, estado: Estado, db: Session = Depends(get_
         raise HTTPException(status_code=404, detail="Estado no encontrado")
     return updated
 
-@router.delete("/{id_estado}", response_model=Estado)
-def eliminar_estado(id_estado: int, db: Session = Depends(get_db)):
-    deleted = repo.delete_estado(db, id_estado)
-    if not deleted:
-        raise HTTPException(status_code=404, detail="Estado no encontrado")
-    return deleted

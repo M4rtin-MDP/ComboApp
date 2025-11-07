@@ -5,11 +5,11 @@ from app.db.database import get_db
 from app.schemas.pedido_schema import Pedido, PedidoCreate
 import app.repositories.pedido_repository as repo
 
-router = APIRouter()
+router = APIRouter(
+    prefix="/pedidos", 
+    tags=["Pedidos"]
+)
 
-'''
-
-'''
 
 @router.get("/", response_model=List[Pedido])
 def listar_pedidos(db: Session = Depends(get_db)):
