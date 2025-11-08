@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+from sqlalchemy import desc 
 from app.models.pedido import Pedido
 from app.schemas.pedido_schema import PedidoCreate
 
@@ -7,6 +8,13 @@ def get_pedidos(db: Session):
 
 def get_pedido(db: Session, id_pedido: int):
     return db.query(Pedido).filter(Pedido.id_pedido == id_pedido).first()
+
+
+def get_ultimo_pedido(db: Session, id_usuario: int):
+    '''
+    Devuevle el ultimo pedido del usuario
+    '''
+    return db.query(Pedido).filter(Pedido.id_usuario == id_usuario).first()
 
 def create_pedido(db: Session, pedido: PedidoCreate):
     db_pedido = Pedido(**pedido.dict())

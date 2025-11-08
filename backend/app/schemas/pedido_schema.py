@@ -3,15 +3,18 @@ from datetime import datetime
 from typing import Optional
 
 class PedidoBase(BaseModel):
-    id_usuario: str
+    id_usuario: int
     id_restaurante: int
     id_estado: int
-    #id_combo: int
     fecha: datetime
     total: float
 
 class PedidoCreate(PedidoBase):
-    pass
+    id_usuario: int
+    id_restaurante: int
+    id_estado: int
+    fecha: datetime
+    total: float
 
 class Pedido(PedidoBase):
     id_pedido: int

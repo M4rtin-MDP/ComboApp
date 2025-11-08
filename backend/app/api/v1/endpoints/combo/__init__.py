@@ -12,7 +12,7 @@ combo_router = APIRouter(
 
 combo_router.include_router(combo_routes.router)
 combo_router.include_router(item_comida_routes.router, prefix= '/items_comidas')
-combo_router.include_router(item_ingrediente_routes.router, prefix= '/ites_ingredientes')
+combo_router.include_router(item_ingrediente_routes.router, prefix= '/items_ingredientes')
 
 # Exponer el router
 __all__ = ["combo_router"]

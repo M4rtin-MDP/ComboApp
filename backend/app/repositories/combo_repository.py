@@ -1,4 +1,4 @@
-from typing import List
+from typing import Optional
 from sqlalchemy.orm import Session
 from app.models.combo import Combo
 from app.schemas.combo_schema import ComboCreate
@@ -9,8 +9,12 @@ def get_combos(db: Session):
 def get_combo(db: Session, id_combo: int):
     return db.query(Combo).filter(Combo.id_combo == id_combo).first()
 
-def create_combo(db: Session, combo: ComboCreate):
-    db_combo = Combo(**combo.dict())
+def create_combo(db: Session, combo:ComboCreate, id_pedido: Optional[int] = None):
+    
+    if id_pedido is not None:
+        combo.id_pedido = id_pedido
+    
+    db_combo = Combo(**combo.model_dump())
     db.add(db_combo)
     db.commit()
     db.refresh(db_combo)
