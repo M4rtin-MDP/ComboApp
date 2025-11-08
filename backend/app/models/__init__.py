@@ -16,6 +16,7 @@ __all__ = [
     "ComidaBase",
     "Estado",
     "Ingrediente",
+    "IngrComida",
     "ItemComida",
     "ItemIngrediente",
     "Pedido",
