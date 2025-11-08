@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from app.models.item_ingrediente import ItemIngrediente
-from app.schemas.item_ingrediente_schema import ItemIngredienteCreate
+from app.models import ItemIngrediente
+from app.schemas import ItemIngredienteCreate
 
 def get_items_ingredientes(db: Session):
     return db.query(ItemIngrediente).all()

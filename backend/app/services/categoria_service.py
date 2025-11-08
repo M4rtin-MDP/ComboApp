@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-import repositories.categoria_repository as repo
-from schemas import CategoriaCreate
+from app.repositories import categoria_repository as repo
+from app.schemas import CategoriaCreate
 
 def listar_categorias(db: Session):
     return repo.get_categorias(db)

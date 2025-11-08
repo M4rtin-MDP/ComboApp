@@ -1,7 +1,7 @@
 from typing import List
 from sqlalchemy.orm import Session
-from app.models.categoria import Categoria
-from app.schemas.categoria_schema import CategoriaCreate
+from app.models import Categoria
+from app.schemas import CategoriaCreate
 
 def get_categorias(db: Session):
     return db.query(Categoria).all()

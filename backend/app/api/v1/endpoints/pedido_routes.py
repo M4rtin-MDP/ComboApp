@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from typing import List
 from app.db.database import get_db
 from app.schemas.pedido_schema import Pedido, PedidoCreate
-import app.repositories.pedido_repository as repo
+from app.repositories import pedido_repository as repo
 from app.api.v1.endpoints.combo.combo_routes import crear_combo
 
 router = APIRouter(
@@ -16,7 +16,7 @@ router = APIRouter(
 def listar_pedidos(db: Session = Depends(get_db)):
     return repo.get_pedidos(db)
 
-@router.get("/{id_pedido}", response_model=Pedido)
+@router.get("/id/{id_pedido}", response_model=Pedido)
 def obtener_pedido(id_pedido: int, db: Session = Depends(get_db)):
     pedido = repo.get_pedido(db, id_pedido)
     if not pedido:
@@ -24,7 +24,7 @@ def obtener_pedido(id_pedido: int, db: Session = Depends(get_db)):
     return pedido
 
 
-@router.get("/{id_usuario}", response_model=Pedido)
+@router.get("/usuario/{id_usuario}", response_model=Pedido)
 def obtener_ultimo_pedido(id_usuario: int, db: Session = Depends(get_db)):
     pedido = repo.get_ultimo_pedido(db, id_usuario)
     if not pedido:

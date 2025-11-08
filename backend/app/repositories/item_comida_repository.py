@@ -1,7 +1,7 @@
 from typing import List
 from sqlalchemy.orm import Session
-from app.models.item_comida import ItemComida
-from app.schemas.item_comida_schema import ItemComidaCreate
+from app.models import ItemComida
+from app.schemas import ItemComidaCreate
 
 def get_items_comida(db: Session):
     return db.query(ItemComida).all()

@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from app.schemas.usuario_schema import UsuarioCreate
-from app.models.usuario import Usuario
+from app.schemas import UsuarioCreate
+from app.models import Usuario
 
 '''
 get, create, update, delete

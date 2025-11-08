@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-import repositories.item_comida_repository as repo
-from schemas import ItemComidaCreate
+from app.repositories import item_comida_repository as repo
+from app.schemas import ItemComidaCreate
 
 def listar_items_comida(db: Session):
     return repo.get_items_comida(db)

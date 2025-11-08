@@ -1,4 +1,3 @@
-from .usuario import Usuario
 from .categoria import Categoria
 from .combo import Combo
 from .comida import ComidaBase
@@ -8,12 +7,11 @@ from .item_comida import ItemComida
 from .item_ingrediente import ItemIngrediente
 from .pedido import Pedido
 from .restaurante import Restaurante
-from .ingr_comida import IngrComida
+from .usuario import Usuario
+from . ingr_comida import IngrComida
 
-# Esto asegura que todos los modelos se registren
 __all__ = [
-    "Usuario",
-    "Categoria", 
+    "Categoria",
     "Combo",
     "ComidaBase",
     "Estado",
@@ -22,5 +20,5 @@ __all__ = [
     "ItemIngrediente",
     "Pedido",
     "Restaurante",
-    "IngrComida"
+    "Usuario",
 ]

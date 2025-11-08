@@ -1,7 +1,7 @@
 from typing import List
 from sqlalchemy.orm import Session
-from app.models.comida import ComidaBase
-from app.schemas.comida_base_schema import ComidaBaseCreate
+from app.models import ComidaBase
+from app.schemas import ComidaBaseCreate
 #from app.services.producto.producto_service import Producto
 import json
 

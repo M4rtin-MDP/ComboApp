@@ -1,6 +1,6 @@
 from typing import List
 from sqlalchemy.orm import Session
-from app.models.estado import Estado
+from app.models import Estado
 
 def get_estados(db: Session):
     return db.query(Estado).all()

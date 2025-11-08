@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-import repositories.combo_repository as repo
-from schemas import ComboCreate
+from app.repositories import combo_repository as repo
+from app.schemas import ComboCreate
 
 class Combo:
 

@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-import repositories.pedido_repository as repo
-from schemas import PedidoCreate
+from app.repositories import pedido_repository as repo
+from app.schemas import PedidoCreate
 
 class Pedido:
     

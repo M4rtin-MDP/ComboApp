@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-import repositories.item_ingrediente_repository as repo
-from schemas import ItemIngredienteCreate
+from app.repositories import item_ingrediente_repository as repo
+from app.schemas import ItemIngredienteCreate
 
 def listar_items_ingredientes(db: Session):
     return repo.get_items_ingredientes(db)
