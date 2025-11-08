@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-import repositories.estado_repository as repo
-from schemas import Estado
+from app.repositories import estado_repository as repo
+from app.schemas import Estado
 
 def listar_estados(db: Session):
     return repo.get_estados(db)

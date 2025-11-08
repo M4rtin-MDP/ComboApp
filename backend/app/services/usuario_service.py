@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-import app.repositories.usuario_repository as repo
-from app.schemas.usuario_schema import UsuarioCreate
+from app.repositories import usuario_repository as repo
+from app.schemas import UsuarioCreate
 
 class Usuario:
     

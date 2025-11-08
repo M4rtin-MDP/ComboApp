@@ -2,8 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
 from app.db.database import get_db
-from app.schemas.estado_schema import Estado
-import app.repositories.estado_repository as repo
+from app.schemas import Estado
+from  app.repositories import estado_repository as repo
 
 router = APIRouter(
     prefix="/estados", 

@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-import app.repositories.ingr_comida_repository as repo
-from app.schemas.ingr_comida_schema import IngrComidaCreate
+from app.repositories import ingr_comida_repository as repo
+from app.schemas import IngrComidaCreate
 
 def listar_ingredientes(db: Session):
     return repo.get_ingredientes(db)

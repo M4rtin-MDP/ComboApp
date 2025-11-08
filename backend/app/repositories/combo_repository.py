@@ -1,7 +1,7 @@
 from typing import Optional
 from sqlalchemy.orm import Session
-from app.models.combo import Combo
-from app.schemas.combo_schema import ComboCreate
+from app.models import Combo
+from app.schemas import ComboCreate
 
 def get_combos(db: Session):
     return db.query(Combo).all()

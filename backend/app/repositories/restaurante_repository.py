@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from app.models.restaurante import Restaurante
-from app.schemas.restaurante_schema import RestauranteCreate
+from app.models import Restaurante
+from app.schemas import RestauranteCreate
 
 def get_restaurantes(db: Session):
     return db.query(Restaurante).all()

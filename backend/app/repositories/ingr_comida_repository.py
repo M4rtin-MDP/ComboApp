@@ -1,8 +1,7 @@
 from typing import List
 from sqlalchemy.orm import Session
-from app.models.ingr_comida import IngrComida
-from app.models.ingrediente import Ingrediente
-from app.schemas.ingr_comida_schema import IngrComidaCreate
+from app.models import Ingrediente, IngrComida
+from app.schemas import IngrComidaCreate
 
 # Esta funcion retorna los ingredientes asociados a una comida base 
 def get_ingredientes_comida(db: Session, comida: int):

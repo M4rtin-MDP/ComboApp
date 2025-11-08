@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-import repositories.restaurante_repository as repo
-from schemas import RestauranteCreate
+from app.repositories import restaurante_repository as repo
+from app.schemas import RestauranteCreate
 
 def listar_restaurantes(db: Session):
     return repo.get_restaurantes(db)
