@@ -9,8 +9,9 @@ class Pedido(Base):
     id_restaurante = Column(Integer, ForeignKey("restaurante.id_restaurante"))
     id_estado = Column(Integer, ForeignKey("estado.id_estado"))
 
-    fecha = Column(DateTime, nullable=False)
     total = Column(Numeric(10, 2), nullable=False)
+    fecha = Column(DateTime, nullable=False)
+    
 
     usuario = relationship("Usuario", back_populates="pedidos")
     restaurante = relationship("Restaurante", back_populates="pedidos")

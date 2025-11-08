@@ -2,6 +2,7 @@
 Registro global de clases para instanciación dinámica.
 """
 from typing import Any, Dict, Type, Optional
+#from app.services.producto.producto_service import Producto
 
 
 class Registry:
@@ -68,6 +69,24 @@ class Registry:
                 f"Disponibles: {cls.list_all()}"
             )
         return klass(*args, **kwargs)
+    
+    
+    @classmethod
+    def create_producto(cls, name: str) -> Any:
+        """Crear instancia de Producto"""
+        if name not in cls._classes:
+            raise ValueError(f"Producto '{name}' no registrado")
+        return cls._classes[name]()
+    
+    
+    @classmethod
+    def create_ingrediente(cls, ingrediente: str, producto: Any) -> Any:
+        """Crear instancia de Ingrediente (decorador)"""
+        if ingrediente not in cls._classes:
+            raise ValueError(f"Ingrediente '{ingrediente}' no registrado")
+        return cls._classes[ingrediente](producto)
+    
+    
     
     @classmethod
     def list_all(cls) -> list[str]:

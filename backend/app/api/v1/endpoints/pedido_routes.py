@@ -4,6 +4,7 @@ from typing import List
 from app.db.database import get_db
 from app.schemas.pedido_schema import Pedido, PedidoCreate
 import app.repositories.pedido_repository as repo
+from app.api.v1.endpoints.combo.combo_routes import crear_combo
 
 router = APIRouter(
     prefix="/pedidos", 
@@ -22,9 +23,23 @@ def obtener_pedido(id_pedido: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Pedido no encontrado")
     return pedido
 
+
+@router.get("/{id_usuario}", response_model=Pedido)
+def obtener_ultimo_pedido(id_usuario: int, db: Session = Depends(get_db)):
+    pedido = repo.get_ultimo_pedido(db, id_usuario)
+    if not pedido:
+        raise HTTPException(status_code=404, detail="Pedido no encontrado")
+    return pedido
+
 @router.post("/", response_model=Pedido)
 def crear_pedido(pedido: PedidoCreate, db: Session = Depends(get_db)):
-    return repo.create_pedido(db, pedido)
+
+    '''
+    Al confirmar el pedido, se crea los fatos de la tabla pedido
+    '''
+    create_pedido = repo.create_pedido(db, pedido)
+    
+    return create_pedido
 
 @router.put("/{id_pedido}", response_model=Pedido)
 def actualizar_pedido(id_pedido: int, pedido: PedidoCreate, db: Session = Depends(get_db)):

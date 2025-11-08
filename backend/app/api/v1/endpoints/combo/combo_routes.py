@@ -4,6 +4,9 @@ from typing import List
 from app.db.database import get_db
 from app.schemas.combo_schema import Combo, ComboCreate
 import app.repositories.combo_repository as repo
+from app.services.producto.producto_service import Producto
+from app.core.registry import Registry
+from app.schemas.combo_schema import ListaCombo
 
 router = APIRouter()
 
@@ -18,10 +21,6 @@ def obtener_combo(id_combo: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Combo no encontrado")
     return combo
 
-@router.post("/", response_model=Combo)
-def crear_combo(combo: ComboCreate, db: Session = Depends(get_db)):
-    return repo.create_combo(db, combo)
-
 @router.put("/{id_combo}", response_model=Combo)
 def actualizar_combo(id_combo: int, combo: ComboCreate, db: Session = Depends(get_db)):
     updated = repo.update_combo(db, id_combo, combo)
@@ -35,3 +34,29 @@ def eliminar_combo(id_combo: int, db: Session = Depends(get_db)):
     if not deleted:
         raise HTTPException(status_code=404, detail="Combo no encontrado")
     return deleted
+
+# ----------------------------------------------------
+
+@router.post("/{id_pedido}", response_model=Combo)
+async def crear_combo(id_pedido: int, combo: ComboCreate, lista_combo: ListaCombo, db:Session = Depends(get_db)):
+    
+    comida = lista_combo.comida
+    ingredientes = lista_combo.ingredientes
+    
+    # Instancio la clase Producto (Hamburguesa, Pizza, ...) 
+    clase_producto:Producto = Registry.create_producto(comida)
+    
+    for ingrediente in ingredientes:
+        # Obtener la clase del ingrediente y decorar el producto
+        clase_producto: Producto = Registry.create_ingrediente(ingrediente, clase_producto)
+        
+    
+    #tabla Combo
+    create = repo.create_combo(db, combo, id_pedido)
+    
+    # Enviar los datos para la tabla items_comida e items_ingredientes
+    
+    if not create:
+        raise HTTPException(status_code=404, detail="No se creo el Combo")
+    return create
+

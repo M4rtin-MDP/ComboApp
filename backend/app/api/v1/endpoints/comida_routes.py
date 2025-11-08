@@ -42,24 +42,6 @@ def crear_comida(id_comida: int, db: Session = Depends(get_db)):
     
     #return clase_producto
 
-    
-
-'''def build_comida(comida: str, ingredientes:list[str], db:Session = Depends(get_db)) -> Producto:
-    
-    #Creo una comida desde el string recibido del front
-    #Agrega los ingredientes desde una lista de ID_Ingrediente
-    
-    
-    # Instancio la clase Producto (Hamburguesa, Pizza, ...) 
-    clase_producto:Producto = Registry.create(comida)
-    
-    
-    for ingrediente in ingredientes:
-        
-        ingrediente: Ingrediente = Ingrediente()
-            clase_producto = ingrediente(comida)
-            
-    return clase_producto'''
 
 
 

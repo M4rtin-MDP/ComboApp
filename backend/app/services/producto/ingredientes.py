@@ -4,8 +4,9 @@ from app.core.registry import Registry
 
 # Decorador de ingredientes
 class Ingrediente(Producto, ABC):
-    def __init__(self) -> None:
+    def __init__(self, producto: Producto) -> None:
         super().__init__(CategoriaProducto.INGREDIENTE)
+        self.producto = producto
     
     
 # Implementacion de ingredientes--------------------------------------------
@@ -24,13 +25,14 @@ class Lechuga(Ingrediente):
         super().__init__("Lechuga", 40.0) 
 '''        
 # --------------------------------------------
-
+@Registry.register('tomate')
 class Tomate(Ingrediente):
     pass
-
+@Registry.register('lechuga')
 class Lechuga(Ingrediente):
     pass
 
+@Registry.register('queso_chedar')
 class QuesoCheddar(Ingrediente):
     pass
 
