@@ -147,6 +147,5 @@ def buscar_restaurantes_disponibles(combo: ListaCombo):
             ))
     
     return resultados
-    
-
 '''
+
