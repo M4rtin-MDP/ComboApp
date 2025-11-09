@@ -23,22 +23,10 @@ class RestauranteDisponible(BaseModel):
     latitud: float
     longitud: float
     #comida_disponible: bool
-    #precio_comida: float
+    precio_original: float
     #ingredientes_disponibles: Dict[str, bool]
     precio_total: float
 
-
-
-'''
-
-class ComidaDisponible(BaseModel):
-    id_comida: int
-    nombre: str
-    disponible: bool
-    precio: float
-    ingredientes_disponibles: Dict[str, bool]
-    precio_ingredientes: float
-'''
 
 class ComidaSolicitada(BaseModel):
     nombre: str
@@ -47,7 +35,7 @@ class ComidaSolicitada(BaseModel):
 
 
 # Lista que recibo del cliente
-class ListaCombo(BaseModel):
+class ComboRequest(BaseModel):
     comidas: Dict[int, ComidaSolicitada]
     
     # Documentacion
@@ -74,16 +62,3 @@ class ListaCombo(BaseModel):
             }
         }
         
-        
-'''
-    {
-        "id_comida": 1,
-        "comida": "hamburguesa",
-        "ingredientes": ["tomate", "lechuga", "carne"]
-    },
-    {
-        "id_comida": 14,
-        "comida": "flan",
-        "ingredientes": ["crema"]
-    }
-'''

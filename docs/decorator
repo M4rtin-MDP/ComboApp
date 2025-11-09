@@ -108,7 +108,7 @@ class DescuentoPrimeraCompra(ModificadorPrecio):
 
 @app.post("/api/restaurantes/calcular-precio")
 def calcular_precio_restaurantes(
-    combo: ListaCombo,
+    combo: ComboRequest,
     es_primera_compra: bool = False,
     con_delivery: bool = False,
     aplicar_iva: bool = True
@@ -116,18 +116,11 @@ def calcular_precio_restaurantes(
     """
     Calcula precios con diferentes modificadores usando Decorator Pattern
     """
+    
+    restaurantes_disponibles = buscar_restaurantes_disponibles(combo)
     resultados = []
     
-    for restaurante in RESTAURANTES_DB:
-        # Verificar que el restaurante tenga todas las comidas
-        tiene_todo = True
-        for id_comida in combo.comidas.keys():
-            if str(id_comida) not in restaurante["comidas"]:
-                tiene_todo = False
-                break
-        
-        if not tiene_todo:
-            continue
+    for restaurante in restaurantes_disponibles:
         
         # CONSTRUIR EL DECORATOR DINÁMICAMENTE
         calculador = PrecioBase()
@@ -154,7 +147,6 @@ def calcular_precio_restaurantes(
         precio_final = calculador.calcular_precio(restaurante, combo)
         
         resultados.append(RestauranteResultado(
-            id=restaurante["id"],
             nombre=restaurante["nombre"],
             precio_original=round(precio_original, 2),
             precio_final=round(precio_final, 2),
