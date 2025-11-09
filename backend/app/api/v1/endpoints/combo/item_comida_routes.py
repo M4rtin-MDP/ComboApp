@@ -22,8 +22,10 @@ def obtener_item_comida(id_item: int, db: Session = Depends(get_db)):
     return item
 
 @router.post("/", response_model=ItemComida)
-def crear_item_comida(item: ItemComidaCreate, db: Session = Depends(get_db)):
-    return repo.create_item_comida(db, item)
+def crear_item_comida(item: ItemComidaCreate, db: Session = Depends(get_db)):  
+    create = repo.create_item_comida(db, item)
+    
+    return create 
 
 @router.put("/{id_item}", response_model=ItemComida)
 def actualizar_item_comida(id_item: int, item: ItemComidaCreate, db: Session = Depends(get_db)):

@@ -35,7 +35,7 @@ app.add_middleware(
 # y les aplica el prefijo "/v1" a todos.
 app.include_router(
     v1_router, 
-    prefix="/v1"
+    prefix="/api/v1"
 )
 
 

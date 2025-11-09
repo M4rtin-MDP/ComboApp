@@ -5,7 +5,8 @@ class ItemComidaBase(BaseModel):
     id_comida: int
 
 class ItemComidaCreate(ItemComidaBase):
-    pass
+    id_combo: int
+    id_comida: int
 
 class ItemComida(ItemComidaBase):
     id: int

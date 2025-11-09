@@ -15,15 +15,3 @@ class Combo(ComboBase):
         from_attributes = True
 
 
-class ListaCombo(BaseModel):
-    comida: str
-    ingredientes: List[str]
-    
-    # Documentacion
-    class Config:
-        schema_extra = {
-            "example": {
-                "comida": "hamburguesa",
-                "ingredientes": ["manzana", "platano", "naranja", "pera"]
-            }
-        }

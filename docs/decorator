@@ -1,0 +1,164 @@
+# ========== PATRÓN DECORATOR ==========
+
+# Interface base
+class CalculadorPrecio(ABC):
+    @abstractmethod
+    def calcular_precio(self, restaurante: dict, combo: ListaCombo) -> float:
+        pass
+    
+    @abstractmethod
+    def obtener_aplicaciones(self) -> List[str]:
+        pass
+
+# Implementación base (precio desde JSON)
+class PrecioBase(CalculadorPrecio):
+    def calcular_precio(self, restaurante: dict, combo: ListaCombo) -> float:
+        total = 0.0
+        
+        for id_comida, comida_sol in combo.comidas.items():
+            comida_key = str(id_comida)
+            
+            # Precio de la comida
+            if comida_key in restaurante["comidas"]:
+                total += restaurante["comidas"][comida_key]["precio"]
+            
+            # Precio de ingredientes
+            for ingrediente in comida_sol.ingredientes:
+                if ingrediente in restaurante["ingredientes"]:
+                    total += restaurante["ingredientes"][ingrediente]["precio"]
+        
+        return total
+    
+    def obtener_aplicaciones(self) -> List[str]:
+        return ["Precio base"]
+
+# Decorator base
+class ModificadorPrecio(CalculadorPrecio):
+    def __init__(self, calculador: CalculadorPrecio):
+        self._calculador = calculador
+    
+    def calcular_precio(self, restaurante: dict, combo: ListaCombo) -> float:
+        return self._calculador.calcular_precio(restaurante, combo)
+    
+    def obtener_aplicaciones(self) -> List[str]:
+        return self._calculador.obtener_aplicaciones()
+
+# Decorator: Descuento por combo
+class DescuentoCombo(ModificadorPrecio):
+    """Si pides 2+ comidas, 10% descuento"""
+    
+    def calcular_precio(self, restaurante: dict, combo: ListaCombo) -> float:
+        precio = self._calculador.calcular_precio(restaurante, combo)
+        
+        if len(combo.comidas) >= 2:
+            return precio * 0.90  # 10% descuento
+        
+        return precio
+    
+    def obtener_aplicaciones(self) -> List[str]:
+        apps = self._calculador.obtener_aplicaciones()
+        if len(self._calculador._calculador if hasattr(self._calculador, '_calculador') else {}) >= 2:
+            apps.append("Descuento combo -10%")
+        return apps
+
+# Decorator: IVA
+class AplicarIVA(ModificadorPrecio):
+    """Agrega 21% de IVA"""
+    
+    def calcular_precio(self, restaurante: dict, combo: ListaCombo) -> float:
+        precio = self._calculador.calcular_precio(restaurante, combo)
+        return precio * 1.21  # +21% IVA
+    
+    def obtener_aplicaciones(self) -> List[str]:
+        apps = self._calculador.obtener_aplicaciones()
+        apps.append("IVA +21%")
+        return apps
+
+# Decorator: Cargo por envío
+class CargoEnvio(ModificadorPrecio):
+    """Agrega $500 de envío"""
+    
+    def __init__(self, calculador: CalculadorPrecio, cargo: float = 500.0):
+        super().__init__(calculador)
+        self._cargo = cargo
+    
+    def calcular_precio(self, restaurante: dict, combo: ListaCombo) -> float:
+        precio = self._calculador.calcular_precio(restaurante, combo)
+        return precio + self._cargo
+    
+    def obtener_aplicaciones(self) -> List[str]:
+        apps = self._calculador.obtener_aplicaciones()
+        apps.append(f"Cargo envío +${self._cargo:.0f}")
+        return apps
+
+# Decorator: Descuento primera compra
+class DescuentoPrimeraCompra(ModificadorPrecio):
+    """15% descuento para nuevos clientes"""
+    
+    def calcular_precio(self, restaurante: dict, combo: ListaCombo) -> float:
+        precio = self._calculador.calcular_precio(restaurante, combo)
+        return precio * 0.85  # 15% descuento
+    
+    def obtener_aplicaciones(self) -> List[str]:
+        apps = self._calculador.obtener_aplicaciones()
+        apps.append("Primera compra -15%")
+        return apps
+
+# ========== ENDPOINTS ==========
+
+@app.post("/api/restaurantes/calcular-precio")
+def calcular_precio_restaurantes(
+    combo: ListaCombo,
+    es_primera_compra: bool = False,
+    con_delivery: bool = False,
+    aplicar_iva: bool = True
+):
+    """
+    Calcula precios con diferentes modificadores usando Decorator Pattern
+    """
+    resultados = []
+    
+    for restaurante in RESTAURANTES_DB:
+        # Verificar que el restaurante tenga todas las comidas
+        tiene_todo = True
+        for id_comida in combo.comidas.keys():
+            if str(id_comida) not in restaurante["comidas"]:
+                tiene_todo = False
+                break
+        
+        if not tiene_todo:
+            continue
+        
+        # CONSTRUIR EL DECORATOR DINÁMICAMENTE
+        calculador = PrecioBase()
+        
+        # Aplicar descuento combo (siempre si cumple condición)
+        calculador = DescuentoCombo(calculador)
+        
+        # Aplicar descuento primera compra
+        if es_primera_compra:
+            calculador = DescuentoPrimeraCompra(calculador)
+        
+        # Aplicar IVA
+        if aplicar_iva:
+            calculador = AplicarIVA(calculador)
+        
+        # Aplicar cargo de envío
+        if con_delivery:
+            calculador = CargoEnvio(calculador, cargo=500.0)
+        
+        # Calcular precio original (sin modificadores)
+        precio_original = PrecioBase().calcular_precio(restaurante, combo)
+        
+        # Calcular precio final (con todos los modificadores)
+        precio_final = calculador.calcular_precio(restaurante, combo)
+        
+        resultados.append(RestauranteResultado(
+            id=restaurante["id"],
+            nombre=restaurante["nombre"],
+            precio_original=round(precio_original, 2),
+            precio_final=round(precio_final, 2),
+            aplicaciones=calculador.obtener_aplicaciones()
+        ))
+    
+    return resultados

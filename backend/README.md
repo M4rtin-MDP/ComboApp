@@ -127,7 +127,7 @@ Tests unitarios e integración usando pytest.
 
 ```bash
 # Crear entorno virtual
-python -m venv venv
+python -m venv .venv
 source venv/bin/activate  # Linux/Mac
 venv\Scripts\activate     # Windows
 
@@ -136,12 +136,6 @@ pip install -r requirements.txt
 
 # Ejecutar servidor de desarrollo
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
-
-# Crear migración
-# alembic revision --autogenerate -m "descripción"
-
-# Aplicar migraciones
-# alembic upgrade head
 
 # Ejecutar tests
 pytest

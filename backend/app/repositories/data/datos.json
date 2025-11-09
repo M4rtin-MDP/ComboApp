@@ -1,0 +1,31 @@
+[
+    {
+        "id": 1,
+        "nombre": "La Esquina del Sabor",
+        "latitud": -34.680356,
+        "longitud": -58.453441,
+        "comidas": {
+            "1": {"nombre": "hamburguesa", "disponible": true, "precio": 10000.0},
+            "28": {"nombre": "agua", "disponible": true, "precio": 2000.0}
+        },
+        "ingredientes": {
+            "1": {"disponible": true, "precio": 500.0},
+            "2": {"disponible": true, "precio": 300.0}
+        }
+    },
+    {
+        "id": 2,
+        "nombre": "El Buen Gusto",
+        "latitud": -14.680356,
+        "longitud": -28.453441,
+        "comidas": {
+            "1": {"nombre": "hamburguesa", "disponible": true, "precio": 9500.0},
+            "28": {"nombre": "agua", "disponible": true, "precio": 1800.0}
+        },
+        "ingredientes": {
+            "1": {"disponible": true, "precio": 450.0},
+            "2": {"disponible": true, "precio": 350.0},
+            "4": {"disponible": true, "precio": 550.0}
+        }
+    }
+]
