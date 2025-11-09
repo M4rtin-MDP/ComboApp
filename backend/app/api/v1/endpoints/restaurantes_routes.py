@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from typing import List
+from typing import List, Dict
 from app.db.database import get_db
-from app.schemas.restaurante_schema import Restaurante, ListaCombo, RestauranteDisponible
-import app.repositories.restaurante_repository as repo
+from app.schemas.restaurante_schema import Restaurante, ComboRequest, RestauranteDisponible
+from app.services import restaurante_service
 
 router = APIRouter(
     prefix="/restaurantes", 
@@ -29,12 +29,12 @@ La data la saca del JSON
         clase_producto: Producto = Registry.create_ingrediente(ingrediente, clase_producto)
 '''
 
-@router.post("/disponibles", response_model=List[RestauranteDisponible])
-def listar_restaurantes_disponibles(lista_combo: ListaCombo):
+@router.post("/disponibles", response_model=List[Dict])
+def listar_restaurantes_disponibles(lista_combo: ComboRequest):
     """
     Busca restaurantes que tengan disponible la comida y sus ingredientes
     """
-    return repo.listar_restaurantes_disponibles(lista_combo)
+    return restaurante_service.buscar_restaurantes_disponibles(lista_combo)
 # get ubicacion_restaurante
 
 

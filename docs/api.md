@@ -1,3 +1,17 @@
+## Api
+```bash
+┌────────────────────────┐
+│        Router/API      │  ← Capa más externa (maneja requests/responses)
+├────────────────────────┤
+│        Servicios       │  ← Lógica de negocio / casos de uso
+├────────────────────────┤
+│       Repositorios     │  ← Acceso a la base de datos
+├────────────────────────┤
+│         Modelos        │  ← ORM (SQLAlchemy) o Pydantic
+└────────────────────────┘
+```
+
+
 ## Git
 
 1. Crear rama feature: `git checkout -b feature`
