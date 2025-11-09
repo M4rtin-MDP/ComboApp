@@ -24,6 +24,8 @@ class Lechuga(Ingrediente):
     def __init__(self):
         super().__init__("Lechuga", 40.0) 
 '''        
+
+
 # --------------------------------------------
 @Registry.register('tomate')
 class Tomate(Ingrediente):

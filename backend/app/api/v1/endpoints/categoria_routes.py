@@ -6,7 +6,7 @@ from app.schemas.categoria_schema import Categoria, CategoriaCreate
 import app.repositories.categoria_repository as repo
 
 router = APIRouter(
-    prefix="/categoriass", 
+    prefix="/categorias", 
     tags=["Categorias"]
 )
 

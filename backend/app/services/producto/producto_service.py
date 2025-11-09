@@ -11,6 +11,10 @@ class CategoriaProducto(Enum):
     POSTRE = 3
     INGREDIENTE = 4
 
+'''
+Agrergarle el atributo precio (opcionalmente). La idea es setearlo cuando se selecciona le restauranmte (a traves de un get) y que devuevla el total del combo.
+Una vez que tenga el total y se confirma, se guarda en la tabla pedidos
+'''
 class Producto(ABC):
     
     def __init__(self, categoria: CategoriaProducto) -> None:
