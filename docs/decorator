@@ -108,7 +108,7 @@ class DescuentoPrimeraCompra(ModificadorPrecio):
 
 @app.post("/api/restaurantes/calcular-precio")
 def calcular_precio_restaurantes(
-    combo: ListaCombo,
+    combo: ComboRequest,
     es_primera_compra: bool = False,
     con_delivery: bool = False,
     aplicar_iva: bool = True

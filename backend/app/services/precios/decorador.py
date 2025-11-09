@@ -8,10 +8,10 @@ class DescuentoCombo(ModificadorPrecio):
         super().__init__(calculador)
         self.porcentaje = porcentaje
     
-    def calcular_precio(self, restaurante: dict, combo: dict) -> float:
-        precio = self._calculador.calcular_precio(restaurante, combo)
+    def calcular_precio(self, restaurante: dict) -> float:
+        precio = self._calculador.calcular_precio(restaurante)
         
-        if len(combo["comidas"]) >= 2:
+        if len(restaurante['combo_comidas']) >= 2:
             return precio * (1 - self.porcentaje)
         
         return precio
@@ -31,8 +31,8 @@ class AplicarIVA(ModificadorPrecio):
         super().__init__(calculador)
         self.porcentaje = porcentaje
     
-    def calcular_precio(self, restaurante: dict, combo: dict) -> float:
-        precio = self._calculador.calcular_precio(restaurante, combo)
+    def calcular_precio(self, restaurante: dict) -> float:
+        precio = self._calculador.calcular_precio(restaurante)
         return precio * (1 + self.porcentaje)
     
     def obtener_aplicaciones(self) -> List[str]:
@@ -40,39 +40,6 @@ class AplicarIVA(ModificadorPrecio):
         apps.append(f"IVA +{int(self.porcentaje * 100)}%")
         return apps
 
-
-class CargoEnvio(ModificadorPrecio):
-    """Agrega cargo fijo por envío"""
-    
-    def __init__(self, calculador, cargo: float = 500.0):
-        super().__init__(calculador)
-        self.cargo = cargo
-    
-    def calcular_precio(self, restaurante: dict, combo: dict) -> float:
-        precio = self._calculador.calcular_precio(restaurante, combo)
-        return precio + self.cargo
-    
-    def obtener_aplicaciones(self) -> List[str]:
-        apps = self._calculador.obtener_aplicaciones()
-        apps.append(f"Cargo envío +${self.cargo:.0f}")
-        return apps
-
-
-class DescuentoPrimeraCompra(ModificadorPrecio):
-    """Descuento para nuevos clientes"""
-    
-    def __init__(self, calculador, porcentaje: float = 0.15):
-        super().__init__(calculador)
-        self.porcentaje = porcentaje
-    
-    def calcular_precio(self, restaurante: dict, combo: dict) -> float:
-        precio = self._calculador.calcular_precio(restaurante, combo)
-        return precio * (1 - self.porcentaje)
-    
-    def obtener_aplicaciones(self) -> List[str]:
-        apps = self._calculador.obtener_aplicaciones()
-        apps.append(f"Primera compra -{int(self.porcentaje * 100)}%")
-        return apps
 
 
 class DescuentoPorcentual(ModificadorPrecio):
@@ -83,8 +50,8 @@ class DescuentoPorcentual(ModificadorPrecio):
         self.porcentaje = porcentaje
         self.nombre = nombre
     
-    def calcular_precio(self, restaurante: dict, combo: dict) -> float:
-        precio = self._calculador.calcular_precio(restaurante, combo)
+    def calcular_precio(self, restaurante: dict) -> float:
+        precio = self._calculador.calcular_precio(restaurante)
         return precio * (1 - self.porcentaje)
     
     def obtener_aplicaciones(self) -> List[str]:

@@ -1,5 +1,7 @@
 import httpx
-
+'''
+Ejemplo simbolico del uso de la API con otros restaurantes reales
+'''
 class RestauranteAPIRepository(RestauranteRepository):
     """Implementación: consulta API externa"""
     

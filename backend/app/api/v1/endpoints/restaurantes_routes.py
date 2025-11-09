@@ -4,30 +4,13 @@ from typing import List, Dict
 from app.db.database import get_db
 from app.schemas.restaurante_schema import Restaurante, ComboRequest, RestauranteDisponible
 from app.services import restaurante_service
+from app.services.precios.precio import PrecioBase
+from app.services.precios.decorador import DescuentoCombo, AplicarIVA
 
 router = APIRouter(
     prefix="/restaurantes", 
     tags=["Restaurantes"]
 )
-
-'''
-La data la saca del JSON
-'''
-
-
-'''
-    lista_combo: ListaCombo
-    
-    comida = lista_combo.comida
-    ingredientes = lista_combo.ingredientes
-    
-    # Instancio la clase Producto (Hamburguesa, Pizza, ...) 
-    clase_producto:Producto = Registry.create_producto(comida)
-    
-    for ingrediente in ingredientes:
-        # Obtener la clase del ingrediente y decorar el producto
-        clase_producto: Producto = Registry.create_ingrediente(ingrediente, clase_producto)
-'''
 
 @router.post("/disponibles", response_model=List[Dict])
 def listar_restaurantes_disponibles(lista_combo: ComboRequest):
@@ -37,5 +20,48 @@ def listar_restaurantes_disponibles(lista_combo: ComboRequest):
     return restaurante_service.buscar_restaurantes_disponibles(lista_combo)
 # get ubicacion_restaurante
 
+
+@router.post("/diponibles_total")
+def calcular_precio_restaurantes(
+    combo: ComboRequest,
+    aplicar_iva: bool = True
+) -> List[RestauranteDisponible]:
+    """
+    Calcula precios con diferentes modificadores usando Decorator Pattern
+    """
+    
+    restaurantes_disponibles = restaurante_service.buscar_restaurantes_disponibles(combo)
+    resultados = []
+    
+    # Calculo los precios del combo para cada restaurante
+    for restaurante in restaurantes_disponibles:
+        
+        # CONSTRUIR EL DECORATOR DINÁMICAMENTE
+        calculador = PrecioBase()
+        
+        # Aplicar descuento combo (siempre si cumple condición)
+        #calculador = DescuentoCombo(calculador)
+        
+        
+        # Aplicar IVA
+        if aplicar_iva:
+            calculador = AplicarIVA(calculador)
+        
+        # Calcular precio original (sin modificadores)
+        precio_original = PrecioBase().calcular_precio(restaurante)
+        
+        # Calcular precio final (con todos los modificadores)
+        precio_final = calculador.calcular_precio(restaurante)
+        
+        resultados.append(RestauranteDisponible(
+            nombre=restaurante["nombre"],
+            latitud= restaurante["latitud"],
+            longitud= restaurante["longitud"],
+            precio_original=round(precio_original, 2),
+            precio_total=round(precio_final, 2),
+            #aplicaciones=calculador.obtener_aplicaciones()
+        ))
+    
+    return resultados
 
 

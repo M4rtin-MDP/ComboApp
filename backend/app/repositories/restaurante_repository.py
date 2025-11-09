@@ -1,20 +1,10 @@
 from sqlalchemy.orm import Session
 from app.models import Restaurante
 from app.schemas.restaurante_schema import ComboRequest, RestauranteDisponible #, ComidaDisponible
-import json
 
 
-def get_datos_json() -> dict:
-    with open('app/repositories/data/datos.json', "r") as f:
-        restaurantes:dict = json.load(f)
-        
-        return restaurantes
-    
 '''
-def obtener_restaurante_por_id(self, id: int) -> Dict:
-        """Busca un restaurante específico en el catálogo"""
-        catalog = get_datos_json()
-        return next((r for r in catalog if r["id"] == id), None)
+Modifica la tabla Restaurantes 
 '''
 
 def get_restaurante(db: Session, id_restaurante: int):

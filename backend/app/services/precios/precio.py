@@ -1,12 +1,13 @@
 from abc import ABC, abstractmethod
-from typing import List
+from typing import List, Dict
+from app.schemas.restaurante_schema import ComboRequest
 
 
 class CalculadorPrecio(ABC):
     """Interface para calcular precios"""
     
     @abstractmethod
-    def calcular_precio(self, restaurante: dict, combo: dict) -> float:
+    def calcular_precio(self, restaurante: dict) -> float:
         """Calcula el precio del combo en un restaurante"""
         pass
     
@@ -19,25 +20,20 @@ class CalculadorPrecio(ABC):
 class PrecioBase(CalculadorPrecio):
     """Implementación base: calcula precio desde datos del restaurante"""
     
-    def calcular_precio(self, restaurante: dict, combo: dict) -> float:
-        total = 0.0
+    def calcular_precio(self, restaurante: Dict) -> float:
+        total: float = 0.0
         
-        for id_comida, comida_sol in combo["comidas"].items():
-            comida_key = str(id_comida)
+        for id_comida, comida in restaurante["comidas_combo"].items():
+            total += comida['precio_comida']
+            total += sum(comida['precio_ingredientes'])
             
-            # Precio de la comida
-            if comida_key in restaurante["comidas"]:
-                total += restaurante["comidas"][comida_key]["precio"]
-            
-            # Precio de ingredientes adicionales
-            for ingrediente in comida_sol.get("ingredientes", []):
-                if ingrediente in restaurante.get("ingredientes", {}):
-                    total += restaurante["ingredientes"][ingrediente]["precio"]
-        
+        '''for id_ingrediente, ingrediente in restaurante["ingredientes"]:
+            total += ingrediente['precio']
+        '''
         return total
     
     def obtener_aplicaciones(self) -> List[str]:
-        return ["Precio base"]
+        return ["precio_base"]
 
 
 class ModificadorPrecio(CalculadorPrecio):
@@ -46,8 +42,8 @@ class ModificadorPrecio(CalculadorPrecio):
     def __init__(self, calculador: CalculadorPrecio):
         self._calculador = calculador
     
-    def calcular_precio(self, restaurante: dict, combo: dict) -> float:
-        return self._calculador.calcular_precio(restaurante, combo)
+    def calcular_precio(self, restaurante: dict) -> float:
+        return self._calculador.calcular_precio(restaurante)
     
     def obtener_aplicaciones(self) -> List[str]:
         return self._calculador.obtener_aplicaciones()

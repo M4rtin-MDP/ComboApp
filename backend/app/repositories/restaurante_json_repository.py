@@ -3,6 +3,9 @@ from app.models import Restaurante
 #from schemas.restaurante_schema import ComboRequest, RestauranteDisponible #, ComidaDisponible
 import json
 
+'''
+Agarra los datos del json
+'''
 
 def get_json()-> dict:
     with open('app/repositories/data/datos.json', "r") as f:
