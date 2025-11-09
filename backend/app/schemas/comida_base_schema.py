@@ -7,7 +7,7 @@ from typing import Optional
 class ComidaBase(BaseModel):
     id_comida: int
     nombre: str
-    categoria_id: Optional[int] = None
+    id_categoria: Optional[int] = None
 
 # ----------------------------------------------------
 # CREACIÓN
@@ -24,7 +24,7 @@ class ComidaBaseCreate(ComidaBase):
 # ----------------------------------------------------
 class ComidaBaseUpdate(BaseModel):
     nombre: Optional[str] = None
-    categoria_id: Optional[int] = None
+    id_categoria: Optional[int] = None
 
 # ----------------------------------------------------
 # LECTURA
