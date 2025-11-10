@@ -7,5 +7,5 @@ from .ingr_comida_schema import IngrComidaCreate
 from .ingrediente_schema import IngredienteCreate
 from .item_comida_schema import ItemComidaCreate
 from .item_ingrediente_schema import ItemIngredienteCreate
-from .restaurante_schema import ListaCombo, RestauranteDisponible, ComidaSolicitada
+from .restaurante_schema import RestauranteDisponible, ComidaSolicitada, ComboRequest
 from .usuario_schema import UsuarioCreate

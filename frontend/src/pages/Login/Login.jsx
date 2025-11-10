@@ -10,7 +10,7 @@ export default function Login({ onLogin }) {
     e.preventDefault();
     setError("");
     try {
-      const res = await api.post("/login", { username, password });
+      const res = await api.post("/auth/login", { username, password });
       localStorage.setItem("token", res.data.access_token);
       onLogin(res.data.access_token);
     } catch (err) {

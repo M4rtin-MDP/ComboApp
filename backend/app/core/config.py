@@ -32,6 +32,11 @@ class Settings(BaseSettings):
     DB_USER: str = Field(...)
     DB_PASSWORD: str = Field(...)
     
+    # ------ AUTH ------
+    SECRET_KEY: str = Field(...)
+    ALGORITHM: str = Field(...)
+    ACCESS_TOKEN_EXPIRE_MINUTES: float
+    
     
     # @computed_field: Pydantic calcula este campo automáticamente
     # @property: Se accede como un atributo (settings.DB_URL) no como método
