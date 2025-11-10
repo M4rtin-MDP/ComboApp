@@ -21,21 +21,21 @@ class Settings(BaseSettings):
     # Si no existe en el .env, lanzará un error de validación
     
     # ------ INFO -------
-    AMBIENTE: str = Field(...)
+    AMBIENTE: str = Field(default="desarrollo")
     API_ALIAS_V1: str = "/api/v1"
     CORS_ORIGINS: list[str] = Field(default=["*"], description="Dominios permitidos para CORS")
     
     # --- BASE DE DATOS ---
-    DB_NAME: str = Field(...)
-    DB_HOST: str = Field(...)
-    DB_PORT: int = Field(...) 
-    DB_USER: str = Field(...)
-    DB_PASSWORD: str = Field(...)
+    DB_HOST: str = Field(default="localhost")
+    DB_PORT: int = Field(default=5432)
+    DB_USER: str = Field(default="postgres")
+    DB_PASSWORD: str = Field(default="c0mb0_App")
+    DB_NAME: str = Field(default="combo_app_db")
     
     # ------ AUTH ------
-    SECRET_KEY: str = Field(...)
-    ALGORITHM: str = Field(...)
-    ACCESS_TOKEN_EXPIRE_MINUTES: float
+    SECRET_KEY: str = Field(default="supersecreto123")
+    ALGORITHM: str = Field(default="HS256")
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = Field(default=30)
     
     
     # @computed_field: Pydantic calcula este campo automáticamente
