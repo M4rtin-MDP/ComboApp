@@ -11,17 +11,17 @@ router = APIRouter(
 )
 
 @router.post("/register", response_model=UsuarioRead)
-def register(nombre: UsuarioCreate, db: Session = Depends(get_db)):
+def register(usuario: UsuarioCreate, db: Session = Depends(get_db)):
     try:
-        return Usuario.crear_usuario(db, nombre)
+        return Usuario.crear_usuario(db, usuario)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
 @router.post("/login")
-def login(user: UsuarioCreate, db: Session = Depends(get_db)):
+def login(usuario: UsuarioCreate, db: Session = Depends(get_db)):
     # Accepting same payload for simplicity: username + password present
-    return Auth.login_user(db, user.usuario, user.contrasena)
+    return Auth.login_user(db, usuario.nombre, usuario.contrasena)
 
 @router.post("/logout")
-def logout(user: UsuarioCreate, db: Session = Depends(get_db)):
-    return Auth.logout_user(db, user.usuario)     
+def logout(usuario: UsuarioCreate, db: Session = Depends(get_db)):
+    return Auth.logout_user(db, usuario.nombre)     
