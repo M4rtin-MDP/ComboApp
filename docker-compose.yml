@@ -7,7 +7,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - DATABASE_URL=postgresql://user:password@db:5432/mydb
+      - DATABASE_URL=postgresql://user:password@db:6543/mydb
       - SECRET_KEY=dev-secret-key-change-in-production
       - ENVIRONMENT=development
     volumes:
@@ -39,7 +39,7 @@ services:
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=mydb
     ports:
-      - "5432:5432"
+      - "6543:6543"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
