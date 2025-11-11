@@ -6,14 +6,17 @@ from app.models import Usuario
 def get_usuarios(db: Session):
     return db.query(Usuario).all()
 
-def get_usuario(db: Session, id_usuario: int):
-    return db.query(Usuario).filter(Usuario.id_usuario == id_usuario).first()
+def get_usuario(db: Session, user_email: str):
+    return db.query(Usuario).filter(Usuario.email == user_email).first()
 
-def get_usuario(db: Session, nombre: str):
-    return db.query(Usuario).filter(Usuario.nombre == nombre).first()
+def get_usuario_id(db: Session, user_email: str):
+    '''
+        Obtiene el ID del usuario a partir de su email
+    '''
+    return db.query(Usuario.id_usuario).filter(Usuario.email == user_email).first()
 
-def create_usuario(db: Session, usuario: Usuario):
-    db_usuario = Usuario(**usuario.dict())
+def create_usuario(db: Session, usuario: UsuarioCreate):
+    db_usuario = Usuario(**usuario.model_dump())
     db.add(db_usuario)
     db.commit()
     db.refresh(db_usuario)

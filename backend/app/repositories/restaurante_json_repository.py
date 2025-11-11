@@ -18,7 +18,4 @@ def get__todos_restaurantes() -> dict:
     return get_json()
     
 
-def get_restaurante(db: Session, id_restaurante: int):
-    return db.query(Restaurante).filter(Restaurante.id_restaurante == id_restaurante).first()
-
 

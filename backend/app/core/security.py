@@ -16,11 +16,18 @@ def hash_password(password: str):
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
-def create_access_token(data: dict, expires_delta):
+def create_access_token(data: dict):
     to_encode = data.copy()
-    expire = datetime.now(timezone.utc) + (expires_delta or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES))
+    expire = datetime.now(timezone.utc) + (timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES))
     to_encode.update({"exp": expire})
     
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+
+
+
+'''password = "1234"
+hashed = pwd_context.hash(password)
+print(f"Hash: {hashed}")
+print(f"Verify: {pwd_context.verify(password, hashed)}")'''
 
 

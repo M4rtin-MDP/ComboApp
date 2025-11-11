@@ -12,6 +12,14 @@ router = APIRouter(
     tags=["Restaurantes"]
 )
 
+@router.get("/restaurantes_json/{id_restaurante}", response_model=Dict)
+def get_restaurante(id_restaurante: int):
+    """
+    Busca restaurantes que tengan disponible la comida y sus ingredientes
+    """
+    return restaurante_service.get_restaurante_json(id_restaurante)
+
+
 @router.post("/disponibles", response_model=List[Dict])
 def listar_restaurantes_disponibles(lista_combo: ComboRequest):
     """

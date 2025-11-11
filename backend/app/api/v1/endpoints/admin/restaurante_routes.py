@@ -11,7 +11,7 @@ router = APIRouter()
 def listar_restaurantes(db: Session = Depends(get_db)):
     return repo.get_restaurantes(db)
 
-@router.get("/{id_restaurante}", response_model=Restaurante)
+@router.get("/{id_restaurante}", response_model=Restaurante, status_code=200)
 def obtener_restaurante(id_restaurante: int, db: Session = Depends(get_db)):
     restaurante = repo.get_restaurante(db, id_restaurante)
     if not restaurante:

@@ -8,7 +8,7 @@ import AddIngredientsView from "./pages/views/AddIngredientsView";
 import AddDrinkView from "./pages/views/AddDrinkView";
 import AddDessertView from "./pages/views/AddDessertView";
 
-localStorage.setItem("token", "fake-dev-token");
+//localStorage.setItem("token", "fake-dev-token");
 
 export default function App() {
   const [token, setToken] = useState(localStorage.getItem("token") || null);
@@ -22,6 +22,7 @@ export default function App() {
     <Router>
       <Routes>
         <Route path="/login" element={<Login onLogin={setToken} />} />
+        {/* Rutas protegidas - Solo si hay token */}
         {token ? (
           <Route element={<AppLayout onLogout={() => setToken(null)} />}>
             <Route path="/home" element={<HomeView />} />

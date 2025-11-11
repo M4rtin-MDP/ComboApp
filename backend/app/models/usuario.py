@@ -8,7 +8,7 @@ class Usuario(Base):
     id_usuario = Column(Integer, primary_key=True, index=True)
     nombre = Column(String, nullable=False)
     contrasena = Column(String, nullable=False)
-    mail = Column(String, nullable=False, unique=True)
+    email = Column(String, nullable=False, unique=True)
     direccion = Column(String, nullable=True)
 
     pedidos = relationship("Pedido", back_populates="usuario")
