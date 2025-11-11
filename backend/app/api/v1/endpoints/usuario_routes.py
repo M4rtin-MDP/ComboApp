@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
 from app.db.database import get_db
-from app.schemas.usuario_schema import Usuario, UsuarioCreate
+from app.schemas.usuario_schema import UsuarioRead, UsuarioCreate
 import app.repositories.usuario_repository as repo
 
 router = APIRouter(
@@ -10,7 +10,7 @@ router = APIRouter(
     tags=["Usuarios"]
 )
 
-@router.get("/", response_model=List[Usuario])
+@router.get("/", response_model=List[UsuarioRead])
 def listar_usuarios(db: Session = Depends(get_db)):
     return repo.get_usuarios(db)
 '''

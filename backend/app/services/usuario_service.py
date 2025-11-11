@@ -11,8 +11,9 @@ class Usuario:
     def obtener_usuario(self, db: Session, id_usuario: int):
         return repo.get_usuario(db, id_usuario)
 
-    def crear_usuario(self, db: Session, usuario: UsuarioCreate):
-        existente = repo.get_usuario(db, usuario.nombre)
+    @staticmethod
+    def crear_usuario(db: Session, usuario: UsuarioCreate):
+        existente = repo.get_usuario(db, usuario.email)
         if existente:
             raise ValueError("El usuario ya existe.")
         usuario.contrasena = hash_password(usuario.contrasena)

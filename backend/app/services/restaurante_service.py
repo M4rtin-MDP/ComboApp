@@ -5,7 +5,15 @@ from typing import Dict, List
 
 
 """Lógica de negocio: matching de combos y cálculo de precios"""
-
+def get_restaurante_json(id_restaurante: int):
+    """
+    Obtiene el restaurante en formato JSON
+    """
+    todos_restaurantes = repo.get__todos_restaurantes()
+    
+    for restaurante in todos_restaurantes:
+        if restaurante["id_restaurante"] == id_restaurante:
+            return restaurante
 
 def buscar_restaurantes_disponibles(combo: ComboRequest) -> List[Dict]:
     """
@@ -69,8 +77,3 @@ def puede_preparar_combo(restaurante: Dict, combo: ComboRequest) -> Dict | bool:
     
     return restaurante
 
-def agregar_precio(combo: ComboRequest, comida_restaurante, ingredientes_restaurante):
-    
-    
-    
-    pass

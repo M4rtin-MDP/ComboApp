@@ -42,7 +42,11 @@ api.interceptors.response.use(
 
 // Auth
 export const register = (data) => api.post('/auth/register', data);
-export const login = (data) => api.post('/auth/login', data);
+
+export async function login(credentials) {
+  const res = await api.post("/auth/login", credentials);
+  return res.data.token; // asume { token: "..." }
+}
 
 // Ingredientes
 export const getIngredients = () => api.get('/ingredientes');
