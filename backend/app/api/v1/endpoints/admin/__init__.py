@@ -1,7 +1,9 @@
 from fastapi import APIRouter
 
+from .. import ingredientes_comida_routes
+
 # Importar los routers de este subdirectorio
-from . import ingr_comida_routes, restaurante_routes
+from . import restaurante_routes
 
 # Crear un router para todos los endpoints de admin
 admin_router = APIRouter(
@@ -9,7 +11,6 @@ admin_router = APIRouter(
     tags=["Admin"]
 )
 
-admin_router.include_router(ingr_comida_routes.router, prefix= '/ingredientes_x_comida')
 admin_router.include_router(restaurante_routes.router, prefix= '/restaurantes')
 
 # Exponer el router

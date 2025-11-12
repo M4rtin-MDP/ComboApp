@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
 # Importar todos los routers de los archivos .py en este directorio
-from . import auth_routes, categoria_routes, comida_routes, estado_routes, ingrediente_routes, pedido_routes, usuario_routes, restaurantes_routes
+from . import auth_routes, categoria_routes, comida_routes, estado_routes, ingrediente_routes, pedido_routes, usuario_routes, restaurantes_routes, ingredientes_comida_routes
 
 # Importar routers de subdirectorios
 # Nota: La estructura combo y admin ya tienen su propio __init__.py
@@ -19,6 +19,7 @@ v1_router.include_router(combo.combo_router)
 v1_router.include_router(comida_routes.router)
 v1_router.include_router(estado_routes.router)
 v1_router.include_router(ingrediente_routes.router)
+v1_router.include_router(ingredientes_comida_routes.router)
 v1_router.include_router(pedido_routes.router)
 v1_router.include_router(restaurantes_routes.router)
 v1_router.include_router(usuario_routes.router)

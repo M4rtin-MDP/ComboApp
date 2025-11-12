@@ -7,7 +7,6 @@ from typing import Optional
 class ComidaBase(BaseModel):
     id_comida: int
     nombre: str
-    id_categoria: Optional[int] = None
 
 # ----------------------------------------------------
 # CREACIÓN

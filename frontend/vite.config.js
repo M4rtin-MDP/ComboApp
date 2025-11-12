@@ -4,12 +4,12 @@ import path from 'path'
 
 export default defineConfig({
   plugins: [react()],
-  /*
+  
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'), // Permite importar con '@'
     },
-  },*/
+  },
   server: {
     port: 5173,          // Puerto del servidor local
     open: true,          // Abre el navegador automáticamente

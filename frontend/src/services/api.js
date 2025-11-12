@@ -7,6 +7,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 // Crear instancia de axios
 const api = axios.create({ 
   baseURL: API_URL,
+  timeout: 10000,
   headers: {
     'Content-Type': 'application/json'
   }
@@ -38,21 +39,5 @@ api.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
-
-// Auth
-export const register = (data) => api.post('/auth/register', data);
-
-export async function login(credentials) {
-  const res = await api.post("/auth/login", credentials);
-  return res.data.token; // asume { token: "..." }
-}
-
-// Ingredientes
-export const getIngredients = () => api.get('/ingredientes');
-
-// Combos
-export const getCombos = () => api.get('/combos');
-export const createCombo = (data) => api.post('/combos', data);
 
 export default api

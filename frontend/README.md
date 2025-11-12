@@ -3,157 +3,40 @@
 ## Estructura de Carpetas
 
 ```
-frontend/
-├── public/
-│   ├── index.html
-│   ├── favicon.ico
-│   └── assets/                          # Imágenes estáticas, iconos
+📦 my-app/
 │
-├── src/
-│   ├── api/
-│   │   ├── axios.js                     # Configuración de Axios (interceptors, base URL)
-│   │   ├── authApi.js                   # Endpoints de autenticación
-│   │   ├── userApi.js                   # Endpoints de usuarios
-│   │   └── itemApi.js                   # Endpoints de items
-│   │
-│   ├── assets/
-│   │   ├── images/                      # Imágenes del proyecto
-│   │   ├── icons/                       # Iconos SVG
-│   │   └── styles/                      # Estilos globales
-│   │       ├── globals.css
-│   │       └── variables.css
-│   │
-│   ├── components/
-│   │   ├── common/                      # Componentes reutilizables
-│   │   │   ├── Button/
-│   │   │   │   ├── Button.jsx
-│   │   │   │   ├── Button.module.css    # CSS Modules (opcional)
-│   │   │   │   └── index.js             # Re-export
-│   │   │   ├── Input/
-│   │   │   │   ├── Input.jsx
-│   │   │   │   └── index.js
-│   │   │   ├── Modal/
-│   │   │   │   ├── Modal.jsx
-│   │   │   │   └── index.js
-│   │   │   ├── Loader/
-│   │   │   │   ├── Loader.jsx
-│   │   │   │   └── index.js
-│   │   │   └── Card/
-│   │   │       ├── Card.jsx
-│   │   │       └── index.js
-│   │   │
-│   │   └── layout/                      # Componentes de layout
-│   │       ├── Navbar/
-│   │       │   ├── Navbar.jsx
-│   │       │   └── index.js
-│   │       ├── Sidebar/
-│   │       │   ├── Sidebar.jsx
-│   │       │   └── index.js
-│   │       ├── Footer/
-│   │       │   ├── Footer.jsx
-│   │       │   └── index.js
-│   │       └── Layout/
-│   │           ├── Layout.jsx           # Wrapper principal
-│   │           └── index.js
-│   │
-│   ├── pages/                           # Páginas/Vistas principales
-│   │   ├── Home/
-│   │   │   ├── Home.jsx
-│   │   │   └── index.js
-│   │   ├── Login/
-│   │   │   ├── Login.jsx
-│   │   │   └── index.js
-│   │   ├── Register/
-│   │   │   ├── Register.jsx
-│   │   │   └── index.js
-│   │   ├── Dashboard/
-│   │   │   ├── Dashboard.jsx
-│   │   │   └── index.js
-│   │   ├── Profile/
-│   │   │   ├── Profile.jsx
-│   │   │   └── index.js
-│   │   └── NotFound/
-│   │       ├── NotFound.jsx
-│   │       └── index.js
-│   │
-│   ├── features/                        # Lógica por módulo (Redux Toolkit)
-│   │   ├── auth/
-│   │   │   ├── authSlice.js             # Redux slice
-│   │   │   └── authThunks.js            # Acciones asíncronas
-│   │   ├── users/
-│   │   │   ├── userSlice.js
-│   │   │   └── userThunks.js
-│   │   └── items/
-│   │       ├── itemSlice.js
-│   │       └── itemThunks.js
-│   │
-│   ├── hooks/                           # Custom hooks
-│   │   ├── useAuth.js                   # Hook de autenticación
-│   │   ├── useDebounce.js               # Debounce personalizado
-│   │   ├── useLocalStorage.js           # Manejo de localStorage
-│   │   └── useFetch.js                  # Hook genérico para fetch
-│   │
-│   ├── context/                         # Context API (alternativa a Redux)
-│   │   ├── AuthContext.jsx
-│   │   └── ThemeContext.jsx
-│   │
-│   ├── routes/
-│   │   ├── AppRoutes.jsx                # Configuración de todas las rutas
-│   │   ├── PrivateRoute.jsx             # Rutas protegidas
-│   │   └── PublicRoute.jsx              # Rutas públicas
-│   │
-│   ├── store/                           # Redux store
-│   │   └── store.js                     # Configuración del store
-│   │
-│   ├── utils/
-│   │   ├── constants.js                 # Constantes globales
-│   │   ├── helpers.js                   # Funciones auxiliares
-│   │   ├── validators.js                # Validaciones
-│   │   └── formatters.js                # Formateo de datos
-│   │
-│   ├── App.jsx                          # Componente principal
-│   ├── App.css
-│   ├── index.jsx                        # Entry point
-│   └── index.css                        # Estilos globales
+├── 📁 src/
+│   ├── 📁 assets/             # Imágenes, íconos, fuentes, etc.
+│   ├── 📁 components/         # Componentes reutilizables (botones, cards, modales...)
+│   ├── 📁 features/           # Módulos o dominios del negocio (auth, users, products, etc.)
+│   ├── 📁 hooks/              # Custom hooks (useFetch, useAuth, etc.)
+│   ├── 📁 layouts/            # Layouts globales (Navbar, Sidebar, DashboardLayout, etc.)
+│   ├── 📁 pages/              # Páginas principales (Home, Login, Dashboard, etc.)
+│   ├── 📁 routes/             # Configuración del router (React Router)
+│   ├── 📁 services/           # Lógica de conexión a APIs o servicios externos
+│   ├── 📁 store/              # Gestión de estado global (Zustand, Redux, Context API)
+│   ├── 📁 utils/              # Funciones auxiliares, constantes, formateadores
+│   ├── 📁 styles/             # Archivos de estilo global (CSS, SCSS, Tailwind config, etc.)
+│   ├── main.jsx               # Punto de entrada de React (renderiza <App />)
+│   ├── App.jsx                # Raíz del componente principal
+│   └── index.css              # Estilos globales o importación base de Tailwind
 │
-├── .env                                 # Variables de entorno (NO commitear)
-├── .env.example                         # Ejemplo de variables
-├── .gitignore
+├── 📁 public/                 # Archivos estáticos públicos
+│   └── favicon.ico
+│
+├── .env                       # Variables de entorno
+├── .eslintrc.cjs              # Configuración de linting
+├── .prettierrc                # Configuración de formato
+├── vite.config.js             # Configuración de Vite
 ├── package.json
-├── package-lock.json
-├── vite.config.js                       # Configuración de Vite
-├── eslint.config.js                     # Configuración de ESLint
-├── prettier.config.js                   # Configuración de Prettier
-├── Dockerfile
 └── README.md
+
 ```
 
 ## Descripción de Componentes
 
-### `src/api/`
-Capa de comunicación con el backend. Centraliza todas las llamadas HTTP.
-
-### `src/components/`
-- **common/**: Componentes reutilizables en toda la app
-- **layout/**: Componentes estructurales (Navbar, Footer, etc.)
-
-### `src/pages/`
-Componentes de nivel superior que representan páginas completas.
-
-### `src/features/`
-Arquitectura por features usando Redux Toolkit. Cada feature tiene su slice y lógica.
-
-### `src/hooks/`
-Custom hooks para reutilizar lógica entre componentes.
-
-### `src/routes/`
-Configuración de React Router con rutas protegidas y públicas.
-
-### `src/store/`
-Configuración del store de Redux con todos los reducers.
-
-### `src/utils/`
-Funciones de utilidad, constantes y helpers.
+## public/
+Contenido: Archivos estáticos que no cambian (favicon, robots.txt, imágenes públicas, etc.).
 
 ## Stack Tecnológico Recomendado
 
@@ -293,3 +176,4 @@ api.interceptors.response.use(
 
 export default api;
 ```
+

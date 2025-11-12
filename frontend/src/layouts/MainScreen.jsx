@@ -1,11 +1,21 @@
 import React, { useState, useEffect } from "react";
-import api from "../api/client";
-import HomeView from "./views/HomeView";
-import UserView from "./views/UserView";
-import AddFoodView from "./views/AddFoodView";
-import AddIngredientsView from "./views/AddIngredientsView";
-import AddDrinkView from "./views/AddDrinkView";
-import AddDessertView from "./views/AddDessertView";
+import api from "../services/api";
+import Home from "../pages/Home/Home";
+import UserView from "../pages/views/UserView";
+import AddFoodView from "../pages/views/AddFoodView";
+import AddIngredientsView from "../pages/views/AddIngredientsView";
+import AddDrinkView from "../pages/views/AddDrinkView";
+import AddDessertView from "../pages/views/AddDessertView";
+
+/**
+ * El componente MainScreen (o MainLayout, o AppLayout) no es una página, sino una plantilla o contenedor principal que envuelve las páginas que comparten la misma estructura general.
+ * Por ejemplo, si todas tus pantallas de usuario autenticado tienen:
+ * Una barra lateral (Sidebar)
+ * Un Navbar
+ * Un footer
+ * Y un área de contenido central. 
+ * MainScreen define esa estructura.
+ */
 
 export default function MainScreen({ onLogout }) {
   const [view, setView] = useState("home");
@@ -52,7 +62,7 @@ export default function MainScreen({ onLogout }) {
     switch (view) {
       case "home":
         return (
-          <HomeView
+          <Home
             setView={setView}
             verSugerencias={verSugerencias}
             onLogout={onLogout}
