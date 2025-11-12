@@ -1,0 +1,57 @@
+/* src/components/pedido/IngredientSelector/IngredientSelector.module.css */
+.section h2 {
+  margin-bottom: 30px;
+  font-size: 2rem;
+  color: #333;
+  text-align: center;
+}
+
+.ingredientsList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.ingredientItem {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.3s;
+}
+
+.ingredientItem:hover {
+  border-color: #667eea;
+  transform: translateX(5px);
+}
+
+.ingredientItem.selected {
+  border-color: #667eea;
+  background: #f0f4ff;
+}
+
+.ingredientInfo h4 {
+  margin: 0;
+  color: #333;
+}
+
+.checkbox {
+  width: 30px;
+  height: 30px;
+  border: 2px solid #667eea;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: #667eea;
+}
+
+.selected .checkbox {
+  background: #667eea;
+  color: white;
+}

@@ -1,50 +1,115 @@
-import React, { useState } from "react";
-import api from "../../api/client";
+// src/pages/Login/Login.jsx
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuthContext } from '@/store/contexts/AuthContext';
+import styles from './Login.module.css';
 
-export default function Login({ onLogin }) {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+const Login = () => {
+  const navigate = useNavigate();
+  const { login, isAuthenticated } = useAuthContext();
+  
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  });
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = async (e) => {
+  // Si ya está autenticado, redirige al home
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/home', { replace: true });
+    }
+  }, [isAuthenticated, navigate]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    // Limpiar error al escribir
+    if (error) setError('');
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
+    setError('');
+    setLoading(true);
+
     try {
-      const res = await api.post("/auth/login", { username, password });
-      localStorage.setItem("token", res.data.access_token);
-      onLogin(res.data.access_token);
+      const result = await login(formData);
+
+      if (result.success) {
+        navigate('/home', { replace: true });
+      } else {
+        setError(result.message);
+      }
     } catch (err) {
-      setError("Credenciales incorrectas o servidor no disponible.");
+      setError('Error de conexión. Intenta de nuevo.');
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <form
-        onSubmit={handleLogin}
-        className="bg-white p-8 rounded shadow-md w-80 flex flex-col gap-4"
-      >
-        <h2 className="text-xl font-bold text-center text-orange-600">🍔 ComboApp</h2>
-        <input
-          type="text"
-          placeholder="Usuario"
-          className="border p-2 rounded"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Contraseña"
-          className="border p-2 rounded"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {error && <p className="text-red-500 text-sm text-center">{error}</p>}
-        <button type="submit" className="bg-orange-500 text-white py-2 rounded hover:bg-orange-600">
-          Ingresar
-        </button>
-      </form>
+    <div className={styles.container}>
+      <div className={styles.loginBox}>
+        <div className={styles.header}>
+          <h1>🍔 ComboApp</h1>
+          <p>Arma tu combo perfecto</p>
+        </div>
+
+        <form onSubmit={handleSubmit} className={styles.form}>
+          {error && (
+            <div className={styles.error}>
+              {error}
+            </div>
+          )}
+
+          <div className={styles.inputGroup}>
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="tu@email.com"
+              required
+              disabled={loading}
+            />
+          </div>
+
+          <div className={styles.inputGroup}>
+            <label htmlFor="password">Contraseña</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="••••••••"
+              required
+              disabled={loading}
+            />
+          </div>
+
+          <button 
+            type="submit" 
+            className={styles.submitBtn}
+            disabled={loading}
+          >
+            {loading ? 'Iniciando sesión...' : 'Iniciar Sesión'}
+          </button>
+        </form>
+
+        <div className={styles.footer}>
+          <p>¿No tienes cuenta? <a href="#">Regístrate</a></p>
+        </div>
+      </div>
     </div>
   );
-}
+};
 
+export default Login;

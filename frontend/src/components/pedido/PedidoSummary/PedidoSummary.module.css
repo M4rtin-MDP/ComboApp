@@ -1,0 +1,128 @@
+/* src/components/pedido/PedidoSummary/PedidoSummary.module.css */
+.sidebar {
+  width: 350px;
+  position: sticky;
+  top: 100px;
+  height: fit-content;
+  flex-shrink: 0;
+}
+
+.sidebarContent {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.sidebarContent h3 {
+  margin: 0 0 25px 0;
+  color: #333;
+  font-size: 1.5rem;
+  text-align: center;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.summarySection {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.summarySection:last-of-type {
+  border-bottom: none;
+}
+
+.label {
+  font-size: 0.85rem;
+  color: #999;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  letter-spacing: 0.5px;
+}
+
+.value {
+  font-size: 1.1rem;
+  color: #333;
+  font-weight: 600;
+  margin: 0;
+}
+
+.ingredientList {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0 0;
+}
+
+.ingredientList li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  transition: all 0.2s;
+}
+
+.ingredientList li:hover {
+  background: #e9ecef;
+}
+
+.ingredientList span {
+  color: #667eea;
+  font-weight: 500;
+}
+
+.removeBtn {
+  background: #ff4757;
+  color: white;
+  border: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.removeBtn:hover {
+  background: #ff3838;
+  transform: scale(1.1);
+}
+
+.finishBtn {
+  width: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: all 0.3s;
+}
+
+.finishBtn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+.finishBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 1200px) {
+  .sidebar {
+    width: 100%;
+    position: relative;
+    top: 0;
+  }
+}

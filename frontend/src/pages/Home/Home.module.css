@@ -1,0 +1,124 @@
+/* src/pages/Home/Home.module.css */
+.container {
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+.header {
+  background: white;
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.userMenu {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.userMenu span {
+  font-weight: 500;
+  color: #666;
+}
+
+.logoutBtn {
+  background: #ff4757;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.logoutBtn:hover {
+  background: #ff3838;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 71, 87, 0.3);
+}
+
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.welcome {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.welcome h2 {
+  font-size: 2.5rem;
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.welcome p {
+  font-size: 1.2rem;
+  color: #666;
+  margin: 0;
+}
+
+.actionCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.card {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.cardIcon {
+  font-size: 4rem;
+  margin-bottom: 15px;
+}
+
+.card h3 {
+  margin: 0 0 10px 0;
+  color: #333;
+  font-size: 1.3rem;
+}
+
+.card p {
+  color: #666;
+  margin: 0 0 20px 0;
+}
+
+.cardBtn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+
+.cardBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}

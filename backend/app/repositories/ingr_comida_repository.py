@@ -4,34 +4,27 @@ from app.models import Ingrediente, IngrComida
 from app.schemas import IngrComidaCreate
 
 # Esta funcion retorna los ingredientes asociados a una comida base 
-def get_ingredientes_comida(db: Session, comida: int):
-    return db.query(IngrComida).filter(IngrComida.id_comida == comida).all()
+'''def get_ingredientes_comida(db: Session, comida: int):
+    return db.query(IngrComida).filter(IngrComida.id_comida == comida).all()'''
 #------------------------------------------------------------  
-'''
+
 def get_ingredientes_comida(db: Session, id_comida: int):
     """
     Devuelve los ingredientes disponibles (disponible=True)
     de una comida específica, incluyendo el nombre del ingrediente.
     """
-    resultados = (
-        db.query(
-            Ingrediente.id_ingrediente.label("id_ingrediente"),
-            Ingrediente.nombre.label("nombre")
-        )
-        .innerjoin(Ingrediente, Ingrediente.id_ingrediente == IngrComida.id_ingrediente)
-        .filter(IngrComida.id_comida == id_comida)
-        .filter(IngrComida.disponible.is_(True))
-        .all()
-    )
+    resultados = db.query(
+        Ingrediente.id_ingrediente,
+        Ingrediente.nombre
+        ).join(
+            IngrComida
+        ).filter(
+            IngrComida.id_comida == id_comida
+        ).all()
+        
+    return resultados
+    
 
-    return [
-        {
-            "id_ingrediente": r.id_ingrediente,
-            "nombre": r.nombre
-        }
-        for r in resultados
-    ]
-'''
 def create_ingr_comida(db: Session, ingr: IngrComidaCreate):
     db_ingr = IngrComida(**ingr.dict())
     db.add(db_ingr)

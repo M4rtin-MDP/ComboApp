@@ -25,9 +25,3 @@ def create_access_token(data: dict):
 
 
 
-'''password = "1234"
-hashed = pwd_context.hash(password)
-print(f"Hash: {hashed}")
-print(f"Verify: {pwd_context.verify(password, hashed)}")'''
-
-

@@ -32,6 +32,27 @@ class ComidaSolicitada(BaseModel):
     nombre: str
     id_ingrediente: List[int]
     ingredientes: List[str]
+    
+    class Config:
+        schema_extra = {
+                1: {
+                    "nombre": "hamburguesa",
+                    "id_ingrediente":[1, 2, 3, 4],
+                    "ingredientes": ["manzana", "platano", "naranja", "pera"]
+                },
+                
+                4:{
+                    "nombre": "agua",
+                    "id_ingrediente": [],
+                    "ingredientes": []
+                },
+                
+                12:{
+                    "comida": "flan", 
+                    "id_ingrediente":[1],
+                    "ingredientes": ["crema"]
+                }
+        }
 
 
 # Lista que recibo del cliente
