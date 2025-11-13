@@ -8,8 +8,6 @@ from typing import Dict
 
 class Auth:
     
-    # === Configuración del contexto bcrypt ===
-    pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
     # === Funciones de autenticación ===
     @classmethod
@@ -29,14 +27,6 @@ class Auth:
         return cls.generate_token_for_user(usuario)
 
 
-    @classmethod
-    def get_password_hash(cls, password: str) -> str:
-        """Genera un hash seguro con bcrypt (máx. 72 bytes)"""
-        if isinstance(password, bytes):
-            password = password.decode("utf-8")
-        # Truncamos manualmente si supera los 72 bytes
-        password = password[:72]
-        return cls.pwd_context.hash(password)
     
     @classmethod
     def generate_token_for_user(cls, user: UsuarioRead)-> Dict:

@@ -34,11 +34,9 @@ def buscar_restaurantes_disponibles(combo: List[ComidaSolicitada]) -> List[Dict]
 def puede_preparar_combo(restaurante: Dict, combo: List[ComidaSolicitada]) -> Dict | bool:
     """Verifica si el restaurante tiene la comida con sus ingredientes"""
     
-    print(f"Verificando restaurante: {restaurante['nombre']}")
     comidas_combo:List = []
     
     for  comida_solicitada in combo:
-        print( comida_solicitada)
         id_comida_solicitada = str(comida_solicitada.id_comida)
         
         # Si no esta disponible, salgo
@@ -49,7 +47,6 @@ def puede_preparar_combo(restaurante: Dict, combo: List[ComidaSolicitada]) -> Di
         # diccionario combo + los precios de cada restaurante
         lista_precio_ingr = []
         
-        #print(str(comida_solicitada.id_ingrediente))
         # Verifica que tenga todos los ingredientes
         for id_ingrediente in comida_solicitada.id_ingrediente:
             id_ingrediente_solicitada = str(id_ingrediente)
@@ -58,7 +55,6 @@ def puede_preparar_combo(restaurante: Dict, combo: List[ComidaSolicitada]) -> Di
             if not restaurante["ingredientes"][id_ingrediente_solicitada]["disponible"]:
                 return False
             
-            # TODO: guardar solamente los ingredientes solicitados
             # Guardo el precio del ingrediente
             lista_precio_ingr.append(restaurante["ingredientes"][id_ingrediente_solicitada]["precio"])
             

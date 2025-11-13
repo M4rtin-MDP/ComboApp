@@ -5,8 +5,7 @@ from app.db.database import get_db
 from app.schemas.comida_base_schema import ComidaBase, ComidaBaseCreate
 import app.repositories.comida_repository as repo
 from app.core.registry import Registry
-from app.services.producto.producto_service import Producto
-from app.services.producto.ingredientes import Ingrediente
+from app.services.producto_service import Producto
 
 router = APIRouter(
     prefix="/comidas", 

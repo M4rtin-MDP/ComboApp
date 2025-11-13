@@ -4,8 +4,6 @@ from typing import List
 from app.db.database import get_db
 from app.schemas.combo_schema import Combo, ComboCreate
 import app.repositories.combo_repository as repo
-from app.services.producto.producto_service import Producto
-from app.core.registry import Registry
 
 router = APIRouter()
 
@@ -38,19 +36,7 @@ def eliminar_combo(id_combo: int, db: Session = Depends(get_db)):
 
 @router.post("/{id_pedido}", response_model=Combo)
 async def crear_combo(id_pedido: int, combo: ComboCreate, db:Session = Depends(get_db)):
-    
-    '''lista_combo: ListaCombo
-    comida = lista_combo.comida
-    ingredientes = lista_combo.ingredientes
-    
-    # Instancio la clase Producto (Hamburguesa, Pizza, ...) 
-    clase_producto:Producto = Registry.create_producto(comida)
-    
-    for ingrediente in ingredientes:
-        # Obtener la clase del ingrediente y decorar el producto
-        clase_producto: Producto = Registry.create_ingrediente(ingrediente, clase_producto)'''
         
-    
     #tabla Combo
     create = repo.create_combo(db, combo, id_pedido)
     

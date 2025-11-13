@@ -54,13 +54,6 @@ const Home = () => {
           </div>
 
           <div className={styles.card}>
-            <div className={styles.cardIcon}>⭐</div>
-            <h3>Mis pedidos Favoritos</h3>
-            <p>Accede rápido a tus combos favoritos</p>
-            <button className={styles.cardBtn}>Ver Favoritos</button>
-          </div>
-
-          <div className={styles.card}>
             <div className={styles.cardIcon}>⚙️</div>
             <h3>Opciones de Usuario</h3>
             <p>Configura tu perfil y preferencias</p>
