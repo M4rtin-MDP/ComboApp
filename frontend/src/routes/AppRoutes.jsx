@@ -6,7 +6,8 @@ import PrivateRoute from './PrivateRoutes';
 const Login = lazy(() => import('@/pages/Login/Login'));
 const Home = lazy(() => import('@/pages/Home/Home'));
 const Pedido = lazy(() => import('@/pages/Pedido/Pedido'));
-const Restaurantes = lazy(() => import('@/pages/Restaurantes/Restaurantes'));
+const RestaurantesDisponibles = lazy(() => import('@/pages/RestaurantesDisponibles/RestaurantesDisponibles'));
+
 
 const AppRoutes = () => {
   return (
@@ -19,7 +20,7 @@ const AppRoutes = () => {
           <Route element={<PrivateRoute />}>
             <Route path="/home" element={<Home />} />
             <Route path="/pedido" element={<Pedido />} />
-            <Route path="/restaurantes/disponibles_total" element={<Restaurantes />} />
+            <Route path="/pedido/restaurantes-disponibles" element={<RestaurantesDisponibles />} />
           </Route>
 
           <Route path="*" element={<Navigate to="/login" replace />} />

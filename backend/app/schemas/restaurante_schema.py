@@ -29,57 +29,34 @@ class RestauranteDisponible(BaseModel):
 
 
 class ComidaSolicitada(BaseModel):
+
+    id_comida: int
     nombre: str
     id_ingrediente: List[int]
     ingredientes: List[str]
     
     class Config:
         schema_extra = {
-                1: {
+            "example": [
+                {
+                    "id_comida": 1,
                     "nombre": "hamburguesa",
-                    "id_ingrediente":[1, 2, 3, 4],
+                    "id_ingrediente": [1, 2, 3, 4],
                     "ingredientes": ["manzana", "platano", "naranja", "pera"]
                 },
-                
-                4:{
+                {
+                    "id_comida": 4,
                     "nombre": "agua",
                     "id_ingrediente": [],
                     "ingredientes": []
                 },
-                
-                12:{
-                    "comida": "flan", 
-                    "id_ingrediente":[1],
+                {
+                    "id_comida": 12,
+                    "nombre": "flan",
+                    "id_ingrediente": [1],
                     "ingredientes": ["crema"]
                 }
+            ]
         }
 
 
-# Lista que recibo del cliente
-class ComboRequest(BaseModel):
-    comidas: Dict[int, ComidaSolicitada]
-    
-    # Documentacion
-    class Config:
-        schema_extra = {
-            "example":{
-                1: {
-                    "nombre": "hamburguesa",
-                    "id_ingrediente":[1, 2, 3, 4],
-                    "ingredientes": ["manzana", "platano", "naranja", "pera"]
-                },
-                
-                4:{
-                    "nombre": "agua",
-                    "id_ingrediente": [],
-                    "ingredientes": []
-                },
-                
-                12:{
-                    "comida": "flan", 
-                    "id_ingrediente":[1],
-                    "ingredientes": ["crema"]
-                }
-            }
-        }
-        

@@ -1,0 +1,376 @@
+/* src/pages/RestaurantesDisponibles/RestaurantesDisponibles.module.css */
+
+.container {
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+/* Header */
+.header {
+  background: white;
+  padding: 20px 40px;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.backBtn {
+  background: transparent;
+  border: 1px solid #ddd;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.backBtn:hover {
+  background: #f5f5f5;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 24px;
+  color: #333;
+}
+
+.subtitle {
+  margin: 4px 0 0 0;
+  font-size: 14px;
+  color: #666;
+}
+
+/* Loading */
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  gap: 20px;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Content Layout */
+.content {
+  display: flex;
+  gap: 20px;
+  padding: 20px 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Resumen del Pedido (Sidebar) */
+.pedidoResumen {
+  width: 300px;
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  height: fit-content;
+  position: sticky;
+  top: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.pedidoResumen h3 {
+  margin: 0 0 20px 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.pedidoItems {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pedidoItem {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.itemNumber {
+  font-weight: 600;
+  color: #007bff;
+}
+
+.itemInfo {
+  flex: 1;
+}
+
+.itemNombre {
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 4px 0;
+  font-size: 14px;
+}
+
+.itemCategoria {
+  font-size: 12px;
+  color: #666;
+  margin: 0 0 4px 0;
+}
+
+.itemIngredientes {
+  font-size: 11px;
+  color: #999;
+  margin: 0;
+  font-style: italic;
+}
+
+/* Main Content */
+.main {
+  flex: 1;
+}
+
+.mainTitle {
+  font-size: 20px;
+  color: #333;
+  margin: 0 0 24px 0;
+}
+
+/* Error */
+.errorContainer {
+  background: white;
+  border-radius: 12px;
+  padding: 60px 40px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.errorIcon {
+  font-size: 64px;
+  margin-bottom: 20px;
+}
+
+.errorContainer h2 {
+  font-size: 24px;
+  color: #333;
+  margin: 0 0 12px 0;
+}
+
+.errorContainer p {
+  font-size: 16px;
+  color: #666;
+  margin: 0 0 24px 0;
+}
+
+.errorBtn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.errorBtn:hover {
+  background: #0056b3;
+}
+
+/* Restaurantes Grid */
+.restaurantesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.restauranteCard {
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.restauranteCard:hover {
+  border-color: #007bff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
+}
+
+.restauranteCard.selected {
+  border-color: #28a745;
+  background: #f0f9f4;
+}
+
+.checkmark {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: #28a745;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.restauranteHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 16px;
+  padding-right: 40px;
+}
+
+.restauranteHeader h3 {
+  margin: 0;
+  font-size: 20px;
+  color: #333;
+}
+
+.badge {
+  background: #28a745;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.restauranteInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.label {
+  color: #666;
+  font-weight: 500;
+}
+
+.value {
+  color: #333;
+  font-family: monospace;
+}
+
+.preciosContainer {
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px solid #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.precioItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.precioLabel {
+  font-size: 13px;
+  color: #666;
+}
+
+.precioValor {
+  font-size: 14px;
+  color: #333;
+  font-weight: 500;
+}
+
+.precioTotal {
+  font-size: 18px;
+  color: #28a745;
+  font-weight: 700;
+}
+
+/* Confirm Section */
+.confirmSection {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: center;
+}
+
+.confirmBtn {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 16px 48px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.confirmBtn:hover:not(:disabled) {
+  background: #218838;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+.confirmBtn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .content {
+    flex-direction: column;
+  }
+  
+  .pedidoResumen {
+    width: 100%;
+    position: static;
+  }
+  
+  .restaurantesGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 16px 20px;
+  }
+  
+  .content {
+    padding: 16px 20px;
+  }
+  
+  .restauranteCard {
+    padding: 16px;
+  }
+}

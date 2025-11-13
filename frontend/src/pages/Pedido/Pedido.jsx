@@ -19,9 +19,13 @@ const Pedido = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  // Estado para el item actual que se está armando
   const [selectedCategoria, setSelectedCategoria] = useState(null);
   const [selectedComida, setSelectedComida] = useState(null);
   const [selectedIngredientes, setSelectedIngredientes] = useState([]);
+  
+  // Carrito con todos los items agregados - INICIALIZADO
+  const [carrito, setCarrito] = useState([]);
   
   useEffect(() => {
     loadCategorias();
@@ -66,7 +70,10 @@ const Pedido = () => {
     const result = await ingredientesService.getIngredientesByComida(comida.id_comida);
     
     if (result.success) {
-      setIngredientes(result.data);
+      const ingredientesData = result.data || [];
+      setIngredientes(ingredientesData);
+      
+      // Si no hay ingredientes, ir directo a paso 3 pero permitir agregar sin ingredientes
       setStep(3);
     } else {
       setError(result.message);
@@ -99,15 +106,66 @@ const Pedido = () => {
     }
   };
 
-  const handleFinalizarPedido = () => {
-    const pedido = {
+  // Nueva función: Agregar item actual al carrito
+  const handleAgregarItem = () => {
+    if (!selectedCategoria || !selectedComida) {
+      alert('Debes seleccionar al menos una categoría y comida');
+      return;
+    }
+
+    const nuevoItem = {
+      id: Date.now(), // ID único para cada item
       categoria: selectedCategoria,
       comida: selectedComida,
-      ingredientes: selectedIngredientes
+      ingredientes: [...selectedIngredientes] // Puede ser array vacío
     };
     
-    console.log('Pedido armado:', pedido);
-    alert('¡Pedido creado exitosamente!');
+    setCarrito(prev => [...prev, nuevoItem]);
+    
+    // Resetear selección actual para agregar otro item
+    setStep(1);
+    setSelectedCategoria(null);
+    setSelectedComida(null);
+    setSelectedIngredientes([]);
+    setComidas([]);
+    setIngredientes([]);
+  };
+
+  // Función para remover un item completo del carrito
+  const handleRemoveItem = (itemId) => {
+    setCarrito(prev => prev.filter(item => item.id !== itemId));
+  };
+
+  // Función para remover un ingrediente del item actual (antes de agregarlo al carrito)
+  const handleRemoveIngredienteActual = (ingrediente) => {
+    handleToggleIngrediente(ingrediente);
+  };
+
+  const handleFinalizarPedido = () => {
+    // Si hay algo seleccionado actualmente, agregarlo primero
+    let pedidoFinal = [...carrito];
+    
+    if (selectedCategoria && selectedComida) {
+      const itemActual = {
+        id: Date.now(),
+        categoria: selectedCategoria,
+        comida: selectedComida,
+        ingredientes: [...selectedIngredientes]
+      };
+      pedidoFinal = [...carrito, itemActual];
+    }
+
+    if (pedidoFinal.length === 0) {
+      alert('Debes agregar al menos un item al pedido');
+      return;
+    }
+    
+    console.log('Pedido final:', pedidoFinal);
+    
+    // Navegar a la página de restaurantes disponibles con el pedido
+    navigate('/pedido/restaurantes-disponibles', { 
+      state: { pedido: pedidoFinal }
+    });
   };
 
   return (
@@ -155,12 +213,20 @@ const Pedido = () => {
         </main>
 
         <PedidoSummary 
-          categoria={selectedCategoria}
-          comida={selectedComida}
-          ingredientes={selectedIngredientes}
-          onRemoveIngrediente={handleToggleIngrediente}
+          // Item actual siendo editado
+          categoriaActual={selectedCategoria}
+          comidaActual={selectedComida}
+          ingredientesActuales={selectedIngredientes}
+          onRemoveIngredienteActual={handleRemoveIngredienteActual}
+          
+          // Carrito completo
+          carrito={carrito}
+          onRemoveItem={handleRemoveItem}
+          
+          // Acciones
+          onAgregarItem={handleAgregarItem}
           onFinalizarPedido={handleFinalizarPedido}
-          showFinishButton={step === 3}
+          showActionButtons={step >= 2 && selectedComida !== null}
         />
       </div>
     </div>
