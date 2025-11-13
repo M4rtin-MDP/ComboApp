@@ -1,57 +1,136 @@
 /* src/components/pedido/IngredientSelector/IngredientSelector.module.css */
-.section h2 {
-  margin-bottom: 30px;
-  font-size: 2rem;
-  color: #333;
-  text-align: center;
-}
 
-.ingredientsList {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.ingredientItem {
-  background: white;
+.container {
   padding: 20px;
-  border-radius: 12px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  border: 2px solid transparent;
-  transition: all 0.3s;
 }
 
-.ingredientItem:hover {
-  border-color: #667eea;
-  transform: translateX(5px);
-}
-
-.ingredientItem.selected {
-  border-color: #667eea;
-  background: #f0f4ff;
-}
-
-.ingredientInfo h4 {
-  margin: 0;
+.container h2 {
+  font-size: 24px;
+  margin-bottom: 8px;
   color: #333;
 }
 
-.checkbox {
-  width: 30px;
-  height: 30px;
-  border: 2px solid #667eea;
-  border-radius: 6px;
+.subtitle {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 24px;
+}
+
+.subtitle strong {
+  color: #007bff;
+}
+
+/* Mensaje cuando no hay ingredientes */
+.noIngredientsMessage {
+  max-width: 500px;
+  margin: 60px auto;
+  text-align: center;
+  padding: 40px;
+  background: #f8f9fa;
+  border: 2px dashed #dee2e6;
+  border-radius: 12px;
+}
+
+.noIngredientsMessage .icon {
+  font-size: 64px;
+  margin-bottom: 20px;
+  color: #28a745;
+}
+
+.noIngredientsMessage h3 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.noIngredientsMessage p {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* Grid de ingredientes */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.card {
+  position: relative;
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+}
+
+.card:hover {
+  border-color: #007bff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
+}
+
+.card.selected {
+  border-color: #28a745;
+  background: #f0f9f4;
+}
+
+.checkmark {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #28a745;
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
-  color: #667eea;
+  font-size: 14px;
+  font-weight: bold;
 }
 
-.selected .checkbox {
-  background: #667eea;
-  color: white;
+.card h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.description {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.selectedCount {
+  text-align: center;
+  padding: 12px;
+  background: #e7f3ff;
+  border-radius: 8px;
+  color: #0056b3;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
+  }
+  
+  .card {
+    padding: 16px;
+  }
+  
+  .noIngredientsMessage {
+    margin: 40px 20px;
+    padding: 30px 20px;
+  }
 }

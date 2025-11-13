@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 from typing import List, Dict
-from app.schemas.restaurante_schema import ComboRequest
 
 
 class CalculadorPrecio(ABC):
@@ -23,13 +22,10 @@ class PrecioBase(CalculadorPrecio):
     def calcular_precio(self, restaurante: Dict) -> float:
         total: float = 0.0
         
-        for id_comida, comida in restaurante["comidas_combo"].items():
-            total += comida['precio_comida']
-            total += sum(comida['precio_ingredientes'])
+        for  dict_comida in restaurante["comidas_combo"]:
+            total += dict_comida['precio_comida']
+            total += sum(dict_comida['precio_ingredientes'])
             
-        '''for id_ingrediente, ingrediente in restaurante["ingredientes"]:
-            total += ingrediente['precio']
-        '''
         return total
     
     def obtener_aplicaciones(self) -> List[str]:

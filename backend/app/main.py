@@ -39,11 +39,9 @@ app.include_router(
 )
 
 
-@app.on_event("startup")
-async def startup_event():
-    from app.core.registry import Registry
-    print(f"Aplicación iniciada")
-    print(f"Clases registradas: {Registry.list_all()}") 
+'''@app.on_event("startup")
+async def startup_event():'''
+
 
 
 # Endpoint RAIZ

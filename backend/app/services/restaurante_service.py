@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from app.repositories import restaurante_json_repository as repo
-from app.schemas.restaurante_schema import  ComboRequest, RestauranteDisponible
+from app.schemas.restaurante_schema import  RestauranteDisponible, ComidaSolicitada
 from typing import Dict, List
 
 
@@ -15,7 +15,7 @@ def get_restaurante_json(id_restaurante: int):
         if restaurante["id_restaurante"] == id_restaurante:
             return restaurante
 
-def buscar_restaurantes_disponibles(combo: ComboRequest) -> List[Dict]:
+def buscar_restaurantes_disponibles(combo: List[ComidaSolicitada]) -> List[Dict]:
     """
     Filtra restaurantes que tienen TODOS los items del combo.
     """
@@ -31,13 +31,15 @@ def buscar_restaurantes_disponibles(combo: ComboRequest) -> List[Dict]:
             
     return restaurantes_disponibles
 
-def puede_preparar_combo(restaurante: Dict, combo: ComboRequest) -> Dict | bool:
+def puede_preparar_combo(restaurante: Dict, combo: List[ComidaSolicitada]) -> Dict | bool:
     """Verifica si el restaurante tiene la comida con sus ingredientes"""
-     
-    comidas_combo:dict = {}
     
-    for id_comida, comida_solicitada in combo.comidas.items():
-        id_comida_solicitada = str(id_comida)
+    print(f"Verificando restaurante: {restaurante['nombre']}")
+    comidas_combo:List = []
+    
+    for  comida_solicitada in combo:
+        print( comida_solicitada)
+        id_comida_solicitada = str(comida_solicitada.id_comida)
         
         # Si no esta disponible, salgo
         if not restaurante["comidas"][id_comida_solicitada]["disponible"]:
@@ -47,6 +49,7 @@ def puede_preparar_combo(restaurante: Dict, combo: ComboRequest) -> Dict | bool:
         # diccionario combo + los precios de cada restaurante
         lista_precio_ingr = []
         
+        #print(str(comida_solicitada.id_ingrediente))
         # Verifica que tenga todos los ingredientes
         for id_ingrediente in comida_solicitada.id_ingrediente:
             id_ingrediente_solicitada = str(id_ingrediente)
@@ -60,13 +63,15 @@ def puede_preparar_combo(restaurante: Dict, combo: ComboRequest) -> Dict | bool:
             lista_precio_ingr.append(restaurante["ingredientes"][id_ingrediente_solicitada]["precio"])
             
         
-        comidas_combo[id_comida_solicitada] = {
+        
+        comidas_combo.append({
             'nombre': restaurante["comidas"][id_comida_solicitada]["nombre"],
             'precio_comida': restaurante["comidas"][id_comida_solicitada]["precio"],
             
             'ingredientes': comida_solicitada.ingredientes,
             'precio_ingredientes': lista_precio_ingr
-        }
+        })
+
             
     restaurante = {
         'nombre': restaurante["nombre"],

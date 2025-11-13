@@ -12,7 +12,6 @@ export const ingredientesService = {
     } catch (error) {
       return {
         success: false,
-        message: error.response?.data?.message || 'Error al obtener ingredientes',
         data: []
       };
     }

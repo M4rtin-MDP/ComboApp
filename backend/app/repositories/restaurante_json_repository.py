@@ -1,6 +1,5 @@
 from sqlalchemy.orm import Session
 from app.models import Restaurante
-#from schemas.restaurante_schema import ComboRequest, RestauranteDisponible #, ComidaDisponible
 import json
 
 '''

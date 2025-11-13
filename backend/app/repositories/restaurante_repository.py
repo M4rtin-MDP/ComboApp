@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from app.models import Restaurante
-from app.schemas.restaurante_schema import ComboRequest, RestauranteDisponible #, ComidaDisponible
+from app.schemas.restaurante_schema import RestauranteDisponible #, ComidaDisponible
 
 
 '''
