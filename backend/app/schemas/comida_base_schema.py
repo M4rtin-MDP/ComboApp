@@ -22,8 +22,8 @@ class ComidaBaseCreate(ComidaBase):
 # ACTUALIZACIÓN
 # ----------------------------------------------------
 class ComidaBaseUpdate(BaseModel):
-    nombre: Optional[str] = None
     id_categoria: Optional[int] = None
+    nombre: Optional[str] = None
 
 # ----------------------------------------------------
 # LECTURA

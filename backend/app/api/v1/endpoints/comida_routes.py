@@ -2,10 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
 from app.db.database import get_db
-from app.schemas.comida_base_schema import ComidaBase, ComidaBaseCreate
+from app.schemas.comida_base_schema import ComidaBase, ComidaBaseCreate, ComidaBaseUpdate
 import app.repositories.comida_repository as repo
-from app.core.registry import Registry
-from app.services.producto_service import Producto
 
 router = APIRouter(
     prefix="/comidas", 
@@ -28,29 +26,16 @@ def obtener_comida(id_comida: int, db: Session = Depends(get_db)):
 def listar_comidas_por_categoria(id_categoria: int, db: Session = Depends(get_db)):
     return repo.get_comidas_por_categoria(db, id_categoria)
 
-'''
-Le paso el id_comida: si es Hamburguesa, Pizza, ...
-'''
-
 
 @router.post("/{id_comida}")
-def crear_comida(id_comida: int, db: Session = Depends(get_db)):
-    '''
-    Creo una comida desde el ID de la base de datos
-    '''
-    nombre_producto = repo.get_clase_producto(db, id_comida)    # Me devuelve el string
-    print('desde BD:', nombre_producto)
-     
-    clase_producto:Producto = Registry.create(nombre_producto)
-    print(clase_producto)
-    
-    #return clase_producto
-
-
-
+def crear_comida(id_comida: int, comida: ComidaBaseCreate, db: Session = Depends(get_db)):
+    updated = repo.update_comida(db, id_comida, comida)
+    if not updated:
+        raise HTTPException(status_code=404, detail="Comida no encontrada")
+    return updated
 
 @router.put("/{id_comida}", response_model=ComidaBase)
-def actualizar_comida(id_comida: int, comida: ComidaBaseCreate, db: Session = Depends(get_db)):
+def actualizar_comida(id_comida: int, comida: ComidaBaseUpdate, db: Session = Depends(get_db)):
     updated = repo.update_comida(db, id_comida, comida)
     if not updated:
         raise HTTPException(status_code=404, detail="Comida no encontrada")
