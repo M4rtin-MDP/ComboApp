@@ -4,9 +4,9 @@ from app.db.database import Base
 
 class ItemIngrediente(Base):
     __tablename__ = "items_ingredientes"
-    id_item_ingre = Column(Integer, primary_key=True, index=True)
-    id_combo = Column(Integer, ForeignKey("combo.id_combo"))
+    item_ingrediente = Column(Integer, primary_key=True, index=True)
+    item_comida = Column(Integer, ForeignKey("items_comida.item_comida"))
     id_ingrediente = Column(Integer, ForeignKey("ingrediente.id_ingrediente"))
 
-    combo = relationship("Combo", back_populates="items_ingredientes")
+    items_comida = relationship("ItemComida", back_populates="items_ingredientes")
     ingrediente = relationship("Ingrediente", back_populates="items_ingredientes")

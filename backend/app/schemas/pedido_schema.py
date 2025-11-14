@@ -20,3 +20,4 @@ class Pedido(PedidoBase):
     id_pedido: int
     class Config:
         from_attributes = True
+        

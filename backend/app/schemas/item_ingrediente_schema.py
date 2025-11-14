@@ -1,14 +1,15 @@
 from pydantic import BaseModel
 
 class ItemIngredienteBase(BaseModel):
-    id_combo: int
+    item_comida: int
     id_ingrediente: int
 
-class ItemIngredienteCreate(ItemIngredienteBase):
-    pass
+class ItemIngredienteCreate(BaseModel):
+    item_comida: int
+    id_ingrediente: int
 
 class ItemIngrediente(ItemIngredienteBase):
-    id_item_ingre: int
+    item_ingrediente: int
 
     class Config:
         from_attributes = True

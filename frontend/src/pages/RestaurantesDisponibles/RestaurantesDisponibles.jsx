@@ -53,18 +53,13 @@ const RestaurantesDisponibles = () => {
       return;
     }
 
-    // Aquí redirigirías al resumen del pedido con el restaurante seleccionado
-    console.log('Restaurante seleccionado:', selectedRestaurante);
-    console.log('Pedido completo:', pedido);
-    
-    // navigate('/pedido/resumen', { 
-    //   state: { 
-    //     pedido, 
-    //     restaurante: selectedRestaurante 
-    //   }
-    // });
-    
-    alert(`Restaurante "${selectedRestaurante.nombre}" seleccionado. Continuaría al resumen del pedido.`);
+    // Navegar al resumen del pedido con el restaurante seleccionado
+    navigate('/pedido/resumen', { 
+      state: { 
+        pedido, 
+        restaurante: selectedRestaurante 
+      }
+    });
   };
 
   const handleVolver = () => {

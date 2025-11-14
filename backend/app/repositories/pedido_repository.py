@@ -10,18 +10,15 @@ def get_pedido(db: Session, id_pedido: int):
     return db.query(Pedido).filter(Pedido.id_pedido == id_pedido).first()
 
 
-def get_ultimo_pedido(db: Session, id_usuario: int):
+def get_pedidos_usuario(db: Session, id_usuario: int):
     '''
-    Devuevle el ultimo pedido del usuario
+    Devuelve todos los pedidos de un usuario
     '''
     query = (
         db.query(Pedido)
         .filter(Pedido.id_usuario == id_usuario)
-        .order_by(desc(Pedido.id_pedido))
     )
-    print("SQL:", query)
-    result = query.first()
-    print("RESULT:", result)
+    result = query.all()
     return result
 
 def create_pedido(db: Session, pedido: PedidoCreate):

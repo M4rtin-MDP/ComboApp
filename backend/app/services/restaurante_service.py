@@ -70,6 +70,7 @@ def puede_preparar_combo(restaurante: Dict, combo: List[ComidaSolicitada]) -> Di
 
             
     restaurante = {
+        'id_restaurante': restaurante["id_restaurante"],
         'nombre': restaurante["nombre"],
         'latitud': restaurante["latitud"],
         'longitud': restaurante["longitud"],

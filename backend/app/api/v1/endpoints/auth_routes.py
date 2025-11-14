@@ -25,7 +25,3 @@ def register(usuario: UsuarioCreate, db: Session = Depends(get_db)):
 @router.post("/login", status_code=status.HTTP_200_OK)
 def login(login: Login, db: Session = Depends(get_db)):
     return Auth.login_user(db, login.email, login.password)
-
-@router.post("/logout")
-def logout(usuario: UsuarioCreate, db: Session = Depends(get_db)):
-    return Auth.logout_user(db, usuario.nombre)     

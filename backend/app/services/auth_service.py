@@ -36,7 +36,7 @@ class Auth:
             "access_token": token,
             "token_type": "bearer",
             "user": {
-                "id": user.id_usuario,
+                "id_usuario": user.id_usuario,
                 "email": user.email,
                 "nombre": user.nombre
             }

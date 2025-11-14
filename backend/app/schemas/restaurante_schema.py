@@ -19,6 +19,7 @@ class Restaurante(RestauranteBase):
     
 # Se va adevolver una Lista de los restaurante disponibles (para que vea el cliente)
 class RestauranteDisponible(BaseModel):
+    id_restaurante: int
     nombre: str
     latitud: float
     longitud: float

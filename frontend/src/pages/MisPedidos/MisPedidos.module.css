@@ -1,0 +1,370 @@
+/* src/pages/MisPedidos/MisPedidos.module.css */
+
+.container {
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+/* Header */
+.header {
+  background: white;
+  padding: 20px 40px;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.backBtn {
+  background: transparent;
+  border: 1px solid #ddd;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.backBtn:hover {
+  background: #f5f5f5;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 24px;
+  color: #333;
+}
+
+/* Loading */
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  gap: 20px;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.spinnerSmall {
+  width: 24px;
+  height: 24px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Main Content */
+.main {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px 40px;
+}
+
+/* Error Box */
+.errorBox {
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.errorBox p {
+  margin: 0;
+  color: #856404;
+  font-weight: 500;
+}
+
+/* Empty State */
+.emptyState {
+  background: white;
+  border-radius: 12px;
+  padding: 60px 40px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.emptyIcon {
+  font-size: 64px;
+  margin-bottom: 20px;
+}
+
+.emptyState h2 {
+  font-size: 24px;
+  color: #333;
+  margin: 0 0 12px 0;
+}
+
+.emptyState p {
+  font-size: 16px;
+  color: #666;
+  margin: 0 0 24px 0;
+}
+
+.ctaBtn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.ctaBtn:hover {
+  background: #0056b3;
+  transform: translateY(-2px);
+}
+
+/* Lista de Pedidos */
+.pedidosList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Card de Pedido */
+.pedidoCard {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  overflow: hidden;
+  transition: all 0.2s;
+}
+
+.pedidoCard.expandido {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+
+/* Header del Pedido */
+.pedidoHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.pedidoHeader:hover {
+  background: #f8f9fa;
+}
+
+.pedidoHeaderLeft h3 {
+  margin: 0 0 6px 0;
+  font-size: 20px;
+  color: #333;
+}
+
+.fecha {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.pedidoHeaderRight {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.estadoBadge {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+  white-space: nowrap;
+}
+
+.total {
+  font-size: 22px;
+  font-weight: 700;
+  color: #28a745;
+  min-width: 120px;
+  text-align: right;
+}
+
+.expandIcon {
+  font-size: 14px;
+  color: #999;
+  margin-left: 8px;
+  transition: transform 0.2s;
+}
+
+.pedidoCard.expandido .expandIcon {
+  transform: rotate(0deg);
+}
+
+/* Contenido Expandido */
+.pedidoContent {
+  padding: 0 24px 24px 24px;
+  border-top: 1px solid #f0f0f0;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Restaurante Info */
+.restauranteInfo {
+  background: #f8f9fa;
+  padding: 16px;
+  border-radius: 8px;
+  margin: 16px 0;
+  border-left: 4px solid #28a745;
+}
+
+.loadingText {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #666;
+}
+
+.label {
+  margin: 0 0 8px 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.value {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+  font-weight: 600;
+}
+
+/* Items Detalle */
+.itemsDetalle {
+  margin-top: 16px;
+}
+
+.itemsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.itemCard {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 16px;
+  border: 1px solid #e9ecef;
+}
+
+.itemHeader {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.itemNumber {
+  background: #007bff;
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.itemHeader h4 {
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.ingredientesList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-left: 40px;
+}
+
+.ingredientesList li {
+  font-size: 13px;
+  color: #555;
+  background: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  border: 1px solid #dee2e6;
+}
+
+/* Loading Detalle */
+.loadingDetalle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px;
+  justify-content: center;
+  color: #666;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header {
+    padding: 16px 20px;
+  }
+
+  .main {
+    padding: 16px 20px;
+  }
+
+  .pedidoHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .pedidoHeaderRight {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .total {
+    min-width: auto;
+  }
+
+  .emptyState {
+    padding: 40px 20px;
+  }
+}

@@ -34,7 +34,32 @@ export const restauranteService = {
         message: error.response?.data?.message || 'Error al buscar restaurantes disponibles'
       };
     }
+  },
+
+  /**
+   * Obtiene los detalles de un restaurante por su ID
+   * @param {number} id_restaurante - ID del restaurante
+   * @returns {Promise<Object>} - { success, data, message }
+   */
+  getRestauranteById: async (id_restaurante) => {
+    try {
+      const response = await api.get(`/restaurantes/restaurantes_json/${id_restaurante}`);
+      return {
+        success: true,
+        data: response.data,
+        message: 'Restaurante obtenido exitosamente'
+      };
+    } catch (error) {
+      console.error('Error al obtener restaurante:', error);
+      return {
+        success: false,
+        data: null,
+        message: error.response?.data?.message || 'Error al obtener el restaurante'
+      };
+    }
   }
 };
+
+
 
 export default restauranteService;
