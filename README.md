@@ -38,6 +38,20 @@ Aplicación de armado y pedido de combos full-stack con FastAPI y React.js.
 - [Setup Guide](./docs/setup.md)
 
 
+## Docker
+```
+# Verificar que Docker responde
+docker ps
+
+# Construir tu proyecto
+docker compose build
+
+# Levantar todo
+docker compose up -d
+
+# Ver logs
+docker compose logs -f
+```
 
 # Estructura del Proyecto
 
