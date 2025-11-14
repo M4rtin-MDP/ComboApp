@@ -13,16 +13,8 @@ def get_comida(db: Session, id_comida: int):
 def get_comidas_por_categoria(db: Session, id_categoria: int):
     return db.query(ComidaBase).filter(ComidaBase.id_categoria == id_categoria).all()
 
-
-
 def get_clase_producto(db: Session, id_comida: int):
-    sql = db.query(
-        ComidaBase.nombre
-    ).filter(
-        ComidaBase.id_comida == id_comida
-    ).scalar()
-    
-    return sql
+    return db.query(ComidaBase.nombre).filter(ComidaBase.id_comida == id_comida).scalar()
 
 
 

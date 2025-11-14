@@ -1,12 +1,12 @@
 # Proyecto
 
-Aplicación full-stack con FastAPI y React.js.
+Aplicación de armado y pedido de combos full-stack con FastAPI y React.js.
 
 ## Autores
 
-- Nombre - [@usuario](https://github.com/usuario)
-- Nombre - [@usuario](https://github.com/usuario)
-- Nombre - [@usuario](https://github.com/usuario)
+- Joaquín Miguel - [@joaquin-miguel](https://github.com/joaquin-miguel)
+- Hernán Pablo De Lorenzo - [@HernanPabloDL](https://github.com/HernanPabloDL)
+- Martín Marques de Paiva - [@M4rtin-MDP](https://github.com/M4rtin-MDP)
 
 ## Stack
 
