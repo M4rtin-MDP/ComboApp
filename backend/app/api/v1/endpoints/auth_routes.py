@@ -1,20 +1,29 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from app.db.database import get_db
-from app.schemas.user_schema import UserCreate, UserRead
-from app.services.users.user_service import Usuario
-from app.services.auth.auth_service import Auth
+from app.schemas.usuario_schema import UsuarioCreate, Login, UserResponse, AuthResponse
+from app.services.auth_service import Auth
+from app.services.usuario_service import Usuario
 
-router = APIRouter()
+router = APIRouter(
+    prefix="/auth",
+    tags=["Authentication"] 
+)
 
-@router.post("/register", response_model=UserRead)
-def register(user: UserCreate, db: Session = Depends(get_db)):
+@router.post("/register", response_model= AuthResponse,status_code=status.HTTP_201_CREATED)
+def register(usuario: UsuarioCreate, db: Session = Depends(get_db)):
     try:
-        return Usuario.register_user(db, user)
+        nuevo_usuario = Usuario.crear_usuario(db, usuario)
     except ValueError as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+    
+    return  Auth.generate_token_for_user(nuevo_usuario)
+    
+     
 
-@router.post("/login")
-def login(user: UserCreate, db: Session = Depends(get_db)):
-    # Accepting same payload for simplicity: username + password present
-    return Auth.login_user(db, user.nombre, user.password)
+    
+    
+
+@router.post("/login", status_code=status.HTTP_200_OK)
+def login(login: Login, db: Session = Depends(get_db)):
+    return Auth.login_user(db, login.email, login.password)

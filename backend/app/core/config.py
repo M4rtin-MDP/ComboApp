@@ -6,7 +6,7 @@ from functools import lru_cache
 
 # Obtiene la ruta absoluta del directorio raíz del proyecto
 # Ruta Raiz -> app/
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parents[2]
 
 class Settings(BaseSettings):
     """
@@ -21,29 +21,33 @@ class Settings(BaseSettings):
     # Si no existe en el .env, lanzará un error de validación
     
     # ------ INFO -------
-    AMBIENTE: str = Field(...)
-    CORS_ORIGINS: list[str] = Field(...)
-    API_ALIAS_V1: str
+    AMBIENTE: str = Field(default="desarrollo")
+    API_ALIAS_V1: str = "/api/v1"
+    CORS_ORIGINS: list[str] = Field(default=["*"], description="Dominios permitidos para CORS")
     
     # --- BASE DE DATOS ---
-    DB_NAME: str = Field(...)
-    DB_HOST: str = Field(...)
-    DB_PORT: int = Field(...) 
-    DB_USER: str = Field(...)
-    DB_PASSWORD: str = Field(...)
+    DB_HOST: str = Field(default="localhost")
+    DB_PORT: int = Field(default=5432)
+    DB_USER: str = Field(default="postgres")
+    DB_PASSWORD: str = Field(default="c0mb0_App")
+    DB_NAME: str = Field(default="combo_app_db")
+    
+    # ------ AUTH ------
+    SECRET_KEY: str = Field(default="supersecreto123")
+    ALGORITHM: str = Field(default="HS256")
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = Field(default=30)
     
     
     # @computed_field: Pydantic calcula este campo automáticamente
     # @property: Se accede como un atributo (settings.DB_URL) no como método
     # No se lee del .env, se construye dinámicamente con los otros campos
-    @computed_field
     @property
     def DB_URL(self) -> str:
         return f"postgresql://{self.DB_USER}:{self.DB_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
     
     
     model_config = SettingsConfigDict(
-        env_file=str(BASE_DIR / ".env"),
+        env_file= BASE_DIR / ".env",
         env_file_encoding='utf-8',
         case_sensitive=True                     # Los nombres de variables deben coincidir exactamente
     )
@@ -58,4 +62,6 @@ def get_settings() -> Settings:
     Primera llamada: lee el .env y crea Settings
     Siguientes llamadas: devuelve la instancia cacheada
     """
-    return Settings()
+    return Settings()   # type: ignore
+
+settings = get_settings()

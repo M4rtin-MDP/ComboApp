@@ -1,0 +1,254 @@
+/* src/components/pedido/PedidoSummary/PedidoSummary.module.css */
+
+.sidebar {
+  width: 320px;
+  background: #fff;
+  border-left: 1px solid #e0e0e0;
+  height: calc(100vh - 80px);
+  overflow-y: auto;
+  position: sticky;
+  top: 80px;
+}
+
+.sidebarContent {
+  padding: 24px;
+}
+
+.sidebarContent h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Sección del carrito */
+.carritoSection {
+  margin-bottom: 20px;
+}
+
+.sectionTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.carritoItem {
+  background: #f8f9fa;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.itemHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.itemNumber {
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+}
+
+.removeItemBtn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.removeItemBtn:hover {
+  opacity: 1;
+}
+
+.itemDetails {
+  font-size: 14px;
+}
+
+.itemDetails p {
+  margin: 4px 0;
+}
+
+.itemComida {
+  color: #666;
+  font-size: 13px;
+}
+
+.itemIngredientes {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0 0;
+  font-size: 12px;
+  color: #777;
+}
+
+.itemIngredientes li {
+  padding: 2px 0;
+}
+
+.sinIngredientes {
+  font-size: 12px;
+  color: #999;
+  font-style: italic;
+  margin: 8px 0 0 0;
+}
+
+.divider {
+  height: 1px;
+  background: #e0e0e0;
+  margin: 20px 0;
+}
+
+/* Item actual */
+.itemActualSection {
+  margin-bottom: 20px;
+}
+
+.summarySection {
+  margin-bottom: 16px;
+}
+
+.label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.value {
+  font-size: 15px;
+  color: #333;
+  font-weight: 500;
+}
+
+.ingredientList {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0 0;
+}
+
+.ingredientList li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 14px;
+  color: #333;
+}
+
+.ingredientList li:last-child {
+  border-bottom: none;
+}
+
+.removeBtn {
+  background: #ff4444;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s;
+}
+
+.removeBtn:hover {
+  background: #cc0000;
+  transform: scale(1.1);
+}
+
+/* Botones de acción */
+.actionsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 2px solid #e0e0e0;
+}
+
+.addMoreBtn {
+  background: #fff;
+  color: #007bff;
+  border: 2px solid #007bff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.addMoreBtn:hover:not(:disabled) {
+  background: #007bff;
+  color: white;
+}
+
+.addMoreBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.finishBtn {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 14px 20px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.finishBtn:hover:not(:disabled) {
+  background: #218838;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+}
+
+.finishBtn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 280px;
+  }
+  
+  .sidebarContent {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: auto;
+    max-height: 50vh;
+    border-left: none;
+    border-top: 1px solid #e0e0e0;
+    box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+  }
+}

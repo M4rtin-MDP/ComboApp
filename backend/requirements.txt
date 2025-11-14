@@ -3,9 +3,9 @@ uvicorn[standard]
 sqlalchemy
 pydantic[email]
 pydantic_settings
-passlib[bcrypt]
+passlib
+bcrypt==4.3.0
 python-jose[cryptography]
-email-validator
 httpx
 dotenv
 npm

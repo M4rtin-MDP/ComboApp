@@ -1,11 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.core.config import get_settings
-from app.api.v1.api import api_router
 
-# Obtener configuración
-settings = get_settings()
+from app.db.database import Base, engine
+from app.api.v1.endpoints import v1_router  # Importa el router maestro del __init__.py
 
+#Base.metadata.create_all(bind=engine)
 
 # ----------------------------------------------------------------------------
 # APLICACIÓN FASTAPI
@@ -14,7 +13,6 @@ app = FastAPI(
     title="ComboApp",
     version="1.0",
     description="API para gestión de combos y productos",)
-
 
 # ----------------------------------------------------------------------------
 # MIDDLEWARE: CORS (Cross-Origin Resource Sharing)
@@ -32,13 +30,19 @@ app.add_middleware(
 
 # ----------------------------------------------------------------------------
 # ROUTERS: Incluir rutas de la API
-# ----------------------------------------------------------------------------
-# Incluye todas las rutas definidas en api_router
-# Ej: prefix="/api/v1" -> http://localhost:8000/api/v1/items
+
+# Incluimos el router maestro de la versión (v1). 
+# y les aplica el prefijo "/v1" a todos.
 app.include_router(
-    api_router
-    , prefix=settings.API_ALIAS_V1
-) 
+    v1_router, 
+    prefix="/api/v1"
+)
+
+
+'''@app.on_event("startup")
+async def startup_event():'''
+
+
 
 # Endpoint RAIZ
 @app.get('/')
