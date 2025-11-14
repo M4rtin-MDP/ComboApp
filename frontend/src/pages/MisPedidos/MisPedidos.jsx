@@ -10,10 +10,10 @@ import styles from './MisPedidos.module.css';
 const ESTADOS = {
   1: { label: 'Pendiente', color: '#ffc107', icon: '⏳' },
   2: { label: 'Confirmado', color: '#17a2b8', icon: '✓' },
-  3: { label: 'Cancelado', color: '#dc3545', icon: '❌' },
+  3: { label: 'En preparación', color: '#007bff', icon: '👨‍🍳' },
   4: { label: 'En camino', color: '#6f42c1', icon: '🚴' },
   5: { label: 'Entregado', color: '#28a745', icon: '✅' },
-  6: { label: 'En preparación', color: '#007bff', icon: '👨‍🍳' }
+  6: { label: 'Cancelado', color: '#dc3545', icon: '❌' }
 };
 
 const MisPedidos = () => {
@@ -47,11 +47,13 @@ const MisPedidos = () => {
       
       setPedidos(pedidosOrdenados);
       
-      // Expandir el primero automáticamente
+      // Expandir el primero automáticamente y cargar su detalle
       if (pedidosOrdenados.length > 0) {
-        const primerPedido = pedidosOrdenados[0].id_pedido;
-        setPedidosExpandidos({ [primerPedido]: true });
-        await cargarDetallePedido(primerPedido);
+        const primerPedido = pedidosOrdenados[0];
+        setPedidosExpandidos({ [primerPedido.id_pedido]: true });
+        
+        // Cargar restaurante y detalle del primer pedido
+        await cargarDetallePedido(primerPedido.id_pedido, pedidosOrdenados);
       }
     } else {
       setError(result.message);
@@ -60,11 +62,23 @@ const MisPedidos = () => {
     setLoading(false);
   };
 
-  const cargarDetallePedido = async (id_pedido) => {
-    const pedido = pedidos.find(p => p.id_pedido === id_pedido);
+  const cargarDetallePedido = async (id_pedido, pedidosArray = null) => {
     
-    // Cargar restaurante si no está en cache
-    if (pedido && !restaurantes[pedido.id_restaurante]) {
+    // Usar el array pasado o el estado actual
+    const pedidosToUse = pedidosArray || pedidos;
+    const pedido = pedidosToUse.find(p => p.id_pedido === id_pedido);
+    
+    
+    if (!pedido) {
+      console.log('No se encontró el pedido');
+      return;
+    }
+
+
+
+    // Cargar restaurante (siempre, si no está en caché)
+    if (!restaurantes[pedido.id_restaurante]) {
+      
       const resultRestaurante = await restauranteService.getRestauranteById(pedido.id_restaurante);
       
       if (resultRestaurante.success) {
@@ -72,11 +86,16 @@ const MisPedidos = () => {
           ...prev,
           [pedido.id_restaurante]: resultRestaurante.data.nombre
         }));
+      } else {
+        console.log('Error obteniendo restaurante:', resultRestaurante.message);
       }
+    } else {
+      console.log('Restaurante ya está en caché:', restaurantes[pedido.id_restaurante]);
     }
 
     // Cargar detalle de combos
     const resultDetalle = await pedidoService.getDetalleCombosPedido(id_pedido);
+    
     
     if (resultDetalle.success) {
       setDetallesPedidos(prev => ({
@@ -116,7 +135,7 @@ const MisPedidos = () => {
     }));
 
     // Si se está expandiendo y no tiene detalles, cargarlos
-    if (estaExpandido && !detallesPedidos[id_pedido]) {
+    if (!estaExpandido && !detallesPedidos[id_pedido]) {
       await cargarDetallePedido(id_pedido);
     }
   };
@@ -208,12 +227,17 @@ const MisPedidos = () => {
                   {estaExpandido && (
                     <div className={styles.pedidoContent}>
                       {/* Restaurante */}
-                      {nombreRestaurante && (
-                        <div className={styles.restauranteInfo}>
-                          <p className={styles.label}>🏪 Restaurante</p>
+                      <div className={styles.restauranteInfo}>
+                        <p className={styles.label}>🏪 Restaurante</p>
+                        {nombreRestaurante ? (
                           <p className={styles.value}>{nombreRestaurante}</p>
-                        </div>
-                      )}
+                        ) : (
+                          <div className={styles.loadingText}>
+                            <div className={styles.spinnerSmall}></div>
+                            <span>Cargando restaurante...</span>
+                          </div>
+                        )}
+                      </div>
 
                       {/* Detalle de items */}
                       {detalle ? (
@@ -241,7 +265,7 @@ const MisPedidos = () => {
                       ) : (
                         <div className={styles.loadingDetalle}>
                           <div className={styles.spinnerSmall}></div>
-                          <p>Cargando detalles...</p>
+                          <p>Cargando detalles del pedido...</p>
                         </div>
                       )}
                     </div>

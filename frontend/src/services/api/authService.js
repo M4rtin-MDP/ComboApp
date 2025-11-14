@@ -26,24 +26,26 @@ export const authService = {
     }
   },
 
-  // Registro (por si lo necesitas después)
+  /**
+   * Registra un nuevo usuario
+   * @param {Object} userData - { nombre, direccion, email, contrasena }
+   * @returns {Promise<Object>} - { success, data, message }
+   */
   register: async (userData) => {
     try {
       const response = await apiClient.post('/auth/register', userData);
-      
-      if (response.data.token) {
-        localStorage.setItem('token', response.data.token);
-      }
-      
+
       return {
         success: true,
-        user: response.data.user,
-        token: response.data.token
+        data: response.data, // { access_token, token_type, user }
+        message: 'Usuario registrado exitosamente'
       };
     } catch (error) {
+      console.error('Error en registro:', error);
       return {
         success: false,
-        message: error.response?.data?.message || 'Error al registrarse'
+        data: null,
+        message: error.response?.data?.detail || 'Error al registrar usuario'
       };
     }
   },

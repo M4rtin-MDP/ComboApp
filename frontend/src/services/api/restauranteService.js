@@ -43,7 +43,7 @@ export const restauranteService = {
    */
   getRestauranteById: async (id_restaurante) => {
     try {
-      const response = await api.get(`/restaurantes/restaurantes_json/${id_restaurante}`);
+      const response = await apiClient.get(`/restaurantes/restaurantes_json/${id_restaurante}`);
       return {
         success: true,
         data: response.data,

@@ -2,7 +2,7 @@ from fastapi import HTTPException, status
 from passlib.context import CryptContext
 from app.repositories import usuario_repository as repo
 from app.core import verify_password, create_access_token
-from app.schemas.usuario_schema import UsuarioRead
+from app.schemas.usuario_schema import UsuarioRead, UserResponse, AuthResponse
 from typing import Dict
 
 
@@ -29,15 +29,17 @@ class Auth:
 
     
     @classmethod
-    def generate_token_for_user(cls, user: UsuarioRead)-> Dict:
+    def generate_token_for_user(cls, user: UsuarioRead)-> AuthResponse:
         """Genera un access token para un usuario"""
         token = create_access_token({"sub": user.email})
-        return {
-            "access_token": token,
-            "token_type": "bearer",
-            "user": {
-                "id_usuario": user.id_usuario,
-                "email": user.email,
-                "nombre": user.nombre
-            }
-        }
+        
+        return AuthResponse(
+        access_token=token,
+        token_type="bearer",
+        user=UserResponse(
+            id_usuario=user.id_usuario,
+            email=user.email,
+            nombre=user.nombre
+        )
+    )
+        

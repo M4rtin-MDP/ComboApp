@@ -21,3 +21,15 @@ class UsuarioRead(UsuarioBase):
     email: str
     class Config:
         from_attributes = True
+        
+        
+# Modelo de respuesta
+class UserResponse(BaseModel):
+    id_usuario: int
+    email: str
+    nombre: str
+
+class AuthResponse(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
+    user: UserResponse
