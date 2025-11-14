@@ -2,13 +2,10 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
 from app.db.database import get_db
-from app.schemas.item_comida_schema import ItemComida, ItemComidaCreate
+from app.schemas.item_comida_schema import ItemComida, ItemComidaCreate, ItemComidaResponse
 import app.repositories.item_comida_repository as repo
 
-router = APIRouter(
-    prefix="/item_comidas", 
-    tags=["Item_comidas"]
-)
+router = APIRouter()
 
 @router.get("/", response_model=List[ItemComida])
 def listar_items_comida(db: Session = Depends(get_db)):
@@ -21,7 +18,7 @@ def obtener_item_comida(id_item: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Item de comida no encontrado")
     return item
 
-@router.post("/", response_model=ItemComida)
+@router.post("/", response_model=ItemComidaResponse)
 def crear_item_comida(item: ItemComidaCreate, db: Session = Depends(get_db)):  
     create = repo.create_item_comida(db, item)
     

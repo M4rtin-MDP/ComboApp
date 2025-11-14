@@ -24,9 +24,9 @@ def obtener_pedido(id_pedido: int, db: Session = Depends(get_db)):
     return pedido
 
 
-@router.get("/usuario/{id_usuario}", response_model=Pedido)
-def obtener_ultimo_pedido(id_usuario: int, db: Session = Depends(get_db)):
-    pedido = repo.get_ultimo_pedido(db, id_usuario)
+@router.get("/usuario/{id_usuario}", response_model=List[Pedido])
+def obtener_pedidos_usuario(id_usuario: int, db: Session = Depends(get_db)):
+    pedido = repo.get_pedidos_usuario(db, id_usuario)
     if not pedido:
         raise HTTPException(status_code=404, detail="Pedido no encontrado")
     return pedido

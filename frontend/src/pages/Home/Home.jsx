@@ -16,6 +16,10 @@ const Home = () => {
     navigate('/pedido');
   };
 
+  const handleMisPedidos = () => {
+    navigate('/mis-pedidos');
+  };
+
   return (
     <div className={styles.container}>
       <header className={styles.header}>
@@ -50,7 +54,9 @@ const Home = () => {
             <div className={styles.cardIcon}>📋</div>
             <h3>Ver mis pedidos</h3>
             <p>Historial de tus pedidos</p>
-            <button className={styles.cardBtn}>Ver</button>
+            <button className={styles.cardBtn} onClick={handleMisPedidos}>
+              Ver
+            </button>
           </div>
 
           <div className={styles.card}>

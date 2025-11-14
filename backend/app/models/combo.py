@@ -8,4 +8,3 @@ class Combo(Base):
     id_pedido = Column(Integer, ForeignKey("pedido.id_pedido"))
 
     items_comida = relationship("ItemComida", back_populates="combo")
-    items_ingredientes = relationship("ItemIngrediente", back_populates="combo")

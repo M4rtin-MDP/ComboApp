@@ -7,7 +7,8 @@ const Login = lazy(() => import('@/pages/Login/Login'));
 const Home = lazy(() => import('@/pages/Home/Home'));
 const Pedido = lazy(() => import('@/pages/Pedido/Pedido'));
 const RestaurantesDisponibles = lazy(() => import('@/pages/RestaurantesDisponibles/RestaurantesDisponibles'));
-
+const ResumenPedido = lazy(() => import('@/pages/ResumenPedido/ResumenPedido'));
+const MisPedidos = lazy(() => import('@/pages/MisPedidos/MisPedidos'));
 
 const AppRoutes = () => {
   return (
@@ -21,6 +22,8 @@ const AppRoutes = () => {
             <Route path="/home" element={<Home />} />
             <Route path="/pedido" element={<Pedido />} />
             <Route path="/pedido/restaurantes-disponibles" element={<RestaurantesDisponibles />} />
+            <Route path="/pedido/resumen" element={<ResumenPedido />} />
+            <Route path="/mis-pedidos" element={<MisPedidos />} />
           </Route>
 
           <Route path="*" element={<Navigate to="/login" replace />} />

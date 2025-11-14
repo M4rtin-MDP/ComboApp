@@ -70,6 +70,7 @@ def calcular_precio_restaurantes(
             precio_final = calculador.calcular_precio(restaurante)
             
             resultados.append(RestauranteDisponible(
+                id_restaurante=restaurante["id_restaurante"],
                 nombre=restaurante["nombre"],
                 latitud= restaurante["latitud"],
                 longitud= restaurante["longitud"],
