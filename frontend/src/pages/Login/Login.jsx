@@ -1,6 +1,6 @@
 // src/pages/Login/Login.jsx
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuthContext } from '@/store/contexts/AuthContext';
 import styles from './Login.module.css';
 
@@ -105,7 +105,7 @@ const Login = () => {
         </form>
 
         <div className={styles.footer}>
-          <p>¿No tienes cuenta? <a href="#">Regístrate</a></p>
+          <p>¿No tienes cuenta? <Link to="/register">Regístrate aquí</Link></p>
         </div>
       </div>
     </div>

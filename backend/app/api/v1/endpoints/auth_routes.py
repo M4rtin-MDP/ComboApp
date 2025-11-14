@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from app.db.database import get_db
-from app.schemas.usuario_schema import UsuarioCreate, Login, UsuarioRead
+from app.schemas.usuario_schema import UsuarioCreate, Login, UserResponse, AuthResponse
 from app.services.auth_service import Auth
 from app.services.usuario_service import Usuario
 
@@ -10,14 +10,16 @@ router = APIRouter(
     tags=["Authentication"] 
 )
 
-@router.post("/register", status_code=status.HTTP_201_CREATED)
+@router.post("/register", response_model= AuthResponse,status_code=status.HTTP_201_CREATED)
 def register(usuario: UsuarioCreate, db: Session = Depends(get_db)):
     try:
         nuevo_usuario = Usuario.crear_usuario(db, usuario)
     except ValueError as e:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
     
-    return Auth.generate_token_for_user(nuevo_usuario)
+    return  Auth.generate_token_for_user(nuevo_usuario)
+    
+     
 
     
     
